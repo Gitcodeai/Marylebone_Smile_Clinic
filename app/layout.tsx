@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Marylebone Smile Clinic | Premium Dental Care in London',
+  description: 'Experience luxury dental care at Marylebone Smile Clinic. Expert cosmetic and restorative dentistry with stunning transformations.',
   generator: 'v0.app',
   icons: {
     icon: [
