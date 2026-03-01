@@ -12,11 +12,11 @@ This document serves as the definitive specification for the Marylebone Smile Cl
 
 **Key Deliverables:**
 - Responsive single-page landing with quiet luxury aesthetic
-- Interactive Before/After image slider with drag controls
-- Lead capture form with validation and success feedback
-- Service carousel with smooth animations
-- Mobile-optimized floating CTA button
-- WCAG AA accessibility standards
+- **Parallax Before/After transformation** with treatment filtering
+- **Concierge-style** lead capture (multi-step "Smile Assessment")
+- **Staggered entry animations** for a choreographed "reveal"
+- Mobile-optimized floating CTA + custom interactive cursors
+- WCAG AA accessibility + high-performance asset loading (LQIP)
 - SEO-ready with LocalBusiness schema markup
 
 ---
@@ -57,6 +57,7 @@ This document serves as the definitive specification for the Marylebone Smile Cl
 | Styling | Tailwind CSS | Latest |
 | UI Components | shadcn/ui | Latest |
 | Animations | Framer Motion | Latest |
+| **Scrolling** | **Lenis (Smooth Scroll)** | **Latest** |
 | Image Optimization | Next.js Image | Built-in |
 | Form Handling | React Hook Form + Zod | Latest |
 | Hosting | Vercel | Production |
@@ -93,6 +94,7 @@ Layout Structure
 
 Global Setup
 ├── Design tokens (colors, typography, spacing)
+├── **Smooth Scroll (Lenis) provider**
 ├── Framer Motion animation presets
 ├── Form validation schema (Zod)
 ├── Image optimization utilities
@@ -103,23 +105,25 @@ Global Setup
 **Estimated Effort**: 3-4 days
 
 ```
-BeforeAfterSlider Component
-├── Draggable handle (mouse + touch)
-├── Image pair management (10 cases)
-├── Responsive image loading
-└── Accessibility (keyboard nav, ARIA labels)
+BeforeAfterSlider Component (Luxury Edition)
+├── **Parallax Transition**: Depth-based entry for new cases
+├── Draggable handle (mouse + touch) with glassmorphism
+├── Image pair management (10 cases with LQIP placeholders)
+├── **Treatment Filtering**: (Veneers, Invisalign, Whitening)
+└── Custom interactive cursor for drag interaction
 
 ServiceCarousel Component
 ├── Framer Motion slide/fade animations
+├── Staggered children animations (entrance sequence)
 ├── Auto-play with pause on hover
 ├── Keyboard navigation (arrow keys)
 ├── Responsive card display (1 full + peek on mobile)
 └── Infinite loop behavior
 
-LeadCaptureForm Component
-├── React Hook Form integration
-├── Zod validation schema
-├── Success toast/notification
+LeadCaptureForm (Concierge Assessment)
+├── **Multi-step "Virtual Consultation" flow**
+├── React Hook Form + Zod validation
+├── Success state "Thank You" card (not just a toast)
 ├── Optional photo upload preview
 ├── Console logging of submission data
 └── Loading state simulation (1-second delay)
@@ -149,7 +153,13 @@ Team Section
 Social Proof Section
 ├── Google Review badge (static, styled)
 ├── Testimonial quote carousel
-└── Review count display
+├── Review count display
+└── **Localization Note**: Mention "Discreet appointments for public figures"
+
+"The Marylebone Standard" Section
+├── **Patient Journey** breakdown
+├── Clinic environment gallery
+└── "The Concierge Experience" copy
 
 Press Section
 ├── Monochrome logo placeholders (Vogue, Tatler, GQ)
@@ -205,18 +215,17 @@ SEO Optimization
 ## 5. CRITICAL IMPLEMENTATION DECISIONS
 
 ### Before/After Slider
-- **Interaction**: Drag handle (mouse + touch) with visual feedback
-- **Images**: AI-generated placeholder transformations (realistic dental cases)
-- **Responsiveness**: Maintains 1:1 aspect ratio; scales to container width
-- **Accessibility**: Keyboard support (arrow keys), ARIA labels for screen readers
-- **Performance**: Lazy-load images; preload adjacent cases
+- **Parallax Navigation**: When a user navigates or scrolls to a specific transformation case, the "Before" and "After" layers animate at offset speeds (depth effect) before revealing the interactive handle.
+- **Interaction**: Glassmorphism drag handle; custom "Drag" cursor hint on hover.
+- **Filtering**: Quick-action chips (e.g., *Veneers*, *Invisalign*) to filter the 10 cases.
+- **Images**: Consistent studio-lighting style (warm, soft-box) for all AI assets.
+- **Performance**: Use LQIP (Low-Quality Image Placeholders) to prevent "flash of white" during parallax reveals.
 
 ### Form Submission Flow
-- **On Submit**: Show success toast notification ("Thank you! We'll contact you shortly")
-- **Data Handling**: Console.log form data (development) + simulate 1-second API delay
-- **Validation**: Client-side Zod schema; required fields = Name, Email, Phone, Treatment Interest
-- **Optional Field**: Photo upload preview (show file name if selected)
-- **Accessibility**: Proper label associations; error messages below fields
+- **Structure**: Multi-step "Smile Assessment" quiz to lower barrier to entry.
+- **On Submit**: Full-screen elegant success card with a "personal note" vibe.
+- **Data Handling**: Console.log form data + simulate 1-second "Encryption/Sending" delay.
+- **Validation**: Real-time field validation with luxury-themed error tooltips.
 
 ### Carousel Behavior
 - **Auto-play**: Enabled (slow speed, ~5-second interval)
@@ -242,6 +251,7 @@ SEO Optimization
 | Tailwind CSS | Styling | Pre-installed |
 | shadcn/ui | UI Components | Pre-installed |
 | Framer Motion | Animations | To install |
+| **Lenis** | **Smooth Scrolling** | **To install** |
 | React Hook Form | Form management | To install |
 | Zod | Validation | To install |
 | next-seo | SEO helpers | Optional (can use manual meta) |
@@ -275,11 +285,10 @@ SEO Optimization
 | **Before/After Slider Responsiveness** | Medium | Use CSS aspect-ratio; test on multiple devices early |
 | **Image Optimization & Loading** | Medium | Use Next.js Image component; lazy-load; WebP with fallback |
 | **Form Validation UX** | Low | Use React Hook Form's built-in error states; clear messages |
-| **Animation Performance (Framer Motion)** | Medium | Profile animations on low-end devices; use `will-change` CSS sparingly |
-| **Carousel Touch Interactions** | Medium | Use Framer Motion's gesture API; test on real devices (iOS + Android) |
-| **Mobile Menu Accessibility** | Low | Implement focus trap; test with screen readers (NVDA, VoiceOver) |
-| **WCAG AA Color Contrast** | Low | Use contrast checker tools; test hero text on images |
-| **Deployment & Build Size** | Low | Monitor bundle size; optimize image delivery via Vercel |
+| **Asset Lighting Consistency** | High | Define AI prompt "Art Styles" for uniform studio lighting across cases |
+| **Parallax/Slider Sync** | Medium | Ensure drag handle logic doesn't conflict with parallax entry motion |
+| **LCP for High-Res Images** | High | Mandatory use of Blur-up placeholders and specific `priority` tags for Hero/Slider |
+| **Animation Overload** | Low | Implement "Preload" and "Reduced Motion" options |
 
 ---
 
@@ -483,6 +492,7 @@ On blur: Resume autoplay
   /lead-form.tsx              # Contact form
   /social-proof.tsx           # Reviews badge
   /press-logos.tsx            # Press mentions
+  /patient-journey.tsx        # "The Marylebone Standard"
   /mobile-nav.tsx             # Mobile drawer menu
   /floating-cta.tsx           # Mobile floating button
   /footer.tsx                 # Footer
