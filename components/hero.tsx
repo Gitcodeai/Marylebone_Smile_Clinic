@@ -1,118 +1,128 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Star } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
+import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
-
   return (
-    <section className="relative bg-background overflow-hidden">
-      {/* Background accent */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none" />
+    <section className="relative min-h-[90vh] flex items-center bg-background overflow-hidden pt-20">
+      {/* Background Cinematic Image Placeholder */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_var(--background)_100%)] z-10" />
+        <Image
+          src="/images/hero-banner.png"
+          alt="Marylebone Smile Clinic Interior"
+          fill
+          className="object-cover object-center opacity-40 scale-105"
+          priority
+        />
+      </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+      <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-12 py-24 lg:py-32 w-full">
         <motion.div
-          className="max-w-3xl"
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          animate="visible"
+          className="max-w-4xl"
         >
-          {/* Top accent */}
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-6">
-            <div className="h-px w-8 bg-accent" />
-            <span className="text-sm font-medium text-accent uppercase tracking-wide">
-              Premium Dental Transformations
+          {/* Top Label */}
+          <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+            <span className="h-[1px] w-12 bg-accent/60" />
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-semibold text-accent antialiased">
+              London's Premier Cosmetic Dental Studio
             </span>
           </motion.div>
 
-          {/* Main heading */}
+          {/* Main Headline */}
           <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground leading-tight mb-6"
+            variants={fadeInUp}
+            className="text-5xl sm:text-7xl lg:text-8xl font-serif text-foreground leading-[1.05] mb-10 tracking-tight"
           >
-            Your Smile,{' '}
-            <span className="text-accent">Perfected</span>
+            The Art of a <br />
+            <span className="italic text-accent/90">Bespoke</span> Smile.
           </motion.h1>
 
-          {/* Subheading */}
+          {/* Subheadline */}
           <motion.p
-            variants={itemVariants}
-            className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl"
+            variants={fadeInUp}
+            className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-12 max-w-2xl font-sans font-light tracking-wide"
           >
-            Award-winning cosmetic and restorative dentistry in Marylebone. 
-            Experience world-class dental care with stunning, natural-looking results.
+            Discreet, expert-led transformations in the heart of Marylebone.
+            Experience a new standard of dental care where clinical excellence
+            meets quiet luxury.
           </motion.p>
 
-          {/* Social proof badge */}
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="h-4 w-4 fill-accent text-accent"
-                />
-              ))}
+          {/* Key Features/Social Proof */}
+          <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-8 mb-14">
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
+                    <div className="w-full h-full bg-accent/20" />
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1">
+                  <Star className="w-3 h-3 fill-accent text-accent" />
+                  <span className="text-xs font-bold text-foreground">5.0</span>
+                </div>
+                <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Google Reviews</span>
+              </div>
             </div>
-            <span className="text-sm text-foreground font-medium">
-              5.0 Google Reviews • 200+ Transformations
-            </span>
+
+            <div className="h-8 w-[1px] bg-border/60 hidden sm:block" />
+
+            <div className="flex flex-col">
+              <span className="text-xs font-bold text-foreground tracking-wider italic font-serif">Harley St. Trained</span>
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Expert Clinicians</span>
+            </div>
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* CTA Group */}
           <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4"
+            variants={fadeInUp}
+            className="flex flex-col sm:flex-row items-center gap-6"
           >
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-8 text-xs uppercase tracking-[0.2em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02]"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Book Consultation
+              Start Your Journey
+              <ArrowRight className="ml-3 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-border hover:bg-secondary rounded-full px-8"
+
+            <button
+              onClick={() => document.getElementById('before-after')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-xs uppercase tracking-[0.2em] font-semibold text-foreground/70 hover:text-accent transition-all relative group py-2"
             >
-              View Transformations
-            </Button>
+              Explore Transformations
+              <span className="absolute bottom-0 left-0 w-8 h-[1px] bg-accent transition-all duration-500 group-hover:w-full" />
+            </button>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Decorative elements */}
+      {/* Elegant Scroll Indicator */}
       <motion.div
-        className="absolute -right-20 -top-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl"
-        animate={{
-          y: [0, 20, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+        variants={fadeIn}
+        initial="hidden"
+        animate="visible"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20 opacity-40 hover:opacity-100 transition-opacity cursor-pointer group"
+        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+      >
+        <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-foreground transform -rotate-90 origin-center mb-8">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-foreground to-transparent group-hover:h-16 transition-all duration-500" />
+      </motion.div>
+
+      {/* Decorative Orbs */}
+      <div className="absolute -right-1/4 top-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute -left-1/4 bottom-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
     </section>
   );
 }

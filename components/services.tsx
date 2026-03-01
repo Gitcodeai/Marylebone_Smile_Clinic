@@ -1,154 +1,204 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Smile, Zap, ShieldCheck } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Sparkles, ShieldCheck, Zap, Heart, Star, Layout } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { fadeIn, fadeInUp, staggerContainer } from '@/lib/animations';
 
 const services = [
   {
     id: 1,
-    title: 'Cosmetic Dentistry',
-    description: 'Veneers, whitening, and smile design to enhance your natural beauty.',
-    icon: Smile,
-    price: 'From £600',
+    title: 'Signature Veneers',
+    tagline: 'The Ultimate Smile Expression',
+    description: 'Hand-crafted porcelain veneers designed to harmonize with your facial features and skin tone for a natural, radiant look.',
+    icon: Sparkles,
+    price: 'From £850 per tooth',
+    features: ['Hand-layered ceramic', '0.3mm minimal prep', '10-Year Guarantee']
   },
   {
     id: 2,
-    title: 'Restorative Treatment',
-    description: 'Crown placement, implants, and comprehensive dental restoration.',
-    icon: ShieldCheck,
-    price: 'From £1,200',
+    title: 'Invisalign® Elite',
+    tagline: 'Discreet Orthodontic Mastery',
+    description: 'Virtually invisible aligners custom-modeled to refine your occlusion and smile line without the compromise of traditional braces.',
+    icon: Layout,
+    price: 'Packages from £3,200',
+    features: ['iTero 5D scanning', 'Weekly refinements', 'Free whitening included']
   },
   {
     id: 3,
-    title: 'Teeth Alignment',
-    description: 'Invisible aligners and orthodontic solutions for a perfect smile.',
+    title: 'Laser Whitening',
+    tagline: 'Instant Luminosity',
+    description: 'Advanced laser technology combined with professional-grade gels to lift deep stains in a single, comfortable 90-minute session.',
     icon: Zap,
-    price: 'From £3,500',
+    price: 'Express from £495',
+    features: ['Zero sensitivity tech', 'Immediate results', 'At-home maintenance kit']
   },
+  {
+    id: 4,
+    title: 'Bespoke Implants',
+    tagline: 'Foundation of Confidence',
+    description: 'Leading-edge titanium and zirconia implants that feel, look, and function exactly like your natural teeth.',
+    icon: ShieldCheck,
+    price: 'Consultation required',
+    features: ['3D CBCT planning', 'Swiss-made hardware', 'Lifetime structural warranty']
+  },
+  {
+    id: 5,
+    title: 'Facial Aesthetics',
+    tagline: 'Choreographed Harmony',
+    description: 'Subtle, clinical enhancements to complement your dental transformation and frame your new smile perfectly.',
+    icon: Heart,
+    price: 'From £250',
+    features: ['Expert clinicians', 'Subtle results', 'Medical-grade protocol']
+  }
 ];
 
 export default function Services() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: 'start',
+    skipSnaps: false
+  });
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+    setPrevBtnEnabled(emblaApi.canScrollPrev());
+    setNextBtnEnabled(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-card py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="services" className="bg-secondary/20 py-32 lg:py-48 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
+
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Section Header */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-6">
-            <div className="h-px w-8 bg-accent" />
-            <span className="text-sm font-medium text-accent uppercase tracking-wide">
-              Our Services
-            </span>
-            <div className="h-px w-8 bg-accent" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20 lg:mb-32">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+              <span className="h-[1px] w-12 bg-accent/60" />
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Clinical Excellence</span>
+            </motion.div>
+            <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+              Bespoke Solutions <br /><span className="italic text-accent/80">Tailored to You.</span>
+            </motion.h2>
           </motion.div>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-serif text-foreground mb-4"
+          <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            className="flex items-center gap-4"
           >
-            Premier Dental Solutions
-          </motion.h2>
+            <button
+              onClick={scrollPrev}
+              className="w-14 h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group"
+            >
+              <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button
+              onClick={scrollNext}
+              className="w-14 h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group"
+            >
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+        </div>
 
-          <motion.p
-            variants={itemVariants}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-          >
-            Comprehensive dental services designed for your unique needs
-          </motion.p>
-        </motion.div>
+        {/* Carousel Content */}
+        <div className="embla overflow-hidden" ref={emblaRef}>
+          <div className="embla__container flex">
+            {services.map((service, index) => (
+              <div key={service.id} className="embla__slide flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.8 }}
+                  className="bg-background border border-border/40 p-10 h-full flex flex-col group hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 relative overflow-hidden"
+                >
+                  {/* Subtle Background Icon */}
+                  <service.icon className="absolute -right-8 -bottom-8 w-40 h-40 text-accent/5 rotate-12 transition-transform duration-1000 group-hover:scale-125 group-hover:rotate-0" />
 
-        {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
-        >
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={service.id}
-                variants={itemVariants}
-                className="group relative bg-background border border-border rounded-lg p-8 hover:shadow-lg hover:border-accent transition-all duration-300"
-              >
-                {/* Background accent */}
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="w-12 h-12 bg-accent/10 flex items-center justify-center mb-8 border border-accent/20 group-hover:bg-accent group-hover:text-primary-foreground transition-all duration-500">
+                      <service.icon className="w-5 h-5" />
+                    </div>
 
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 mb-6 group-hover:bg-accent/20 transition-colors">
-                    <Icon className="w-6 h-6 text-accent" />
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-3">{service.tagline}</p>
+                    <h3 className="text-2xl font-serif italic text-foreground mb-6">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 flex-grow">{service.description}</p>
+
+                    <div className="space-y-4 mb-10">
+                      {service.features.map(f => (
+                        <div key={f} className="flex items-center gap-3">
+                          <CheckIcon />
+                          <span className="text-[10px] uppercase tracking-widest text-foreground/80 font-medium">{f}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-8 border-t border-border/40 flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{service.price}</span>
+                      <button className="text-[10px] uppercase tracking-[0.2em] text-foreground font-bold hover:text-accent transition-colors flex items-center gap-2 group/btn">
+                        Inquire <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Content */}
-                  <h3 className="text-xl font-serif text-foreground mb-3">
-                    {service.title}
-                  </h3>
-
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {service.description}
-                  </p>
-
-                  {/* Price */}
-                  <div className="pt-6 border-t border-border">
-                    <p className="text-sm font-medium text-accent">
-                      {service.price}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <p className="text-lg text-muted-foreground mb-6">
-            Want to learn more about financing options?
-          </p>
-          <div className="inline-flex items-center gap-4">
-            <span className="text-sm font-medium text-accent">
-              0% Finance Available
-            </span>
-            <div className="h-px w-8 bg-border" />
-            <p className="text-sm text-foreground">
-              Flexible payment plans to suit your budget
-            </p>
+                </motion.div>
+              </div>
+            ))}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center gap-3 mt-16">
+          {services.slice(0, 3).map((_, i) => (
+            <div
+              key={i}
+              className={`h-[2px] transition-all duration-700 ${i === selectedIndex % 3 ? 'w-12 bg-accent' : 'w-6 bg-border/40'}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ArrowRight({ className }: { className?: string }) {
+  return (
+    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 5L19 12L12 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }

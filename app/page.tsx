@@ -1,23 +1,32 @@
 import Header from '@/components/header';
 import Hero from '@/components/hero';
-import BeforeAfterGallery from '@/components/before-after-gallery';
+import PatientJourney from '@/components/patient-journey';
 import Services from '@/components/services';
+import BeforeAfterGallery from '@/components/before-after-gallery';
+import PricingSection from '@/components/pricing-section';
 import Team from '@/components/team';
-import TestimonialCarousel from '@/components/testimonial-carousel';
+import SocialProof from '@/components/social-proof';
 import LeadForm from '@/components/lead-form';
+import FloatingCTA from '@/components/floating-cta';
 import Footer from '@/components/footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background selection:bg-accent/30 selection:text-white">
       <Header />
       <Hero />
+      <PatientJourney />
+      <div className="relative">
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
+        <Services />
+      </div>
       <BeforeAfterGallery />
-      <Services />
+      <PricingSection />
       <Team />
-      <TestimonialCarousel />
+      <SocialProof />
       <LeadForm />
       <Footer />
+      <FloatingCTA />
     </main>
   );
 }

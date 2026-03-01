@@ -1,26 +1,34 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Playfair_Display, Outfit } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
+import { LenisProvider } from '@/components/lenis-provider'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: '--font-serif',
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: '--font-sans',
+});
 
 export const metadata: Metadata = {
-  title: 'Marylebone Smile Clinic | Premium Dental Care in London',
-  description: 'Experience luxury dental care at Marylebone Smile Clinic. Expert cosmetic and restorative dentistry with stunning transformations.',
-  generator: 'v0.app',
+  title: 'Marylebone Smile Clinic | Cosmetic & Family Dentistry London',
+  description: 'Premium cosmetic dentistry in Marylebone. Discreet, expert smile transformations. Book your consultation today.',
+  keywords: ["cosmetic dentistry", "smile makeover", "Marylebone", "London"],
+  openGraph: {
+    title: 'Marylebone Smile Clinic | Cosmetic & Family Dentistry London',
+    description: 'Premium cosmetic dentistry in Marylebone. Discreet, expert smile transformations. Book your consultation today.',
+    images: [{ url: '/images/hero-og.jpg' }],
+  },
+  alternates: {
+    canonical: 'https://marylebone-smile.com',
+  },
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
       {
         url: '/icon.svg',
         type: 'image/svg+xml',
@@ -36,9 +44,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        {children}
+    <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
+      <body className="font-sans antialiased selection:bg-accent/30">
+        <LenisProvider>
+          {children}
+        </LenisProvider>
         <Analytics />
         <SpeedInsights />
       </body>

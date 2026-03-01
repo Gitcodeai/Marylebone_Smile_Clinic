@@ -3,81 +3,120 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { fadeIn, staggerContainer } from '@/lib/animations';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
     { href: '#services', label: 'Services' },
-    { href: '#team', label: 'Team' },
-    { href: '#testimonials', label: 'Reviews' },
+    { href: '#before-after', label: 'Transformations' },
+    { href: '#journey', label: 'The Experience' },
+    { href: '#team', label: 'Experts' },
     { href: '#contact', label: 'Contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <motion.header
+      initial="hidden"
+      animate="visible"
+      variants={fadeIn}
+      className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
+    >
+      <nav className="mx-auto max-w-7xl px-6 lg:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">MS</span>
+        <Link href="/" className="flex items-center gap-3 group">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg group-hover:shadow-accent/20 transition-all duration-500"
+          >
+            <span className="text-primary-foreground font-serif italic text-lg tracking-tighter">MS</span>
+          </motion.div>
+          <div className="flex flex-col">
+            <span className="font-serif text-xl tracking-tight text-foreground leading-none">
+              Marylebone Smile
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1 font-sans">
+              Clinic & Spa
+            </span>
           </div>
-          <span className="font-semibold text-foreground hidden sm:inline-block">
-            Marylebone Smile
-          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
+        <motion.div
+          variants={staggerContainer}
+          className="hidden md:flex items-center gap-10"
+        >
           {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-foreground hover:text-accent transition-colors"
-            >
-              {link.label}
-            </Link>
+            <motion.div key={link.href} variants={fadeIn}>
+              <Link
+                href={link.href}
+                className="text-xs uppercase tracking-widest font-medium text-foreground/70 hover:text-accent transition-all duration-300 relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA Button + Mobile Menu */}
-        <div className="flex items-center gap-4">
-          <Button
-            className="hidden sm:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-6"
-            size="sm"
-          >
-            Book Now
-          </Button>
+        <div className="flex items-center gap-6">
+          <motion.div variants={fadeIn} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              className="hidden sm:inline-flex bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-8 py-6 text-xs uppercase tracking-widest font-semibold border border-primary transition-all duration-500 hover:tracking-[0.15em]"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Consultation
+            </Button>
+          </motion.div>
 
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="hover:bg-accent/5">
+                <Menu className="h-6 w-6 stroke-[1.5]" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full sm:w-80">
-              <div className="flex flex-col gap-6 mt-8">
-                {navLinks.map((link) => (
-                  <Link
+            <SheetContent side="right" className="w-full sm:w-[400px] border-l border-border/40 bg-background/95 backdrop-blur-xl">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+              <div className="flex flex-col gap-8 mt-20 px-4">
+                {navLinks.map((link, i) => (
+                  <motion.div
                     key={link.href}
-                    href={link.href}
-                    className="text-base font-medium text-foreground hover:text-accent transition-colors"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="text-3xl font-serif text-foreground hover:text-accent transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <Button
+                    className="w-full mt-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none py-8 text-sm uppercase tracking-widest"
                     onClick={() => setIsOpen(false)}
                   >
-                    {link.label}
-                  </Link>
-                ))}
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
-                  Book Now
-                </Button>
+                    Book Your Visit
+                  </Button>
+                </motion.div>
               </div>
             </SheetContent>
           </Sheet>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }

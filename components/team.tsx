@@ -1,149 +1,134 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Award } from 'lucide-react';
+import { Award, Linkedin, Star, Instagram } from 'lucide-react';
 import Image from 'next/image';
+import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const team = [
   {
     id: 1,
     name: 'Dr. Sarah Mitchell',
-    role: 'Lead Cosmetic Dentist',
-    credentials: 'BDS, MJDF RCS, Cosmetic Dentistry Diploma',
-    bio: 'Specialist in smile design and cosmetic transformations with 15+ years of experience.',
+    role: 'Principal Cosmetic Artist',
+    credentials: 'BDS (Lond), MJDF RCS Eng, PG Dip Aesthetic Med',
+    bio: 'With over 15 years in practice, Dr. Mitchell combines clinical precision with an artist\'s eye to create uniquely symmetrical smile transformations.',
     image: '/team-member-1.jpg',
   },
   {
     id: 2,
     name: 'Dr. James Chen',
-    role: 'Restorative Specialist',
-    credentials: 'BDS, MSc Prosthodontics, MJDF RCS',
-    bio: 'Expert in implant placement and comprehensive dental restoration.',
+    role: 'Specialist Prosthodontist',
+    credentials: 'MSc Implantology, BDS, LDS RCS (Eng)',
+    bio: 'Dr. Chen is a leading authority on multi-unit dental restorations, focusing on structural longevity and biocompatible aesthetics.',
     image: '/team-member-1.jpg',
   },
   {
     id: 3,
     name: 'Dr. Emma Watson',
-    role: 'Orthodontic Specialist',
-    credentials: 'BDS, Diploma in Orthodontics, MJDF RCS',
-    bio: 'Pioneering invisible aligner treatments with precision and artistry.',
+    role: 'Orthodontic Lead',
+    credentials: 'BDS, MSc Orthodontics (Distinction)',
+    bio: 'Emma specializes in adult orthodontic solutions, using advanced 3D modeling to achieve perfect occlusion with minimal intervention.',
     image: '/team-member-1.jpg',
   },
 ];
 
 export default function Team() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
   return (
-    <section id="team" className="bg-background py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="team" className="bg-background py-32 lg:py-48 selection:bg-accent/30">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Section Header */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 mb-6">
-            <div className="h-px w-8 bg-accent" />
-            <span className="text-sm font-medium text-accent uppercase tracking-wide">
-              Meet Our Team
-            </span>
-            <div className="h-px w-8 bg-accent" />
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+              <span className="h-[1px] w-12 bg-accent/60" />
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Our Experts</span>
+            </motion.div>
+            <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+              Crafted by <br /><span className="italic text-accent/80">Masters of the Smile.</span>
+            </motion.h2>
           </motion.div>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-serif text-foreground mb-4"
-          >
-            Award-Winning Dentists
-          </motion.h2>
-
           <motion.p
-            variants={itemVariants}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            className="text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right"
           >
-            Highly skilled professionals dedicated to your smile
+            Our clinicians are hand-picked for their clinical depth and aesthetic sensitivity.
           </motion.p>
-        </motion.div>
+        </div>
 
         {/* Team Grid */}
         <motion.div
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24"
         >
           {team.map((member) => (
             <motion.div
               key={member.id}
-              variants={itemVariants}
-              className="group relative"
+              variants={fadeInUp}
+              className="group flex flex-col items-start space-y-8"
             >
-              {/* Team Member Card */}
-              <div className="relative bg-card border border-border rounded-lg overflow-hidden mb-4">
-                <div className="aspect-square relative bg-gradient-to-br from-accent/20 via-secondary/10 to-muted group-hover:from-accent/30 transition-all duration-300">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
+              {/* Image Container with Elegant Mask */}
+              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
+                <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors z-10" />
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover scale-100 group-hover:scale-105 transition-transform duration-1000"
+                />
+
+                {/* Visual Accent */}
+                <div className="absolute bottom-6 right-6 z-20 w-12 h-12 bg-background/50 backdrop-blur-md border border-white/20 flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-transform duration-700">
+                  <Award className="w-5 h-5 text-accent" />
                 </div>
               </div>
 
-              {/* Content */}
-              <div className="px-1">
-                <h3 className="text-lg font-serif text-foreground mb-1">
-                  {member.name}
-                </h3>
+              {/* Text Content */}
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <h3 className="text-2xl font-serif text-foreground italic">{member.name}</h3>
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">{member.role}</p>
+                </div>
 
-                <p className="text-sm font-medium text-accent mb-3">
-                  {member.role}
-                </p>
+                <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-medium pb-2 border-b border-border/40 inline-block">{member.credentials}</p>
 
-                <p className="text-xs text-muted-foreground mb-3 line-clamp-2">
-                  {member.credentials}
-                </p>
-
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm text-muted-foreground font-light leading-relaxed pt-2">
                   {member.bio}
                 </p>
+
+                <div className="flex items-center gap-6 pt-4 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+                  <Instagram className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
+                  <Linkedin className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
+                  <Star className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
+                </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Additional team info */}
+        {/* Trust Badge Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="mt-32 pt-16 border-t border-border/40 flex flex-wrap items-center justify-center gap-x-20 gap-y-10 brightness-50 opacity-50 grayscale"
         >
-          <p className="text-muted-foreground">
-            All team members hold advanced qualifications and continue professional development
-          </p>
+          {/* Mock Logos */}
+          <span className="text-xs uppercase tracking-[0.5em] font-bold">VOGUE</span>
+          <span className="text-xs uppercase tracking-[0.5em] font-bold">TATLER</span>
+          <span className="text-xs uppercase tracking-[0.5em] font-bold">GQ</span>
+          <span className="text-xs uppercase tracking-[0.5em] font-bold">FORBES</span>
         </motion.div>
       </div>
     </section>
