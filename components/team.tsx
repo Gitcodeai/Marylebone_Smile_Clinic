@@ -12,7 +12,7 @@ const team = [
     role: 'Principal Cosmetic Artist',
     credentials: 'BDS (Lond), MJDF RCS Eng, PG Dip Aesthetic Med',
     bio: 'With over 15 years in practice, Dr. Mitchell combines clinical precision with an artist\'s eye to create uniquely symmetrical smile transformations.',
-    image: '/team-member-1.jpg',
+    image: '/images/team-member-1.jpg',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const team = [
     role: 'Specialist Prosthodontist',
     credentials: 'MSc Implantology, BDS, LDS RCS (Eng)',
     bio: 'Dr. Chen is a leading authority on multi-unit dental restorations, focusing on structural longevity and biocompatible aesthetics.',
-    image: '/team-member-1.jpg',
+    image: '/images/team-member-1.jpg',
   },
   {
     id: 3,
