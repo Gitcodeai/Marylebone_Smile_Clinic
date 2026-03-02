@@ -108,17 +108,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Elegant Scroll Indicator */}
-      <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20 opacity-40 hover:opacity-100 transition-opacity cursor-pointer group"
-        onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-      >
-        <span className="text-[10px] uppercase tracking-[0.4em] font-medium text-foreground transform -rotate-90 origin-center mb-8">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-foreground to-transparent group-hover:h-16 transition-all duration-500" />
-      </motion.div>
 
       {/* Decorative Orbs */}
       <div className="absolute -right-1/4 top-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
