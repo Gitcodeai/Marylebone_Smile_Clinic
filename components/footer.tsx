@@ -8,7 +8,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background border-t border-border/40 selection:bg-accent/30 tracking-tight">
+    <footer id="footer" className="bg-background border-t border-border/40 selection:bg-accent/30 tracking-tight min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         {/* Main Footer Content */}
         <motion.div
