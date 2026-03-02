@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -10,21 +10,51 @@ import { fadeIn, staggerContainer } from '@/lib/animations';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const navLinks = [
-    { href: '#services', label: 'Services' },
-    { href: '#before-after', label: 'Transformations' },
-    { href: '#journey', label: 'The Experience' },
-    { href: '#team', label: 'Experts' },
-    { href: '#contact', label: 'Contact' },
+    { href: '#services', label: 'Services', id: 'services' },
+    { href: '#before-after', label: 'Transformations', id: 'before-after' },
+    { href: '#journey', label: 'The Experience', id: 'journey' },
+    { href: '#team', label: 'Experts', id: 'team' },
+    { href: '#contact', label: 'Contact', id: 'contact' },
   ];
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px', // Detect when middle of section is in viewport
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const sections = navLinks.map(link => document.getElementById(link.id));
+    sections.forEach(section => {
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach(section => {
+        if (section) observer.unobserve(section);
+      });
+    };
+  }, []);
 
   return (
     <motion.header
       initial="hidden"
       animate="visible"
       variants={fadeIn}
-      className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
+      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
     >
       <nav className="mx-auto max-w-7xl px-6 lg:px-12 h-20 flex items-center justify-between">
         {/* Logo */}
@@ -54,10 +84,10 @@ export default function Header() {
             <motion.div key={link.href} variants={fadeIn}>
               <Link
                 href={link.href}
-                className="text-xs uppercase tracking-widest font-medium text-foreground/70 hover:text-accent transition-all duration-300 relative group"
+                className={`text-xs uppercase tracking-widest font-medium transition-all duration-300 relative group ${activeSection === link.id ? 'text-accent' : 'text-foreground/70 hover:text-accent'}`}
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
+                <span className={`absolute -bottom-1 left-0 h-[1px] bg-accent transition-all duration-300 ${activeSection === link.id ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </Link>
             </motion.div>
           ))}
@@ -93,7 +123,7 @@ export default function Header() {
                   >
                     <Link
                       href={link.href}
-                      className="text-3xl font-serif text-foreground hover:text-accent transition-colors"
+                      className={`text-3xl font-serif italic ${activeSection === link.id ? 'text-accent' : 'text-foreground hover:text-accent'} transition-colors`}
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
@@ -107,7 +137,7 @@ export default function Header() {
                 >
                   <Button
                     className="w-full mt-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-none py-8 text-sm uppercase tracking-widest"
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => { document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); setIsOpen(false); }}
                   >
                     Book Your Visit
                   </Button>

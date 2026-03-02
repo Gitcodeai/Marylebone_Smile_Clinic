@@ -84,7 +84,7 @@ export default function Services() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-secondary/20 py-32 lg:py-48 relative overflow-hidden">
+    <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-12">

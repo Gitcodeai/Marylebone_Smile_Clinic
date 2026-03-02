@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-background overflow-hidden pt-20">
+    <section className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20">
       {/* Background Cinematic Image Placeholder */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />

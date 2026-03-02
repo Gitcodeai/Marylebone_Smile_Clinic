@@ -62,7 +62,7 @@ export default function LeadForm() {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <section id="contact" className="bg-secondary/10 py-32 lg:py-48 relative overflow-hidden">
+    <section id="contact" className="bg-secondary/10 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
       <div className="mx-auto max-w-4xl px-6 lg:px-12">
         <motion.div
@@ -126,8 +126,8 @@ export default function LeadForm() {
                                     key={t}
                                     onClick={() => field.onChange(t)}
                                     className={`cursor-pointer px-6 py-5 border transition-all duration-500 flex items-center justify-between group ${field.value === t
-                                        ? 'bg-primary text-primary-foreground border-primary'
-                                        : 'bg-transparent border-border/60 hover:border-accent/40'
+                                      ? 'bg-primary text-primary-foreground border-primary'
+                                      : 'bg-transparent border-border/60 hover:border-accent/40'
                                       }`}
                                   >
                                     <span className="text-[10px] uppercase tracking-widest font-bold">{t}</span>

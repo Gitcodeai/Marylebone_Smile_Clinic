@@ -3,20 +3,22 @@
 import { useState, useRef, useEffect, MouseEvent, TouchEvent } from 'react';
 import { motion, AnimatePresence, useSpring } from 'framer-motion';
 import Image from 'next/image';
-import { MoveLeft, MoveRight } from 'lucide-react';
+import { MoveLeft, MoveRight, MoveUp, MoveDown } from 'lucide-react';
 
 interface BeforeAfterSliderProps {
   caseIndex: number;
   beforeImage?: string;
   afterImage?: string;
   title?: string;
+  orientation?: 'horizontal' | 'vertical';
 }
 
 export default function BeforeAfterSlider({
   caseIndex,
   beforeImage = '/before-case-1.jpg',
   afterImage = '/after-case-1.jpg',
-  title = "Transformation"
+  title = "Transformation",
+  orientation = 'horizontal'
 }: BeforeAfterSliderProps) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -26,36 +28,51 @@ export default function BeforeAfterSlider({
   const prevIndex = useRef(caseIndex);
 
   // Smooth handle movement
-  const springX = useSpring(50, { stiffness: 100, damping: 20 });
+  const springPos = useSpring(50, { stiffness: 100, damping: 20 });
 
   useEffect(() => {
     if (caseIndex !== prevIndex.current) {
       setDirection(caseIndex > prevIndex.current ? 1 : -1);
       setSliderPosition(50);
-      springX.set(50);
+      springPos.set(50);
       prevIndex.current = caseIndex;
     }
-  }, [caseIndex, springX]);
+  }, [caseIndex, springPos]);
 
-  const handleMove = (clientX: number) => {
+  const handleMove = (clientX: number, clientY: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    const newPosition = ((clientX - rect.left) / rect.width) * 100;
+    let newPosition: number;
+
+    if (orientation === 'horizontal') {
+      newPosition = ((clientX - rect.left) / rect.width) * 100;
+    } else {
+      newPosition = ((clientY - rect.top) / rect.height) * 100;
+    }
+
     const clamped = Math.max(0, Math.min(100, newPosition));
     setSliderPosition(clamped);
-    springX.set(clamped);
+    springPos.set(clamped);
   };
 
   const onMouseMove = (e: MouseEvent) => {
-    if (isDragging) handleMove(e.clientX);
+    if (isDragging) handleMove(e.clientX, e.clientY);
   };
 
   const onTouchMove = (e: TouchEvent) => {
-    if (isDragging) handleMove(e.touches[0].clientX);
+    if (isDragging) handleMove(e.touches[0].clientX, e.touches[0].clientY);
   };
 
+  const clipPathStyle = orientation === 'horizontal'
+    ? { clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }
+    : { clipPath: `inset(0 0 ${100 - sliderPosition}% 0)` };
+
+  const handleStyle = orientation === 'horizontal'
+    ? { left: `${sliderPosition}%`, top: 0, bottom: 0, width: '2px', height: '100%' }
+    : { top: `${sliderPosition}%`, left: 0, right: 0, height: '2px', width: '100%' };
+
   return (
-    <div className="relative w-full max-w-5xl mx-auto overflow-hidden bg-muted group/container rounded-sm shadow-2xl">
+    <div className="relative w-full h-full overflow-hidden bg-muted group/container shadow-2xl">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={caseIndex}
@@ -64,7 +81,7 @@ export default function BeforeAfterSlider({
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: -direction * 50, scale: 0.95 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative aspect-square md:aspect-video"
+          className="relative w-full h-full"
           ref={containerRef}
           onMouseEnter={() => setShowCursor(true)}
           onMouseLeave={() => { setShowCursor(false); setIsDragging(false); }}
@@ -75,65 +92,81 @@ export default function BeforeAfterSlider({
           onTouchEnd={() => setIsDragging(false)}
           onTouchMove={onTouchMove}
         >
-          {/* Before Image (Static Layer) */}
-          <div className="absolute inset-0">
-            <Image
-              src={beforeImage}
-              alt="Before Treatment"
-              fill
-              className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
-              priority
-            />
-            <div className="absolute top-6 left-6 z-20 px-4 py-2 bg-background/20 backdrop-blur-md border border-white/10 rounded-full">
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">Before</span>
-            </div>
-          </div>
-
-          {/* After Image (Revealed Layer) */}
+          {/* Before Image (Revealed Layer) */}
           <motion.div
             className="absolute inset-0 z-10 overflow-hidden"
-            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+            style={clipPathStyle}
           >
             <div className="relative w-full h-full">
               <Image
-                src={afterImage}
-                alt="After Treatment"
+                src={beforeImage}
+                alt="Before Treatment"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
                 priority
               />
-              <div className="absolute top-6 right-6 z-20 px-4 py-2 bg-accent/30 backdrop-blur-md border border-accent/20 rounded-full">
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">After</span>
-              </div>
+              <motion.div
+                animate={{ opacity: sliderPosition > 10 ? 1 : 0 }}
+                className="absolute top-6 left-6 z-20 px-4 py-2 bg-background/20 backdrop-blur-md border border-white/10 rounded-full"
+              >
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">Before</span>
+              </motion.div>
             </div>
           </motion.div>
 
+          {/* After Image (Static Layer) */}
+          <div className="absolute inset-0">
+            <Image
+              src={afterImage}
+              alt="After Treatment"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
+              priority
+            />
+            <motion.div
+              animate={{ opacity: sliderPosition < 90 ? 1 : 0 }}
+              className="absolute top-6 right-6 z-20 px-4 py-2 bg-accent/30 backdrop-blur-md border border-accent/20 rounded-full"
+            >
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">After</span>
+            </motion.div>
+          </div>
+
           {/* Drag Handle (Luxury Edition) */}
           <motion.div
-            className="absolute top-0 bottom-0 z-30 w-[2px] bg-white/40 cursor-grab active:cursor-grabbing group"
-            style={{ left: `${sliderPosition}%` }}
+            className="absolute z-30 bg-white/40 cursor-grab active:cursor-grabbing group"
+            style={handleStyle}
           >
-            <div className="absolute inset-y-0 -left-4 -right-4 flex items-center justify-center">
-              <div className="w-12 h-12 rounded-full bg-background/50 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center gap-1 transition-transform group-hover:scale-110">
+            <div className={`absolute ${orientation === 'horizontal' ? 'inset-y-0 -left-4 -right-4' : 'inset-x-0 -top-4 -bottom-4'} flex items-center justify-center`}>
+              <div className={`w-12 h-12 rounded-full bg-background/50 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center gap-1 transition-transform group-hover:scale-110 ${orientation === 'vertical' ? 'flex-col rotate-90' : ''}`}>
                 <div className="w-[1px] h-4 bg-white/60" />
                 <div className="w-[1px] h-4 bg-white/60" />
                 <div className="w-[1px] h-4 bg-white/60" />
               </div>
             </div>
             {/* Visual glow line */}
-            <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[4px] bg-accent/20 blur-sm" />
+            <div className={`absolute ${orientation === 'horizontal' ? 'inset-y-0 left-1/2 -translate-x-1/2 w-[4px]' : 'inset-x-0 top-1/2 -translate-y-1/2 h-[4px]'} bg-accent/20 blur-sm`} />
           </motion.div>
 
           {/* Custom Hint Label */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 opacity-0 group-hover/container:opacity-100 transition-opacity">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="px-6 py-2 bg-primary/80 backdrop-blur-md border border-primary-foreground/10 rounded-none flex items-center gap-4"
+              className="px-6 py-2 bg-primary/80 backdrop-blur-md border border-primary-foreground/10 rounded-none flex items-center gap-4 whitespace-nowrap"
             >
-              <MoveLeft className="w-3 h-3 text-primary-foreground/60" />
-              <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-primary-foreground">Slide to reveal transformation</span>
-              <MoveRight className="w-3 h-3 text-primary-foreground/60" />
+              {orientation === 'horizontal' ? (
+                <>
+                  <MoveLeft className="w-3 h-3 text-primary-foreground/60" />
+                  <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-primary-foreground">Slide horizontally</span>
+                  <MoveRight className="w-3 h-3 text-primary-foreground/60" />
+                </>
+              ) : (
+                <>
+                  <MoveUp className="w-3 h-3 text-primary-foreground/60" />
+                  <span className="text-[9px] uppercase tracking-[0.4em] font-bold text-primary-foreground">Slide vertically</span>
+                  <MoveDown className="w-3 h-3 text-primary-foreground/60" />
+                </>
+              )}
             </motion.div>
           </div>
         </motion.div>

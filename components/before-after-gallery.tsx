@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import BeforeAfterSlider from '@/components/before-after-slider';
 import { staggerContainer, fadeInUp, fadeIn } from '@/lib/animations';
 
@@ -13,81 +14,46 @@ const caseStudies = [
     category: 'Veneers',
     title: 'Precision Porcelain Veneers',
     description: '10 Hand-crafted porcelain veneers for a natural, effortless aesthetic.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
+    before: '/images/before.png',
+    after: '/images/after.png',
+    portrait: '/images/case 1.png',
   },
   {
     id: 2,
     category: 'Invisalign',
     title: 'Discreet Alignment Correction',
     description: 'Clear aligner therapy to correct crowding and refine the smile line.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
+    before: '/images/before.png',
+    after: '/images/after.png',
+    portrait: '/images/case 1.png',
   },
   {
     id: 3,
     category: 'Bridges',
     title: 'Fixed Aesthetic Bridge',
     description: 'Graceful restoration of dental function and visual harmony.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
+    before: '/images/before.png',
+    after: '/images/after.png',
+    portrait: '/images/case 1.png',
   },
   {
     id: 4,
     category: 'Whitening',
     title: 'Hydrated Laser Whitening',
     description: 'Pain-free, high-intensity whitening for a brilliant, clean finish.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
+    before: '/images/before.png',
+    after: '/images/after.png',
+    portrait: '/images/case 1.png',
   },
   {
     id: 5,
     category: 'Veneers',
     title: 'The Signature Smile Makeover',
     description: 'Complete smile reconstruction focusing on facial symmetry.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
-  {
-    id: 6,
-    category: 'Whitening',
-    title: 'Enamel-Safe Radiance',
-    description: 'Gentle, professional brightening to lift existing composite work.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
-  {
-    id: 7,
-    category: 'Invisalign',
-    title: 'Invisible Arch Expansion',
-    description: 'Widening the smile to create a more youthfull, full appearance.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
-  {
-    id: 8,
-    category: 'Veneers',
-    title: 'Minimal-Prep Ceramic',
-    description: 'Preserving natural tooth structure while enhancing form and color.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
-  {
-    id: 9,
-    category: 'Bridges',
-    title: 'Single-Unit Restoration',
-    description: 'Single-visit restoration for emergency or immediate needs.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
-  {
-    id: 10,
-    category: 'Veneers',
-    title: 'Natural Character Veneers',
-    description: 'Adding character and texture to veneers for true-to-life dentistry.',
-    before: '/images/before-case-1.jpg',
-    after: '/images/after-case-1.jpg',
-  },
+    before: '/images/before.png',
+    after: '/images/after.png',
+    portrait: '/images/case 1.png',
+  }
 ];
 
 export default function BeforeAfterGallery() {
@@ -101,20 +67,18 @@ export default function BeforeAfterGallery() {
   }, [filter]);
 
   // Adjust selected index if filtering changes the list
-  const activeCase = useMemo(() => {
-    return filteredCases[selectedIndex] || filteredCases[0];
-  }, [filteredCases, selectedIndex]);
+  const activeCase = filteredCases[selectedIndex] || filteredCases[0];
 
   return (
-    <section id="before-after" className="bg-background py-32 lg:py-40">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+    <section id="before-after" className="bg-background min-h-screen flex flex-col justify-center py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12 w-full">
         {/* Section Header */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-24"
+          className="text-center mb-16"
         >
           <motion.div variants={fadeInUp} className="flex flex-col items-center gap-6">
             <div className="flex items-center gap-4">
@@ -130,7 +94,7 @@ export default function BeforeAfterGallery() {
         </motion.div>
 
         {/* Filter Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-20">
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
@@ -153,11 +117,11 @@ export default function BeforeAfterGallery() {
             initial="hidden"
             animate="visible"
             key={filter} // Re-animate on filter change
-            className="lg:col-span-4 order-2 lg:order-1 grid grid-cols-5 lg:grid-cols-2 gap-4 h-fit"
+            className="lg:col-span-3 order-3 lg:order-1 grid grid-cols-5 lg:grid-cols-2 gap-4 h-fit"
           >
-            {filteredCases.map((case_, idx) => (
+            {filteredCases.map((caseStudy, idx) => (
               <motion.button
-                key={case_.id}
+                key={caseStudy.id}
                 variants={fadeInUp}
                 onClick={() => setSelectedIndex(idx)}
                 className={`relative aspect-square overflow-hidden group transition-all duration-700 ${selectedIndex === idx
@@ -175,19 +139,43 @@ export default function BeforeAfterGallery() {
             ))}
           </motion.div>
 
-          {/* Right: The Main Stage */}
-          <div className="lg:col-span-8 order-1 lg:order-2 space-y-10">
-            <BeforeAfterSlider
-              caseIndex={activeCase?.id} // This will trigger the depth transition
-              beforeImage={activeCase?.before}
-              afterImage={activeCase?.after}
-            />
+          {/* Center/Right: The Main Stage (Portrait + Vertical Slider) */}
+          <div className="lg:col-span-9 order-1 lg:order-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+            {/* Patient Portrait */}
+            <motion.div
+              key={`portrait-${activeCase?.id}`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="relative aspect-[3/4] bg-muted overflow-hidden"
+            >
+              <Image
+                src={activeCase?.portrait || '/images/case 1.png'}
+                alt="Patient Portrait"
+                fill
+                className="object-cover"
+                priority
+              />
+            </motion.div>
 
+            {/* Vertical Slider */}
+            <div className="relative aspect-[3/4]">
+              <BeforeAfterSlider
+                key={`slider-${activeCase?.id}`}
+                caseIndex={activeCase?.id}
+                beforeImage={activeCase?.before}
+                afterImage={activeCase?.after}
+                orientation="vertical"
+              />
+            </div>
+          </div>
+
+          {/* Details below the main stage */}
+          <div className="lg:col-span-9 lg:col-start-4 order-2 lg:order-3">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               key={activeCase?.id}
-              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-4"
+              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-8 border-t border-border/40"
             >
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -198,7 +186,7 @@ export default function BeforeAfterGallery() {
                 <p className="text-sm text-muted-foreground font-light max-w-lg leading-relaxed">{activeCase?.description}</p>
               </div>
 
-              <div className="flex flex-col items-start lg:items-end border-l lg:border-l-0 lg:border-r border-accent/20 pl-6 lg:pl-0 lg:pr-6">
+              <div className="flex flex-col items-start lg:items-end border-l lg:border-l-0 lg:border-r border-accent/20 pl-6 lg:pl-0 lg:pr-6 whitespace-nowrap">
                 <p className="text-[10px] uppercase tracking-widest text-foreground font-bold mb-2">Duration</p>
                 <p className="text-sm font-serif italic text-muted-foreground">Approx. 4-6 Weeks</p>
               </div>

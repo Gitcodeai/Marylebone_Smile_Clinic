@@ -28,7 +28,7 @@ const steps = [
 
 export default function PatientJourney() {
     return (
-        <section id="journey" className="bg-background py-32 lg:py-48 selection:bg-accent/30 tracking-tight overflow-hidden">
+        <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30 tracking-tight overflow-hidden">
             <div className="mx-auto max-w-7xl px-6 lg:px-12">
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20 lg:mb-32">

@@ -65,7 +65,7 @@ export default function SocialProof() {
     }, [emblaApi, onSelect]);
 
     return (
-        <section id="testimonials" className="bg-background py-32 lg:py-48 relative overflow-hidden">
+        <section id="testimonials" className="bg-background min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
