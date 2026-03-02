@@ -3,7 +3,6 @@ import Hero from '@/components/hero';
 import PatientJourney from '@/components/patient-journey';
 import Services from '@/components/services';
 import BeforeAfterGallery from '@/components/before-after-gallery';
-import PricingSection from '@/components/pricing-section';
 import Team from '@/components/team';
 import SocialProof from '@/components/social-proof';
 import LeadForm from '@/components/lead-form';
@@ -21,7 +20,6 @@ export default function Home() {
         <Services />
       </div>
       <BeforeAfterGallery />
-      <PricingSection />
       <Team />
       <SocialProof />
       <LeadForm />

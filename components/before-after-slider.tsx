@@ -105,12 +105,9 @@ export default function BeforeAfterSlider({
                 className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
                 priority
               />
-              <motion.div
-                animate={{ opacity: sliderPosition > 10 ? 1 : 0 }}
-                className="absolute top-6 left-6 z-20 px-4 py-2 bg-background/20 backdrop-blur-md border border-white/10 rounded-full"
-              >
-                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">Before</span>
-              </motion.div>
+              <div className="absolute top-6 left-6 px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/10 rounded-full">
+                <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">Before</span>
+              </div>
             </div>
           </motion.div>
 
@@ -123,12 +120,9 @@ export default function BeforeAfterSlider({
               className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
               priority
             />
-            <motion.div
-              animate={{ opacity: sliderPosition < 90 ? 1 : 0 }}
-              className="absolute top-6 right-6 z-20 px-4 py-2 bg-accent/30 backdrop-blur-md border border-accent/20 rounded-full"
-            >
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-white drop-shadow-md">After</span>
-            </motion.div>
+            <div className="absolute bottom-[20%] left-[10%] px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/20 rounded-full">
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">After</span>
+            </div>
           </div>
 
           {/* Drag Handle (Luxury Edition) */}
@@ -138,9 +132,9 @@ export default function BeforeAfterSlider({
           >
             <div className={`absolute ${orientation === 'horizontal' ? 'inset-y-0 -left-4 -right-4' : 'inset-x-0 -top-4 -bottom-4'} flex items-center justify-center`}>
               <div className={`w-12 h-12 rounded-full bg-background/50 backdrop-blur-xl border border-white/20 shadow-2xl flex items-center justify-center gap-1 transition-transform group-hover:scale-110 ${orientation === 'vertical' ? 'flex-col rotate-90' : ''}`}>
-                <div className="w-[1px] h-4 bg-white/60" />
-                <div className="w-[1px] h-4 bg-white/60" />
-                <div className="w-[1px] h-4 bg-white/60" />
+                <div className="w-1 h-1 rounded-full bg-white/60" />
+                <div className="w-1 h-1 rounded-full bg-white/60" />
+                <div className="w-1 h-1 rounded-full bg-white/60" />
               </div>
             </div>
             {/* Visual glow line */}
