@@ -42,8 +42,8 @@ export default function Hero() {
             variants={fadeInUp}
             className="text-5xl sm:text-7xl lg:text-8xl font-serif text-foreground leading-[1.05] mb-10 tracking-tight"
           >
-            The Craft of a <br />
-            <span className="italic text-accent/90">Signature</span> Smile.
+            The Craft of <br />
+            <span className="italic text-accent/90">Signature</span> Smiles.
           </motion.h1>
 
           {/* Subheadline */}
