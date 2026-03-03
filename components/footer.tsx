@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer id="footer" className="bg-background border-t border-border/40 selection:bg-accent/30 tracking-tight min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Main Footer Content */}
         <motion.div
           variants={staggerContainer}

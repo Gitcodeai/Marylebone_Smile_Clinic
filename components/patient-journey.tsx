@@ -29,7 +29,7 @@ const steps = [
 export default function PatientJourney() {
     return (
         <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30 tracking-tight overflow-hidden">
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20 lg:mb-32">
                     <motion.div
@@ -114,33 +114,33 @@ export default function PatientJourney() {
                         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                         className="lg:col-span-7 grid grid-cols-2 gap-6 relative"
                     >
-                        <div className="relative aspect-[3/4] overflow-hidden translate-y-12">
+                        <div className="group relative aspect-[3/4] overflow-hidden translate-y-12">
                             <Image
                                 src="/images/clinic-1.png"
                                 alt="Marylebone Clinic Suite"
                                 fill
-                                className="object-cover scale-100 hover:scale-110 transition-transform duration-[2s]"
+                                className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                             />
                             <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
                                 <p className="text-[9px] uppercase tracking-widest text-white/80 font-bold italic">The Private Suite</p>
                             </div>
                         </div>
                         <div className="space-y-6">
-                            <div className="relative aspect-square overflow-hidden bg-accent/10">
+                            <div className="group relative aspect-square overflow-hidden bg-accent/10">
                                 <Image
                                     src="/images/clinic-2.png"
                                     alt="Restorative Detail"
                                     fill
-                                    className="object-cover scale-100 hover:scale-110 transition-transform duration-[2s]"
+                                    className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />
                                 <div className="absolute inset-0 border-[20px] border-background/20" />
                             </div>
-                            <div className="relative aspect-[3/4] overflow-hidden">
+                            <div className="group relative aspect-[3/4] overflow-hidden">
                                 <Image
-                                    src="/images/clinic-3.png"
+                                    src="/images/hero-banner.png"
                                     alt="Clinic Interior"
                                     fill
-                                    className="object-cover scale-100 hover:scale-110 transition-transform duration-[2s]"
+                                    className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />
                                 <div className="absolute top-6 right-6 flex items-center gap-2 px-3 py-1 bg-background/50 backdrop-blur-md">
                                     <MapPin className="w-3 h-3 text-accent" />
@@ -149,13 +149,6 @@ export default function PatientJourney() {
                             </div>
                         </div>
 
-                        {/* Center Label */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-44 h-44 rounded-full border border-white/20 bg-background/10 backdrop-blur-xl flex items-center justify-center text-center p-8">
-                            <div className="space-y-2">
-                                <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-foreground">The Concierge Experience</p>
-                                <p className="text-[9px] text-muted-foreground italic leading-relaxed">Tailored for those who value privacy and clinical depth.</p>
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
             </div>

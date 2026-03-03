@@ -64,7 +64,7 @@ export default function LeadForm() {
   return (
     <section id="contact" className="bg-secondary/10 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
-      <div className="mx-auto max-w-4xl px-6 lg:px-12">
+      <div className="max-w-[1240px] px-6 lg:px-12 mx-auto">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

@@ -87,7 +87,7 @@ export default function Services() {
     <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20 lg:mb-32">
           <motion.div

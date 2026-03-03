@@ -69,7 +69,7 @@ export default function SocialProof() {
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
                 {/* Section Header */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-24 items-end">
                     <motion.div

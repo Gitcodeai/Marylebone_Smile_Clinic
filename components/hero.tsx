@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20">
+    <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden pt-20">
       {/* Background Cinematic Image Placeholder */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
@@ -22,7 +22,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-12 py-24 lg:py-32 w-full">
+      <div className="relative z-20 max-w-[1600px] px-6 lg:pl-[150px] lg:pr-12 py-24 lg:py-32 w-full ml-0 mr-auto">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -42,8 +42,8 @@ export default function Hero() {
             variants={fadeInUp}
             className="text-5xl sm:text-7xl lg:text-8xl font-serif text-foreground leading-[1.05] mb-10 tracking-tight"
           >
-            The Art of a <br />
-            <span className="italic text-accent/90">Bespoke</span> Smile.
+            The Craft of a <br />
+            <span className="italic text-accent/90">Signature</span> Smile.
           </motion.h1>
 
           {/* Subheadline */}

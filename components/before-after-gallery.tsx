@@ -71,7 +71,7 @@ export default function BeforeAfterGallery() {
 
   return (
     <section id="before-after" className="bg-background min-h-screen flex flex-col justify-center py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12 w-full">
+      <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
         <motion.div
           variants={staggerContainer}

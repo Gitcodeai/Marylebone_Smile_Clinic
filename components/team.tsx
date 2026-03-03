@@ -8,34 +8,34 @@ import { fadeInUp, staggerContainer } from '@/lib/animations';
 const team = [
   {
     id: 1,
-    name: 'Dr. Sarah Mitchell',
-    role: 'Principal Cosmetic Artist',
-    credentials: 'BDS (Lond), MJDF RCS Eng, PG Dip Aesthetic Med',
-    bio: 'With over 15 years in practice, Dr. Mitchell combines clinical precision with an artist\'s eye to create uniquely symmetrical smile transformations.',
-    image: '/images/team-member-1.jpg',
+    name: 'Dr Sahil Patel',
+    role: 'Principal Dentist',
+    credentials: 'BDS ABACD',
+    bio: 'An award-winning cosmetic dentist and clinical lead. Dr Patel combines advanced digital planning with a meticulous approach to facial-aesthetic harmony.',
+    image: '/images/experts/Dr Sahil Patel.jpg',
   },
   {
     id: 2,
-    name: 'Dr. James Chen',
-    role: 'Specialist Prosthodontist',
-    credentials: 'MSc Implantology, BDS, LDS RCS (Eng)',
-    bio: 'Dr. Chen is a leading authority on multi-unit dental restorations, focusing on structural longevity and biocompatible aesthetics.',
-    image: '/images/team-member-1.jpg',
+    name: 'Rania Scott',
+    role: 'Patient Care Lead',
+    credentials: 'Patient Care Lead RDN',
+    bio: 'A dedicated patient advocate who ensures your journey is seamless. Rania coordinates complex clinical treatments with compassionate, luxury-standard care.',
+    image: '/images/experts/Rania Scott.jpg',
   },
   {
     id: 3,
-    name: 'Dr. Emma Watson',
-    role: 'Orthodontic Lead',
-    credentials: 'BDS, MSc Orthodontics (Distinction)',
-    bio: 'Emma specializes in adult orthodontic solutions, using advanced 3D modeling to achieve perfect occlusion with minimal intervention.',
-    image: '/team-member-1.jpg',
+    name: 'Dr Chloe Kassis-Crowe',
+    role: 'Associate Dentist',
+    credentials: 'BDentSc Trinity',
+    bio: 'Specializing in restorative excellence and aesthetic alignment. Dr Kassis-Crowe is renowned for her gentle clinical manner and high-precision ceramic artistry.',
+    image: '/images/experts/Dr Chloe Kassis-Crowe.jpg',
   },
 ];
 
 export default function Team() {
   return (
     <section id="team" className="bg-background min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30">
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
           <motion.div
@@ -88,10 +88,6 @@ export default function Team() {
                   className="object-cover scale-100 group-hover:scale-105 transition-transform duration-1000"
                 />
 
-                {/* Visual Accent */}
-                <div className="absolute bottom-6 right-6 z-20 w-12 h-12 bg-background/50 backdrop-blur-md border border-white/20 flex items-center justify-center translate-y-20 group-hover:translate-y-0 transition-transform duration-700">
-                  <Award className="w-5 h-5 text-accent" />
-                </div>
               </div>
 
               {/* Text Content */}
@@ -107,11 +103,6 @@ export default function Team() {
                   {member.bio}
                 </p>
 
-                <div className="flex items-center gap-6 pt-4 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
-                  <Instagram className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
-                  <Linkedin className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
-                  <Star className="w-4 h-4 hover:text-accent cursor-pointer transition-colors" />
-                </div>
               </div>
             </motion.div>
           ))}

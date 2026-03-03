@@ -45,7 +45,7 @@ export default function PricingSection() {
         <section id="pricing" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
 
-            <div className="mx-auto max-w-7xl px-6 lg:px-12">
+            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
                     <motion.div
                         variants={staggerContainer}
@@ -78,7 +78,7 @@ export default function PricingSection() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto px-6 lg:px-12"
                 >
                     {plans.map((plan) => (
                         <motion.div
