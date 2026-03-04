@@ -102,7 +102,7 @@ export default function BeforeAfterSlider({
                 src={beforeImage}
                 alt="Before Treatment"
                 fill
-                className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
+                className="object-contain md:object-cover transition-transform duration-1000 md:group-hover/container:scale-[1.02]"
                 priority
               />
               <div className="absolute top-6 left-6 px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/10 rounded-full">
@@ -117,7 +117,7 @@ export default function BeforeAfterSlider({
               src={afterImage}
               alt="After Treatment"
               fill
-              className="object-cover transition-transform duration-1000 group-hover/container:scale-[1.02]"
+              className="object-contain md:object-cover transition-transform duration-1000 md:group-hover/container:scale-[1.02]"
               priority
             />
             <div className="absolute bottom-[20%] left-[10%] px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/20 rounded-full">

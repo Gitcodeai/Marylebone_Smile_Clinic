@@ -113,7 +113,7 @@ export default function BeforeAfterGallery() {
               key={cat}
               onClick={() => { setFilter(cat); setSelectedIndex(0); }}
               className={`px-8 py-3 text-xs uppercase tracking-[0.4em] font-bold border transition-all duration-500 rounded-none ${filter === cat
-                ? 'bg-primary text-primary-foreground border-primary scale-105 shadow-xl'
+                ? 'text-foreground border-accent/60 scale-105'
                 : 'bg-transparent text-muted-foreground border-border/60 hover:border-accent/40 hover:text-accent'
                 }`}
             >
@@ -158,7 +158,7 @@ export default function BeforeAfterGallery() {
                         setSelectedIndex(0);
                         setIsDropdownOpen(false);
                       }}
-                      className={`w-full text-center px-6 py-4 text-xs uppercase tracking-[0.4em] font-bold transition-colors ${filter === cat ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary/50'}`}
+                      className={`w-full text-center px-6 py-4 text-xs uppercase tracking-[0.4em] font-bold transition-colors hover:bg-secondary/50 ${filter === cat ? 'text-foreground' : 'text-muted-foreground'}`}
                     >
                       {cat}
                     </button>
@@ -206,19 +206,19 @@ export default function BeforeAfterGallery() {
               key={`portrait-${activeCase?.id}`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="relative aspect-[3/4] bg-muted overflow-hidden"
+              className="relative aspect-[3/2] md:aspect-[3/4] bg-muted/30 overflow-hidden flex items-center justify-center"
             >
               <Image
                 src={activeCase?.portrait || '/images/case 1.png'}
                 alt="Patient Portrait"
                 fill
-                className="object-cover"
+                className="object-contain md:object-cover"
                 priority
               />
             </motion.div>
 
             {/* Vertical Slider */}
-            <div className="relative aspect-[3/4]">
+            <div className="relative aspect-[3/2] md:aspect-[3/4] flex items-center justify-center">
               <BeforeAfterSlider
                 key={`slider-${activeCase?.id}`}
                 caseIndex={activeCase?.id}
