@@ -89,7 +89,7 @@ export default function Services() {
 
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-12 sm:mb-20 lg:mb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-[43px] sm:mb-20 lg:mb-24">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -117,7 +117,7 @@ export default function Services() {
             variants={fadeIn}
             initial="hidden"
             whileInView="visible"
-            className="flex items-center gap-3 sm:gap-4 mt-6 md:mt-0"
+            className="flex items-center gap-3 sm:gap-4 mt-[19px] md:mt-0"
           >
             <button
               onClick={scrollPrev}

@@ -1,9 +1,49 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import Image from 'next/image';
-import { MapPin, Calendar, Camera, Heart, Sparkles } from 'lucide-react';
+import { MapPin, Calendar, Camera, Heart, Sparkles, LucideIcon } from 'lucide-react';
+
+interface Step {
+    id: string;
+    title: string;
+    description: string;
+    icon: LucideIcon;
+}
+
+const StepItem = ({ step }: { step: Step }) => {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: false, amount: 0.5 });
+
+    return (
+        <motion.div
+            ref={ref}
+            variants={fadeInUp}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0.3, x: -10 }}
+            transition={{ duration: 0.5 }}
+            className="group relative flex items-start gap-6 sm:gap-12 pl-16 sm:pl-44 lg:pl-52 transition-all duration-700"
+        >
+            {/* Index Overlay */}
+            <span className={`absolute left-4 top-0 text-4xl sm:text-9xl font-serif italic -z-0 transition-colors leading-none select-none ${isInView ? 'text-accent/30' : 'text-accent/10'}`}>
+                {step.id}
+            </span>
+
+            <div className="relative z-10 space-y-4 sm:space-y-6">
+                <div className="flex items-center gap-4">
+                    <step.icon className={`w-5 h-5 sm:w-6 sm:h-6 transition-opacity ${isInView ? 'text-accent opacity-100' : 'text-accent/40 opacity-40'}`} />
+                    <h3 className={`text-xl sm:text-3xl font-serif italic tracking-tight leading-none transition-colors ${isInView ? 'text-foreground' : 'text-foreground/40'}`}>
+                        {step.title}
+                    </h3>
+                </div>
+                <p className={`text-sm sm:text-base font-light leading-relaxed max-w-sm transition-colors ${isInView ? 'text-muted-foreground' : 'text-muted-foreground/40'}`}>
+                    {step.description}
+                </p>
+            </div>
+        </motion.div>
+    );
+};
 
 const steps = [
     {
@@ -27,6 +67,18 @@ const steps = [
 ];
 
 export default function PatientJourney() {
+    const containerRef = React.useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start center", "end center"]
+    });
+
+    const scaleY = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
     return (
         <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 tracking-tight overflow-hidden">
             <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
@@ -61,35 +113,19 @@ export default function PatientJourney() {
                 {/* The Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-32 items-start mt-8">
                     {/* Left: Interactive Step Stack */}
-                    <motion.div
-                        variants={staggerContainer}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: "-100px" }}
-                        className="lg:col-span-5 space-y-12 lg:space-y-16"
-                    >
-                        {steps.map((step) => (
-                            <motion.div
-                                key={step.id}
-                                variants={fadeInUp}
-                                className="group relative flex items-start gap-8 sm:gap-12 border-l border-accent/20 pl-32 sm:pl-44 lg:pl-52 hover:border-accent transition-all duration-700"
-                            >
-                                {/* Index Overlay */}
-                                <span className="absolute left-6 top-0 text-7xl sm:text-9xl font-serif italic text-accent/15 -z-0 group-hover:text-accent/30 transition-colors leading-none select-none">{step.id}</span>
+                    <div ref={containerRef} className="lg:col-span-5 space-y-12 lg:space-y-16 relative">
+                        {/* Vertical Progress Bar */}
+                        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-accent/10" />
+                        <motion.div
+                            style={{ scaleY, originY: 0 }}
+                            className="absolute left-0 top-0 bottom-0 w-[1.5px] bg-accent origin-top z-10"
+                        />
 
-                                <div className="relative z-10 space-y-4 sm:space-y-6">
-                                    <div className="flex items-center gap-4">
-                                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent opacity-60 group-hover:opacity-100 transition-opacity" />
-                                        <h3 className="text-xl sm:text-3xl font-serif italic text-foreground tracking-tight leading-none">{step.title}</h3>
-                                    </div>
-                                    <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed max-w-sm">
-                                        {step.description}
-                                    </p>
-                                </div>
-                            </motion.div>
+                        {steps.map((step) => (
+                            <StepItem key={step.id} step={step} />
                         ))}
 
-                        <div className="pt-8 lg:pt-12">
+                        <div className="pt-8 lg:pt-12 pl-4 sm:pl-0">
                             <motion.div
                                 initial={{ scale: 0.98, opacity: 0 }}
                                 whileInView={{ scale: 1, opacity: 1 }}
@@ -105,7 +141,7 @@ export default function PatientJourney() {
                                 </div>
                             </motion.div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Right: Gallery Collage */}
                     <motion.div
