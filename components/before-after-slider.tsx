@@ -72,7 +72,7 @@ export default function BeforeAfterSlider({
     : { top: `${sliderPosition}%`, left: 0, right: 0, height: '2px', width: '100%' };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-muted group/container shadow-2xl">
+    <div className="relative w-full h-full overflow-hidden bg-transparent md:bg-muted group/container shadow-2xl">
       <AnimatePresence mode="wait" custom={direction}>
         <motion.div
           key={caseIndex}
@@ -105,14 +105,14 @@ export default function BeforeAfterSlider({
                 className="object-contain md:object-cover transition-transform duration-1000 md:group-hover/container:scale-[1.02]"
                 priority
               />
-              <div className="absolute top-6 left-6 px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/10 rounded-full">
-                <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">Before</span>
+              <div className="absolute top-4 left-[20%] md:top-6 md:left-6 px-2 py-1 md:px-6 md:py-3 bg-accent/40 backdrop-blur-md border border-white/10 rounded-full">
+                <span className="text-[7px] md:text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">Before</span>
               </div>
             </div>
           </motion.div>
 
           {/* After Image (Static Layer) */}
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 flex items-center justify-center">
             <Image
               src={afterImage}
               alt="After Treatment"
@@ -120,8 +120,8 @@ export default function BeforeAfterSlider({
               className="object-contain md:object-cover transition-transform duration-1000 md:group-hover/container:scale-[1.02]"
               priority
             />
-            <div className="absolute bottom-[20%] left-[10%] px-6 py-3 bg-accent/40 backdrop-blur-md border border-white/20 rounded-full">
-              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">After</span>
+            <div className="absolute bottom-4 left-[20%] md:bottom-6 md:left-6 px-2 py-1 md:px-6 md:py-3 bg-accent/40 backdrop-blur-md border border-white/20 rounded-full">
+              <span className="text-[7px] md:text-[10px] uppercase tracking-[0.4em] font-bold text-white drop-shadow-md">After</span>
             </div>
           </div>
 
@@ -142,11 +142,11 @@ export default function BeforeAfterSlider({
           </motion.div>
 
           {/* Custom Hint Label */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 opacity-0 group-hover/container:opacity-100 transition-opacity">
+          <div className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 z-40 opacity-0 group-hover/container:opacity-100 transition-opacity">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="px-6 py-2 bg-primary/80 backdrop-blur-md border border-primary-foreground/10 rounded-none flex items-center gap-4 whitespace-nowrap"
+              className="px-6 py-2 bg-primary/80 backdrop-blur-md border border-primary-foreground/10 rounded-none items-center gap-4 whitespace-nowrap"
             >
               {orientation === 'horizontal' ? (
                 <>

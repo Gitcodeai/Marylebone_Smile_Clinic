@@ -73,7 +73,7 @@ export default function BeforeAfterGallery() {
   const activeCase = filteredCases[selectedIndex] || filteredCases[0];
 
   return (
-    <section id="before-after" className="bg-background min-h-screen flex flex-col justify-center py-24">
+    <section id="before-after" className="bg-[#F9F6F3] md:bg-background min-h-screen flex flex-col justify-center py-24">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">
@@ -206,7 +206,7 @@ export default function BeforeAfterGallery() {
               key={`portrait-${activeCase?.id}`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="relative aspect-[3/2] md:aspect-[3/4] bg-muted/30 overflow-hidden flex items-center justify-center"
+              className="relative aspect-[3/2] md:aspect-[3/4] bg-transparent md:bg-muted/30 overflow-hidden flex items-center justify-center"
             >
               <Image
                 src={activeCase?.portrait || '/images/case 1.png'}
