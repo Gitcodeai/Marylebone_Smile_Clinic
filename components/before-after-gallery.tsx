@@ -73,28 +73,38 @@ export default function BeforeAfterGallery() {
     <section id="before-after" className="bg-background min-h-screen flex flex-col justify-center py-24">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <motion.div variants={fadeInUp} className="flex flex-col items-center gap-6">
-            <div className="flex items-center gap-4">
-              <div className="h-px w-8 bg-accent/60" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="max-w-2xl"
+          >
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
+              <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-accent antialiased">Transformation Showcase</span>
-              <div className="h-px w-8 bg-accent/60" />
-            </div>
-            <h2 className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight max-w-2xl leading-tight">
+            </motion.div>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight"
+            >
               Evidence of <br /><span className="italic text-accent/80">Silent Perfection.</span>
-            </h2>
-            <p className="text-muted-foreground text-sm uppercase tracking-widest font-light">Explore real patient journeys.</p>
+            </motion.h2>
           </motion.div>
-        </motion.div>
+
+          <motion.p
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right leading-relaxed"
+          >
+            Explore real patient journeys.
+          </motion.p>
+        </div>
 
         {/* Filter Navigation */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-start gap-4 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
