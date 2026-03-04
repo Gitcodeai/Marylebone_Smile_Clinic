@@ -121,9 +121,6 @@ export default function PatientJourney() {
                                 fill
                                 className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                             />
-                            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8 bg-gradient-to-t from-black/80 to-transparent">
-                                <p className="text-[10px] uppercase tracking-[0.3em] text-white font-bold italic">The Private Suite</p>
-                            </div>
                         </div>
                         <div className="space-y-4 sm:space-y-8">
                             <div className="group relative aspect-square overflow-hidden bg-accent/10">
