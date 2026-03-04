@@ -66,16 +66,16 @@ export default function PatientJourney() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="lg:col-span-5 space-y-16"
+                        className="lg:col-span-5 space-y-16 pl-4 lg:pl-0"
                     >
                         {steps.map((step) => (
                             <motion.div
                                 key={step.id}
                                 variants={fadeInUp}
-                                className="group relative flex items-start gap-12 border-l border-border/40 pl-12 lg:pl-16 hover:border-accent transition-all duration-700 pb-4"
+                                className="group relative flex items-start gap-12 border-l border-border/40 pl-28 lg:pl-32 hover:border-accent transition-all duration-700"
                             >
                                 {/* Index Overlay */}
-                                <span className="absolute -left-4 top-0 text-7xl font-serif italic text-accent/5 -z-0 group-hover:text-accent/10 transition-colors">{step.id}</span>
+                                <span className="absolute left-6 top-0 text-7xl font-serif italic text-accent/25 -z-0 group-hover:text-accent/35 transition-colors">{step.id}</span>
 
                                 <div className="relative z-10 space-y-4">
                                     <div className="flex items-center gap-4">

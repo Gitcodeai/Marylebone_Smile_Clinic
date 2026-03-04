@@ -64,25 +64,25 @@ export default function Header() {
     >
       <nav className="w-full px-6 lg:pl-[150px] lg:pr-12 h-20 flex items-center justify-between">
         {/* Logo - Far Left */}
-        <Link href="/" className="flex items-center gap-4 group">
+        <Link href="/" className="flex items-center gap-5 group transition-opacity hover:opacity-90">
           <div className="w-16 h-8 relative flex items-center">
-            <svg viewBox="0 0 100 40" className="w-full h-full text-foreground fill-current">
-              <path d="M0 20 C20 10, 40 30, 60 20 C80 10, 100 30, 100 20 L100 25 C80 35, 60 15, 40 25 C20 35, 0 15, 0 25 Z" className="opacity-80" />
-              <path d="M5 15 C25 5, 45 25, 65 15 C85 5, 105 25, 105 15 L105 18 C85 28, 65 8, 45 18 C25 28, 5 8, 5 18 Z" className="opacity-40" />
+            <svg viewBox="0 0 100 40" className="w-full h-full text-foreground fill-current drop-shadow-sm">
+              <path d="M0 20 C20 10, 40 30, 60 20 C80 10, 100 30, 100 20 L100 25 C80 35, 60 15, 40 25 C20 35, 0 15, 0 25 Z" className="opacity-90" />
+              <path d="M5 15 C25 5, 45 25, 65 15 C85 5, 105 25, 105 15 L105 18 C85 28, 65 8, 45 18 C25 28, 5 8, 5 18 Z" className="opacity-50" />
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="font-sans text-[18px] tracking-[0.25em] text-foreground font-light leading-none uppercase">
+            <span className="font-sans text-[20px] sm:text-[22px] tracking-[0.28em] text-foreground font-light leading-none uppercase antialiased">
               Marylebone
             </span>
-            <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mt-1.5 font-medium">
+            <span className="text-[11px] sm:text-[12px] uppercase tracking-[0.45em] text-foreground/80 mt-2 font-semibold">
               Smile Clinic
             </span>
           </div>
         </Link>
 
         {/* Right Aligned Navigation + CTA */}
-        <div className="flex items-center gap-10 lg:gap-14">
+        <div className="flex items-center gap-10 lg:gap-16">
           {/* Desktop Navigation */}
           <motion.div
             variants={staggerContainer}
@@ -107,8 +107,8 @@ export default function Header() {
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon" className="hover:bg-accent/5">
-                  <Menu className="h-6 w-6 stroke-[1.5]" />
+                <Button variant="ghost" size="icon" className="hover:bg-accent/5 -mr-2">
+                  <Menu className="h-7 w-7 stroke-[1.5] text-foreground" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-full sm:w-[400px] border-l border-border/40 bg-background/95 backdrop-blur-xl">
