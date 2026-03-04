@@ -6,7 +6,9 @@ import Image from 'next/image';
 import BeforeAfterSlider from '@/components/before-after-slider';
 import { staggerContainer, fadeInUp, fadeIn } from '@/lib/animations';
 
-const categories = ['All', 'Veneers', 'Invisalign', 'Whitening', 'Bridges'];
+import { ChevronDown } from 'lucide-react';
+
+const categories = ['Veneers', 'Invisalign', 'Whitening', 'Bridges'];
 
 const caseStudies = [
   {
@@ -57,8 +59,9 @@ const caseStudies = [
 ];
 
 export default function BeforeAfterGallery() {
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState('Veneers');
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const filteredCases = useMemo(() => {
     return filter === 'All'
@@ -83,7 +86,7 @@ export default function BeforeAfterGallery() {
           >
             <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
               <span className="h-[1px] w-12 bg-accent/60" />
-              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-accent antialiased">Transformation Showcase</span>
+              <span className="text-xs uppercase tracking-[0.4em] font-bold text-accent antialiased">Transformation Showcase</span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
@@ -103,13 +106,13 @@ export default function BeforeAfterGallery() {
           </motion.p>
         </div>
 
-        {/* Filter Navigation */}
-        <div className="flex flex-wrap justify-start gap-4 mb-12">
+        {/* Filter Navigation - Desktop */}
+        <div className="hidden md:flex flex-wrap justify-start gap-4 mb-12">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => { setFilter(cat); setSelectedIndex(0); }}
-              className={`px-8 py-3 text-[10px] uppercase tracking-[0.4em] font-bold border transition-all duration-500 rounded-none ${filter === cat
+              className={`px-8 py-3 text-xs uppercase tracking-[0.4em] font-bold border transition-all duration-500 rounded-none ${filter === cat
                 ? 'bg-primary text-primary-foreground border-primary scale-105 shadow-xl'
                 : 'bg-transparent text-muted-foreground border-border/60 hover:border-accent/40 hover:text-accent'
                 }`}
@@ -117,6 +120,53 @@ export default function BeforeAfterGallery() {
               {cat}
             </button>
           ))}
+        </div>
+
+        {/* Filter Navigation - Mobile Dropdown */}
+        <div className="md:hidden relative mb-12 z-40">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-full flex items-center justify-center relative px-6 py-4 bg-background border border-accent/80 text-xs uppercase tracking-[0.4em] font-bold text-foreground transition-all"
+          >
+            <span>{filter}</span>
+            <ChevronDown className={`absolute right-6 w-4 h-4 transition-transform duration-500 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <>
+                {/* Backdrop to close dropdown */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setIsDropdownOpen(false)}
+                  className="fixed inset-0 z-30"
+                />
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="absolute top-full left-0 w-full mt-[3px] bg-background border border-accent/80 shadow-2xl overflow-hidden z-40"
+                >
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setFilter(cat);
+                        setSelectedIndex(0);
+                        setIsDropdownOpen(false);
+                      }}
+                      className={`w-full text-center px-6 py-4 text-xs uppercase tracking-[0.4em] font-bold transition-colors ${filter === cat ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-secondary/50'}`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Main interactive area */}
