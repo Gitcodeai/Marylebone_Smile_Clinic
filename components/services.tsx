@@ -84,12 +84,12 @@ export default function Services() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+    <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-20 lg:py-32 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
-      <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
+      <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20 lg:mb-32">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-12 sm:mb-20 lg:mb-24">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -97,30 +97,39 @@ export default function Services() {
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
               <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Clinical Excellence</span>
             </motion.div>
-            <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+            <motion.h2
+              variants={fadeInUp}
+              className="font-serif text-foreground tracking-tight leading-[1.1]"
+              style={{
+                fontSize: 'clamp(26px, 6vw, 64px)',
+              }}
+            >
               Bespoke Solutions <br /><span className="italic text-accent/80">Tailored to You.</span>
             </motion.h2>
           </motion.div>
 
+          {/* Carousel Arrows */}
           <motion.div
             variants={fadeIn}
             initial="hidden"
             whileInView="visible"
-            className="flex items-center gap-4"
+            className="flex items-center gap-3 sm:gap-4 mt-6 md:mt-0"
           >
             <button
               onClick={scrollPrev}
-              className="w-14 h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group"
+              aria-label="Previous slide"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group min-h-[44px] min-w-[44px]"
             >
               <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             </button>
             <button
               onClick={scrollNext}
-              className="w-14 h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group"
+              aria-label="Next slide"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border border-border/60 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-500 group min-h-[44px] min-w-[44px]"
             >
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
@@ -129,39 +138,39 @@ export default function Services() {
 
         {/* Carousel Content */}
         <div className="embla overflow-hidden" ref={emblaRef}>
-          <div className="embla__container flex">
+          <div className="embla__container flex -ml-4 sm:-ml-6">
             {services.map((service, index) => (
-              <div key={service.id} className="embla__slide flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-6">
+              <div key={service.id} className="embla__slide flex-[0_0_100%] sm:flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-4 sm:pl-6">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.8 }}
-                  className="bg-background border border-border/40 p-10 h-full flex flex-col group hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 relative overflow-hidden"
+                  className="bg-background border border-border/40 p-6 sm:p-8 md:p-10 h-full flex flex-col group hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 relative overflow-hidden"
                 >
                   {/* Subtle Background Icon */}
-                  <service.icon className="absolute -right-8 -bottom-8 w-40 h-40 text-accent/5 rotate-12 transition-transform duration-1000 group-hover:scale-125 group-hover:rotate-0" />
+                  <service.icon className="absolute -right-8 -bottom-8 w-32 sm:w-40 h-32 sm:h-40 text-accent/5 rotate-12 transition-transform duration-1000 group-hover:scale-125 group-hover:rotate-0" />
 
                   <div className="relative z-10 flex flex-col h-full">
-                    <div className="w-12 h-12 bg-accent/10 flex items-center justify-center mb-8 border border-accent/20 group-hover:bg-accent group-hover:text-primary-foreground transition-all duration-500">
-                      <service.icon className="w-5 h-5" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 flex items-center justify-center mb-6 sm:mb-8 border border-accent/20 group-hover:bg-accent group-hover:text-primary-foreground transition-all duration-500">
+                      <service.icon className="w-4 h-4 sm:w-5 h-5" />
                     </div>
 
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-3">{service.tagline}</p>
-                    <h3 className="text-2xl font-serif italic text-foreground mb-6">{service.title}</h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed mb-10 flex-grow">{service.description}</p>
+                    <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-accent font-bold mb-2 sm:mb-3">{service.tagline}</p>
+                    <h3 className="text-xl sm:text-2xl font-serif italic text-foreground mb-4 sm:mb-6">{service.title}</h3>
+                    <p className="text-xs sm:text-sm text-muted-foreground font-light leading-relaxed mb-8 flex-grow">{service.description}</p>
 
-                    <div className="space-y-4 mb-10">
+                    <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
                       {service.features.map(f => (
-                        <div key={f} className="flex items-center gap-3">
+                        <div key={f} className="flex items-center gap-2 sm:gap-3">
                           <CheckIcon />
-                          <span className="text-[10px] uppercase tracking-widest text-foreground/80 font-medium">{f}</span>
+                          <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-foreground/80 font-semibold whitespace-nowrap">{f}</span>
                         </div>
                       ))}
                     </div>
 
-                    <div className="pt-8 border-t border-border/40 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{service.price}</span>
-                      <button className="text-[10px] uppercase tracking-[0.2em] text-foreground font-bold hover:text-accent transition-colors flex items-center gap-2 group/btn">
+                    <div className="pt-6 sm:pt-8 border-t border-border/40 flex items-center justify-between mt-auto">
+                      <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{service.price}</span>
+                      <button className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-foreground font-bold hover:text-accent transition-colors flex items-center gap-2 group/btn">
                         Inquire <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                       </button>
                     </div>
@@ -173,11 +182,11 @@ export default function Services() {
         </div>
 
         {/* Pagination Dots */}
-        <div className="flex justify-center gap-3 mt-16">
-          {services.slice(0, 3).map((_, i) => (
+        <div className="flex justify-center gap-3 mt-12 sm:mt-16">
+          {services.map((_, i) => (
             <div
               key={i}
-              className={`h-[2px] transition-all duration-700 ${i === selectedIndex % 3 ? 'w-12 bg-accent' : 'w-6 bg-border/40'}`}
+              className={`h-[2px] transition-all duration-700 ${i === selectedIndex ? 'w-10 sm:w-12 bg-accent' : 'w-4 sm:w-6 bg-border/40'}`}
             />
           ))}
         </div>

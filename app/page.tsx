@@ -24,7 +24,6 @@ export default function Home() {
       <SocialProof />
       <LeadForm />
       <Footer />
-      <FloatingCTA />
     </main>
   );
 }

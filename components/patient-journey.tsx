@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import Image from 'next/image';
-import { MapPin, Calendar, Camera, Heart, CheckCircle2 } from 'lucide-react';
+import { MapPin, Calendar, Camera, Heart, Sparkles } from 'lucide-react';
 
 const steps = [
     {
@@ -28,10 +28,10 @@ const steps = [
 
 export default function PatientJourney() {
     return (
-        <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30 tracking-tight overflow-hidden">
-            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
+        <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 tracking-tight overflow-hidden">
+            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
                 {/* Section Header */}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20 lg:mb-32">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 lg:mb-24">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
@@ -39,7 +39,7 @@ export default function PatientJourney() {
                         viewport={{ once: true }}
                         className="max-w-2xl"
                     >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
                             <span className="h-[1px] w-12 bg-accent/60" />
                             <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">The Marylebone Standard</span>
                         </motion.div>
@@ -52,56 +52,56 @@ export default function PatientJourney() {
                         variants={fadeInUp}
                         initial="hidden"
                         whileInView="visible"
-                        className="text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right"
+                        className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right leading-relaxed"
                     >
                         Three steps from anticipation to enduring clinical excellence.
                     </motion.p>
                 </div>
 
                 {/* The Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-32 items-start mt-8">
                     {/* Left: Interactive Step Stack */}
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
-                        className="lg:col-span-5 space-y-16 pl-4 lg:pl-0"
+                        viewport={{ once: true, margin: "-100px" }}
+                        className="lg:col-span-5 space-y-12 lg:space-y-16"
                     >
                         {steps.map((step) => (
                             <motion.div
                                 key={step.id}
                                 variants={fadeInUp}
-                                className="group relative flex items-start gap-12 border-l border-border/40 pl-28 lg:pl-32 hover:border-accent transition-all duration-700"
+                                className="group relative flex items-start gap-8 sm:gap-12 border-l border-accent/20 pl-32 sm:pl-44 lg:pl-52 hover:border-accent transition-all duration-700"
                             >
                                 {/* Index Overlay */}
-                                <span className="absolute left-6 top-0 text-7xl font-serif italic text-accent/25 -z-0 group-hover:text-accent/35 transition-colors">{step.id}</span>
+                                <span className="absolute left-6 top-0 text-7xl sm:text-9xl font-serif italic text-accent/15 -z-0 group-hover:text-accent/30 transition-colors leading-none select-none">{step.id}</span>
 
-                                <div className="relative z-10 space-y-4">
+                                <div className="relative z-10 space-y-4 sm:space-y-6">
                                     <div className="flex items-center gap-4">
-                                        <step.icon className="w-5 h-5 text-accent opacity-60 group-hover:opacity-100 transition-opacity" />
-                                        <h3 className="text-2xl font-serif italic text-foreground tracking-tight">{step.title}</h3>
+                                        <step.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent opacity-60 group-hover:opacity-100 transition-opacity" />
+                                        <h3 className="text-xl sm:text-3xl font-serif italic text-foreground tracking-tight leading-none">{step.title}</h3>
                                     </div>
-                                    <p className="text-sm text-muted-foreground font-light leading-relaxed max-w-sm">
+                                    <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed max-w-sm">
                                         {step.description}
                                     </p>
                                 </div>
                             </motion.div>
                         ))}
 
-                        <div className="pt-10">
+                        <div className="pt-8 lg:pt-12">
                             <motion.div
                                 initial={{ scale: 0.98, opacity: 0 }}
                                 whileInView={{ scale: 1, opacity: 1 }}
-                                className="p-8 border border-accent/20 bg-secondary/5 flex items-center justify-between group cursor-pointer hover:bg-secondary/10 transition-colors"
+                                className="p-6 sm:p-10 border border-accent/20 bg-secondary/5 flex items-center justify-between group cursor-pointer hover:bg-secondary/10 transition-all duration-500"
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                             >
                                 <div className="space-y-2">
                                     <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">Priority Status</p>
-                                    <p className="text-sm font-serif italic text-foreground leading-loose">Check Next Available Slot</p>
+                                    <p className="text-sm sm:text-base font-serif italic text-foreground leading-none">Check Next Available Slot</p>
                                 </div>
-                                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <Calendar className="w-5 h-5 text-accent" />
+                                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                                    <Calendar className="w-5 h-5" />
                                 </div>
                             </motion.div>
                         </div>
@@ -112,7 +112,7 @@ export default function PatientJourney() {
                         initial={{ opacity: 0, x: 50, scale: 0.95 }}
                         whileInView={{ opacity: 1, x: 0, scale: 1 }}
                         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="lg:col-span-7 grid grid-cols-2 gap-6 relative"
+                        className="lg:col-span-7 grid grid-cols-2 gap-4 sm:gap-6 relative mt-12 lg:mt-0"
                     >
                         <div className="group relative aspect-[3/4] overflow-hidden translate-y-12">
                             <Image
@@ -121,11 +121,11 @@ export default function PatientJourney() {
                                 fill
                                 className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                             />
-                            <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-                                <p className="text-[9px] uppercase tracking-widest text-white/80 font-bold italic">The Private Suite</p>
+                            <div className="absolute inset-x-0 bottom-0 p-4 sm:p-8 bg-gradient-to-t from-black/80 to-transparent">
+                                <p className="text-[10px] uppercase tracking-[0.3em] text-white font-bold italic">The Private Suite</p>
                             </div>
                         </div>
-                        <div className="space-y-6">
+                        <div className="space-y-4 sm:space-y-8">
                             <div className="group relative aspect-square overflow-hidden bg-accent/10">
                                 <Image
                                     src="/images/clinic-2.png"
@@ -133,7 +133,7 @@ export default function PatientJourney() {
                                     fill
                                     className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />
-                                <div className="absolute inset-0 border-[20px] border-background/20" />
+                                <div className="absolute inset-0 border-[15px] sm:border-[25px] border-background/20" />
                             </div>
                             <div className="group relative aspect-[3/4] overflow-hidden">
                                 <Image
@@ -142,26 +142,15 @@ export default function PatientJourney() {
                                     fill
                                     className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />
-                                <div className="absolute top-6 right-6 flex items-center gap-2 px-3 py-1 bg-background/50 backdrop-blur-md">
-                                    <MapPin className="w-3 h-3 text-accent" />
-                                    <span className="text-[9px] uppercase tracking-widest font-bold">W1, Marylebone</span>
+                                <div className="absolute top-4 sm:top-8 right-4 sm:right-8 flex items-center gap-3 px-4 py-2 bg-background/60 backdrop-blur-md">
+                                    <MapPin className="w-4 h-4 text-accent" />
+                                    <span className="text-[10px] uppercase tracking-widest font-bold">W1, Marylebone</span>
                                 </div>
                             </div>
                         </div>
-
                     </motion.div>
                 </div>
             </div>
         </section>
-    );
-}
-
-function Sparkles({ className }: { className?: string }) {
-    return (
-        <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L14.4 7.2L19.6 9.6L14.4 12L12 17.2L9.6 12L4.4 9.6L9.6 7.2L12 2Z" fill="currentColor" />
-            <path d="M21 15L22 17.5L24.5 18.5L22 19.5L21 22L20 19.5L17.5 18.5L20 17.5L21 15Z" fill="currentColor" />
-            <path d="M4 14L5 16.5L7.5 17.5L5 18.5L4 21L3 18.5L0.5 17.5L3 16.5L4 14Z" fill="currentColor" />
-        </svg>
     );
 }

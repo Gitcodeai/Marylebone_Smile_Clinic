@@ -3,7 +3,6 @@ import { Playfair_Display, Outfit } from 'next/font/google'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
-import { LenisProvider } from '@/components/lenis-provider'
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -46,9 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
       <body className="font-sans antialiased selection:bg-accent/30">
-        <LenisProvider>
-          {children}
-        </LenisProvider>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>
