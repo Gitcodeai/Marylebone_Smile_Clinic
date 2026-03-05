@@ -62,7 +62,7 @@ export default function LeadForm() {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <section id="contact" className="bg-secondary/10 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+    <section id="contact" className="bg-background min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
       <div className="max-w-[1240px] px-6 lg:px-12 mx-auto">
         <motion.div
@@ -74,7 +74,10 @@ export default function LeadForm() {
         >
           <motion.div variants={fadeInUp} className="flex flex-col items-center gap-6">
             <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-accent">Virtual Concierge</span>
-            <h2 className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+            <h2
+              className="font-serif text-foreground tracking-tight leading-[1.1]"
+              style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+            >
               Begin Your <br /><span className="italic text-accent/80">Transformation.</span>
             </h2>
             <p className="text-muted-foreground text-sm uppercase tracking-widest font-light max-w-xl">Our concierge team will guide you through a personalized assessment of your smile goals.</p>
@@ -110,7 +113,7 @@ export default function LeadForm() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-10"
                       >
-                        <div className="space-y-4">
+                        <div className="space-y-4 max-[575px]:text-center">
                           <h3 className="text-2xl font-serif italic text-foreground">Select your primary interest</h3>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest">Which transformation fits your vision?</p>
                         </div>
@@ -141,7 +144,7 @@ export default function LeadForm() {
                           )}
                         />
 
-                        <div className="flex justify-end pt-8">
+                        <div className="flex justify-end pt-8 max-[575px]:justify-center">
                           <Button
                             type="button"
                             onClick={nextStep}
@@ -161,7 +164,7 @@ export default function LeadForm() {
                         exit={{ opacity: 0, x: -20 }}
                         className="space-y-10"
                       >
-                        <div className="space-y-4">
+                        <div className="space-y-4 max-[575px]:text-center">
                           <h3 className="text-2xl font-serif italic text-foreground">A few final details</h3>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest">To provide the most personalized experience.</p>
                         </div>
@@ -172,9 +175,9 @@ export default function LeadForm() {
                             name="name"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Full Name</FormLabel>
+                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Full Name</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                                  <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -185,9 +188,9 @@ export default function LeadForm() {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Priority Email</FormLabel>
+                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Priority Email</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                                  <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -200,9 +203,9 @@ export default function LeadForm() {
                           name="phone"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Preferred Contact Number</FormLabel>
+                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Preferred Contact Number</FormLabel>
                               <FormControl>
-                                <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                                <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -214,11 +217,11 @@ export default function LeadForm() {
                           name="message"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Your Vision (Optional)</FormLabel>
+                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Your Vision (Optional)</FormLabel>
                               <FormControl>
                                 <Textarea
                                   placeholder="Describe the smile you've always imagined..."
-                                  className="bg-transparent border border-border/60 rounded-none focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm"
+                                  className="bg-transparent border border-border/60 rounded-none focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm max-[575px]:text-center"
                                   {...field}
                                 />
                               </FormControl>
@@ -227,11 +230,11 @@ export default function LeadForm() {
                           )}
                         />
 
-                        <div className="flex items-center justify-between pt-10 border-t border-border/40">
+                        <div className="flex items-center justify-between pt-10 border-t border-border/40 max-[575px]:flex-col max-[575px]:gap-6">
                           <button
                             type="button"
                             onClick={prevStep}
-                            className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-muted-foreground hover:text-foreground transition-colors"
+                            className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-muted-foreground hover:text-foreground transition-colors max-[575px]:justify-center max-[575px]:w-full"
                           >
                             <ArrowLeft className="w-3 h-3" /> Back
                           </button>

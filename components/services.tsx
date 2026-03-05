@@ -84,7 +84,7 @@ export default function Services() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-20 lg:py-32 relative overflow-hidden">
+    <section id="services" className="bg-background min-h-screen flex flex-col justify-center py-20 lg:py-32 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
@@ -95,15 +95,15 @@ export default function Services() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="max-w-2xl"
+            className="max-w-2xl max-[575px]:flex max-[575px]:flex-col max-[575px]:items-center max-[575px]:w-full"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8 max-[575px]:justify-center">
               <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Clinical Excellence</span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="font-serif text-foreground tracking-tight leading-[1.1]"
+              className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
               style={{
                 fontSize: 'clamp(26px, 6vw, 64px)',
               }}
@@ -117,7 +117,7 @@ export default function Services() {
             variants={fadeIn}
             initial="hidden"
             whileInView="visible"
-            className="flex items-center gap-3 sm:gap-4 mt-[19px] md:mt-0"
+            className="flex items-center gap-3 sm:gap-4 mt-[19px] md:mt-0 max-[575px]:w-full max-[575px]:justify-center"
           >
             <button
               onClick={scrollPrev}
@@ -150,7 +150,7 @@ export default function Services() {
                   {/* Subtle Background Icon */}
                   <service.icon className="absolute -right-8 -bottom-8 w-32 sm:w-40 h-32 sm:h-40 text-accent/5 rotate-12 transition-transform duration-1000 group-hover:scale-125 group-hover:rotate-0" />
 
-                  <div className="relative z-10 flex flex-col h-full">
+                  <div className="relative z-10 flex flex-col h-full max-[575px]:items-center max-[575px]:text-center">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-accent/10 flex items-center justify-center mb-6 sm:mb-8 border border-accent/20 group-hover:bg-accent group-hover:text-primary-foreground transition-all duration-500">
                       <service.icon className="w-4 h-4 sm:w-5 h-5" />
                     </div>
@@ -159,18 +159,18 @@ export default function Services() {
                     <h3 className="text-xl sm:text-2xl font-serif italic text-foreground mb-4 sm:mb-6">{service.title}</h3>
                     <p className="text-xs sm:text-sm text-muted-foreground font-light leading-relaxed mb-8 flex-grow">{service.description}</p>
 
-                    <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
+                    <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10 max-[575px]:flex max-[575px]:flex-col max-[575px]:items-center max-[575px]:w-full">
                       {service.features.map(f => (
-                        <div key={f} className="flex items-center gap-2 sm:gap-3">
+                        <div key={f} className="flex items-center gap-2 sm:gap-3 max-[575px]:justify-center max-[575px]:w-full">
                           <CheckIcon />
                           <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-foreground/80 font-semibold whitespace-nowrap">{f}</span>
                         </div>
                       ))}
                     </div>
 
-                    <div className="pt-6 sm:pt-8 border-t border-border/40 flex items-center justify-between mt-auto">
+                    <div className="pt-6 sm:pt-8 border-t border-border/40 flex max-[575px]:flex-col items-center justify-between mt-auto gap-4 max-[575px]:w-full max-[575px]:justify-center">
                       <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-muted-foreground font-bold">{service.price}</span>
-                      <button className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-foreground font-bold hover:text-accent transition-colors flex items-center gap-2 group/btn">
+                      <button className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-foreground font-bold hover:text-accent transition-colors flex items-center gap-2 group/btn max-[575px]:justify-center">
                         Inquire <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform" />
                       </button>
                     </div>

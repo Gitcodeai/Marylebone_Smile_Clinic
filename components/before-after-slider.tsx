@@ -63,6 +63,23 @@ export default function BeforeAfterSlider({
     if (isDragging) handleMove(e.touches[0].clientX, e.touches[0].clientY);
   };
 
+  // Prevent page scroll while dragging on touch devices
+  // Must use a native DOM listener with { passive: false } — React synthetic events cannot preventDefault on touch
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const preventScroll = (e: globalThis.TouchEvent) => {
+      if (isDragging) {
+        e.preventDefault();
+        if (e.touches[0]) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    el.addEventListener('touchmove', preventScroll, { passive: false });
+    return () => el.removeEventListener('touchmove', preventScroll);
+  }, [isDragging]);
+
   const clipPathStyle = orientation === 'horizontal'
     ? { clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }
     : { clipPath: `inset(0 0 ${100 - sliderPosition}% 0)` };

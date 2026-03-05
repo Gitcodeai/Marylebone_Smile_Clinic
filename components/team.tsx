@@ -49,7 +49,11 @@ export default function Team() {
               <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Our Experts</span>
             </motion.div>
-            <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+            <motion.h2
+              variants={fadeInUp}
+              className="font-serif text-foreground tracking-tight leading-[1.1]"
+              style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+            >
               Crafted by <br /><span className="italic text-accent/80">Masters of the Smile.</span>
             </motion.h2>
           </motion.div>
@@ -76,33 +80,48 @@ export default function Team() {
             <motion.div
               key={member.id}
               variants={fadeInUp}
-              className="group flex flex-col items-start space-y-8"
+              className="group"
             >
-              {/* Image Container with Elegant Mask */}
-              <div className="relative w-full aspect-[4/5] overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000">
-                <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors z-10" />
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover scale-100 group-hover:scale-105 transition-transform duration-1000"
-                />
-
+              {/* Mobile (xs/sm): Centered layout */}
+              <div className="md:hidden flex flex-col items-center text-center">
+                <div className="relative w-[100px] h-[100px] mb-6 overflow-hidden transition-all duration-1000 flex-shrink-0">
+                  <div className="absolute inset-0 bg-accent/10 hover:bg-transparent transition-colors z-10" />
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="space-y-3 flex flex-col items-center">
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-serif text-foreground italic">{member.name}</h3>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">{member.role}</p>
+                  </div>
+                  <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-medium pb-2 border-b border-border/40 inline-block">{member.credentials}</p>
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed pt-2">{member.bio}</p>
+                </div>
               </div>
 
-              {/* Text Content */}
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <h3 className="text-2xl font-serif text-foreground italic">{member.name}</h3>
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">{member.role}</p>
+              {/* Desktop (md+): Vertical stack layout */}
+              <div className="hidden md:flex flex-col items-start space-y-8">
+                <div className="relative w-full aspect-[4/5] overflow-hidden transition-all duration-1000">
+                  <div className="absolute inset-0 bg-accent/10 group-hover:bg-transparent transition-colors z-10" />
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover scale-100 group-hover:scale-105 transition-transform duration-1000"
+                  />
                 </div>
-
-                <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-medium pb-2 border-b border-border/40 inline-block">{member.credentials}</p>
-
-                <p className="text-sm text-muted-foreground font-light leading-relaxed pt-2">
-                  {member.bio}
-                </p>
-
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-serif text-foreground italic">{member.name}</h3>
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">{member.role}</p>
+                  </div>
+                  <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-medium pb-2 border-b border-border/40 inline-block">{member.credentials}</p>
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed pt-2">{member.bio}</p>
+                </div>
               </div>
             </motion.div>
           ))}

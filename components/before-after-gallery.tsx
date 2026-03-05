@@ -73,7 +73,7 @@ export default function BeforeAfterGallery() {
   const activeCase = filteredCases[selectedIndex] || filteredCases[0];
 
   return (
-    <section id="before-after" className="bg-[#F9F6F3] md:bg-background min-h-screen flex flex-col justify-center py-24">
+    <section id="before-after" className="bg-secondary/20 min-h-screen flex flex-col justify-center pt-24 pb-[15px] md:py-24">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">
@@ -82,15 +82,16 @@ export default function BeforeAfterGallery() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="max-w-2xl"
+            className="max-w-2xl max-[575px]:w-full"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8 max-[575px]:justify-center">
               <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-xs uppercase tracking-[0.4em] font-bold text-accent antialiased">Transformation Showcase</span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight"
+              className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
+              style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
             >
               Evidence of <br /><span className="italic text-accent/80">Silent Perfection.</span>
             </motion.h2>
@@ -100,7 +101,7 @@ export default function BeforeAfterGallery() {
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
-            className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right leading-relaxed"
+            className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right leading-relaxed max-[575px]:text-center"
           >
             Explore real patient journeys.
           </motion.p>
@@ -126,7 +127,7 @@ export default function BeforeAfterGallery() {
         <div className="md:hidden relative mb-12 z-40">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full flex items-center justify-center relative px-6 py-4 bg-background border border-accent/80 text-xs uppercase tracking-[0.4em] font-bold text-foreground transition-all"
+            className="w-full flex items-center justify-center relative px-6 pb-4 pt-[11px] bg-background border border-accent/80 text-xs uppercase tracking-[0.4em] font-bold text-foreground transition-all"
           >
             <span>{filter}</span>
             <ChevronDown className={`absolute right-6 w-4 h-4 transition-transform duration-500 ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -177,14 +178,14 @@ export default function BeforeAfterGallery() {
             initial="hidden"
             animate="visible"
             key={filter} // Re-animate on filter change
-            className="lg:col-span-3 order-3 lg:order-1 grid grid-cols-5 lg:grid-cols-2 gap-4 h-fit"
+            className="lg:col-span-3 order-3 lg:order-1 flex max-[575px]:flex-wrap max-[575px]:justify-center sm:grid sm:grid-cols-5 lg:grid-cols-2 gap-4 h-fit"
           >
             {filteredCases.map((caseStudy, idx) => (
               <motion.button
                 key={caseStudy.id}
                 variants={fadeInUp}
                 onClick={() => setSelectedIndex(idx)}
-                className={`relative aspect-square overflow-hidden group transition-all duration-700 ${selectedIndex === idx
+                className={`relative aspect-square overflow-hidden group transition-all duration-700 max-[575px]:w-16 max-[575px]:flex-shrink-0 ${selectedIndex === idx
                   ? 'ring-1 ring-accent/60 ring-offset-4'
                   : 'grayscale opacity-40 hover:grayscale-0 hover:opacity-100'
                   }`}
@@ -199,46 +200,47 @@ export default function BeforeAfterGallery() {
             ))}
           </motion.div>
 
-          {/* Center/Right: The Main Stage (Portrait + Vertical Slider) */}
-          <div className="lg:col-span-9 order-1 lg:order-2 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-            {/* Patient Portrait */}
-            <motion.div
-              key={`portrait-${activeCase?.id}`}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="relative aspect-[3/2] md:aspect-[3/4] bg-transparent md:bg-muted/30 overflow-hidden flex items-center justify-center"
-            >
-              <Image
-                src={activeCase?.portrait || '/images/case 1.png'}
-                alt="Patient Portrait"
-                fill
-                className="object-contain md:object-cover"
-                priority
-              />
-            </motion.div>
+          {/* Center/Right: The Main Stage (Portrait + Vertical Slider) + Case Details inline below */}
+          <div className="lg:col-span-9 order-1 lg:order-2 flex flex-col">
+            {/* Images row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+              {/* Patient Portrait */}
+              <motion.div
+                key={`portrait-${activeCase?.id}`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="relative aspect-[3/2] md:aspect-[3/4] bg-transparent md:bg-muted/30 overflow-hidden flex items-center justify-center"
+              >
+                <Image
+                  src={activeCase?.portrait || '/images/case 1.png'}
+                  alt="Patient Portrait"
+                  fill
+                  className="object-contain md:object-cover"
+                  priority
+                />
+              </motion.div>
 
-            {/* Vertical Slider */}
-            <div className="relative aspect-[3/2] md:aspect-[3/4] flex items-center justify-center">
-              <BeforeAfterSlider
-                key={`slider-${activeCase?.id}`}
-                caseIndex={activeCase?.id}
-                beforeImage={activeCase?.before}
-                afterImage={activeCase?.after}
-                orientation="vertical"
-              />
+              {/* Vertical Slider */}
+              <div className="relative aspect-[3/2] md:aspect-[3/4] flex items-center justify-center">
+                <BeforeAfterSlider
+                  key={`slider-${activeCase?.id}`}
+                  caseIndex={activeCase?.id}
+                  beforeImage={activeCase?.before}
+                  afterImage={activeCase?.after}
+                  orientation="vertical"
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Details below the main stage */}
-          <div className="lg:col-span-9 lg:col-start-4 order-2 lg:order-3">
+            {/* Case Details — directly below images with 7px gap on mobile, 10px on md+ */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               key={activeCase?.id}
-              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-8 border-t border-border/40"
+              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-8 border-t border-border/40 mt-[7px] md:mt-[10px]"
             >
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
+              <div className="space-y-4 max-[575px]:text-center">
+                <div className="flex items-center gap-3 max-[575px]:justify-center">
                   <span className="text-[10px] uppercase tracking-widest text-accent font-bold px-3 py-1 border border-accent/20">{activeCase?.category}</span>
                   <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Patient Study #{activeCase?.id}</span>
                 </div>
@@ -246,7 +248,7 @@ export default function BeforeAfterGallery() {
                 <p className="text-sm text-muted-foreground font-light max-w-lg leading-relaxed">{activeCase?.description}</p>
               </div>
 
-              <div className="flex flex-col items-start lg:items-end border-l lg:border-l-0 lg:border-r border-accent/20 pl-6 lg:pl-0 lg:pr-6 whitespace-nowrap">
+              <div className="flex flex-col items-start lg:items-end border-l lg:border-l-0 lg:border-r border-accent/20 pl-6 lg:pl-0 lg:pr-6 whitespace-nowrap max-[575px]:border-l-0 max-[575px]:pl-0 max-[575px]:items-center">
                 <p className="text-[10px] uppercase tracking-widest text-foreground font-bold mb-2">Duration</p>
                 <p className="text-sm font-serif italic text-muted-foreground">Approx. 4-6 Weeks</p>
               </div>

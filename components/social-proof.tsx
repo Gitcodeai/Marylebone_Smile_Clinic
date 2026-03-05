@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
@@ -44,11 +44,13 @@ const testimonials = [
 export default function SocialProof() {
     const [emblaRef, emblaApi] = useEmblaCarousel({
         loop: true,
-        align: 'center',
-        skipSnaps: false
+        align: 'start',
+        skipSnaps: false,
+        slidesToScroll: 1,
     });
 
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
     const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -58,14 +60,23 @@ export default function SocialProof() {
         setSelectedIndex(emblaApi.selectedScrollSnap());
     }, [emblaApi]);
 
+    // Auto-scroll every 4 seconds
     useEffect(() => {
         if (!emblaApi) return;
         onSelect();
         emblaApi.on('select', onSelect);
+
+        autoplayRef.current = setInterval(() => {
+            emblaApi.scrollNext();
+        }, 4000);
+
+        return () => {
+            if (autoplayRef.current) clearInterval(autoplayRef.current);
+        };
     }, [emblaApi, onSelect]);
 
     return (
-        <section id="testimonials" className="bg-background min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+        <section id="testimonials" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
@@ -79,11 +90,15 @@ export default function SocialProof() {
                         viewport={{ once: true }}
                         className="lg:col-span-8"
                     >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8 max-[575px]:justify-center">
                             <span className="h-[1px] w-12 bg-accent/60" />
                             <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Patient Voice</span>
                         </motion.div>
-                        <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
+                        <motion.h2
+                            variants={fadeInUp}
+                            className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
+                            style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+                        >
                             Testimony of <br /><span className="italic text-accent/80">Refined Confidence.</span>
                         </motion.h2>
                     </motion.div>
@@ -92,7 +107,7 @@ export default function SocialProof() {
                         variants={fadeIn}
                         initial="hidden"
                         whileInView="visible"
-                        className="lg:col-span-4 flex flex-col items-start lg:items-end gap-6"
+                        className="lg:col-span-4 flex flex-col items-start lg:items-end gap-6 max-[575px]:items-center"
                     >
                         <div className="flex items-center gap-6">
                             <div className="flex flex-col items-start lg:items-end">
@@ -103,31 +118,33 @@ export default function SocialProof() {
                                     <Star className="w-4 h-4 fill-accent text-accent" />
                                     <Star className="w-4 h-4 fill-accent text-accent" />
                                 </div>
-                                <span className="text-[10px] uppercase tracking-widest font-bold text-foreground">5.0 Based on 240+ Reviews</span>
+                                <span className="text-[10px] uppercase tracking-[0.1em] sm:tracking-widest font-bold text-foreground max-[575px]:text-center">5.0 Based on 240+ Reviews</span>
                             </div>
                             <div className="h-10 w-px bg-border/60" />
                             <div className="w-12 h-12 rounded-full border border-accent/20 flex items-center justify-center p-2">
                                 <span className="text-xl font-serif italic text-accent">G</span>
                             </div>
                         </div>
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground italic lg:text-right border-l lg:border-l-0 lg:border-r border-accent/30 pl-6 lg:pl-0 lg:pr-6">
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground italic lg:text-right border-l lg:border-l-0 lg:border-r border-accent/30 pl-6 lg:pl-0 lg:pr-6 max-[575px]:border-l-0 max-[575px]:pl-0 max-[575px]:text-center">
                             "Discreet appointments available for high-profile clients."
                         </p>
                     </motion.div>
                 </div>
 
-                {/* Testimonial Carousel */}
+                {/* Testimonial Carousel — 1 card xs, 2 sm, 3 md, 4 lg/xl */}
+                {/* On xs: use simple px wrapper to avoid overflow clipping */}
                 <div className="embla overflow-hidden" ref={emblaRef}>
-                    <div className="embla__container flex">
+                    <div className="embla__container flex pl-0 -ml-0 sm:-ml-5">
                         {testimonials.map((t) => (
-                            <div key={t.id} className="embla__slide flex-[0_0_100%] md:flex-[0_0_80%] lg:flex-[0_0_50%] min-w-0 px-6">
-                                <motion.div
-                                    className="bg-secondary/5 border border-border/40 p-12 lg:p-16 relative group"
-                                >
-                                    <Quote className="absolute top-10 right-10 w-16 h-16 text-accent/5 -z-0" />
+                            <div
+                                key={t.id}
+                                className="embla__slide min-w-0 pr-4 sm:pr-0 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
+                            >
+                                <div className="bg-secondary/20 border border-border/60 p-6 sm:p-8 lg:p-10 relative group h-full">
+                                    <Quote className="absolute top-6 right-6 w-8 h-8 sm:top-8 sm:right-8 sm:w-12 sm:h-12 text-accent/8 -z-0" />
 
                                     <div className="relative z-10">
-                                        <div className="flex items-center gap-1 mb-8 opacity-40 group-hover:opacity-100 transition-opacity duration-700">
+                                        <div className="flex items-center gap-1 mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-700 max-[575px]:justify-center">
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                             <Star className="w-3 h-3 fill-accent text-accent" />
@@ -135,12 +152,12 @@ export default function SocialProof() {
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                         </div>
 
-                                        <blockquote className="text-xl lg:text-2xl font-serif italic text-foreground leading-[1.6] mb-12">
+                                        <blockquote className="text-sm sm:text-base lg:text-lg font-serif italic text-foreground leading-[1.6] mb-8 max-[575px]:text-center">
                                             "{t.content}"
                                         </blockquote>
 
-                                        <div className="pt-8 border-t border-border/40 flex items-center justify-between">
-                                            <div className="space-y-1">
+                                        <div className="pt-6 border-t border-border/40 flex items-center justify-between max-[575px]:flex-col max-[575px]:items-center max-[575px]:gap-3">
+                                            <div className="space-y-1 max-[575px]:text-center">
                                                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground">{t.name}</p>
                                                 <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-light">{t.role}</p>
                                             </div>
@@ -150,7 +167,7 @@ export default function SocialProof() {
                                             </div>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             </div>
                         ))}
                     </div>
