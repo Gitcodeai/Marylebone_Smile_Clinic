@@ -76,7 +76,7 @@ export default function SocialProof() {
     }, [emblaApi, onSelect]);
 
     return (
-        <section id="testimonials" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+        <section id="testimonials" className="bg-background min-h-screen flex flex-col justify-center py-24 overflow-hidden relative selection:bg-accent/30">
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
@@ -133,17 +133,17 @@ export default function SocialProof() {
 
                 {/* Testimonial Carousel — 1 card xs, 2 sm, 3 md, 4 lg/xl */}
                 <div className="embla overflow-hidden" ref={emblaRef}>
-                    <div className="embla__container flex -ml-4 sm:-ml-5">
+                    <div className="embla__container flex -ml-0 sm:-ml-5">
                         {testimonials.map((t) => (
                             <div
                                 key={t.id}
-                                className="embla__slide min-w-0 pl-4 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
+                                className="embla__slide min-w-0 pr-4 sm:pr-0 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
                             >
                                 <div className="bg-secondary/20 border border-border/60 p-5 sm:p-8 lg:p-10 relative group h-full">
                                     <Quote className="absolute top-4 right-4 w-6 h-6 sm:top-8 sm:right-8 sm:w-12 sm:h-12 text-accent/8 -z-0" />
 
                                     <div className="relative z-10">
-                                        <div className="flex items-center gap-1 mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-700 max-[575px]:justify-center">
+                                        <div className="flex items-center gap-1 mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-700">
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                             <Star className="w-3 h-3 fill-accent text-accent" />
@@ -151,12 +151,12 @@ export default function SocialProof() {
                                             <Star className="w-3 h-3 fill-accent text-accent" />
                                         </div>
 
-                                        <blockquote className="text-sm sm:text-base lg:text-lg font-serif italic text-foreground leading-[1.6] mb-8 max-[575px]:text-center">
+                                        <blockquote className="text-sm sm:text-base lg:text-lg font-serif italic text-foreground leading-[1.6] mb-8">
                                             "{t.content}"
                                         </blockquote>
 
-                                        <div className="pt-6 border-t border-border/40 flex items-center justify-between max-[575px]:flex-col max-[575px]:items-center max-[575px]:gap-3">
-                                            <div className="space-y-1 max-[575px]:text-center">
+                                        <div className="pt-6 border-t border-border/40 flex items-center justify-between max-[575px]:flex-col max-[575px]:items-start max-[575px]:gap-3">
+                                            <div className="space-y-1">
                                                 <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground">{t.name}</p>
                                                 <p className="text-[9px] uppercase tracking-widest text-muted-foreground font-light">{t.role}</p>
                                             </div>

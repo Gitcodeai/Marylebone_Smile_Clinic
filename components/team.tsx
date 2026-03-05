@@ -34,7 +34,7 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="bg-background min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30">
+    <section id="team" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30">
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
@@ -43,15 +43,15 @@ export default function Team() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="max-w-2xl"
+            className="max-w-2xl max-[575px]:flex max-[575px]:flex-col max-[575px]:items-center max-[575px]:text-center"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8 max-[575px]:justify-center">
               <span className="h-[1px] w-12 bg-accent/60" />
               <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Our Experts</span>
             </motion.div>
             <motion.h2
               variants={fadeInUp}
-              className="font-serif text-foreground tracking-tight leading-[1.1]"
+              className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
               style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
             >
               Crafted by <br /><span className="italic text-accent/80">Masters of the Smile.</span>
@@ -62,7 +62,7 @@ export default function Team() {
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
-            className="text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right"
+            className="text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right max-[575px]:text-center"
           >
             Our clinicians are hand-picked for their clinical depth and aesthetic sensitivity.
           </motion.p>
@@ -82,9 +82,9 @@ export default function Team() {
               variants={fadeInUp}
               className="group"
             >
-              {/* Mobile (xs/sm): Centered layout */}
-              <div className="md:hidden flex flex-col items-center text-center">
-                <div className="relative w-[100px] h-[100px] mb-6 overflow-hidden transition-all duration-1000 flex-shrink-0">
+              {/* Mobile (xs/sm): Float layout vertically centered next to text, with rest flowing under */}
+              <div className="md:hidden clearfix text-left">
+                <div className="float-left mr-4 mb-3 relative w-[100px] h-[100px] overflow-hidden transition-all duration-1000 flex-shrink-0">
                   <div className="absolute inset-0 bg-accent/10 hover:bg-transparent transition-colors z-10" />
                   <Image
                     src={member.image}
@@ -93,7 +93,7 @@ export default function Team() {
                     className="object-cover"
                   />
                 </div>
-                <div className="space-y-3 flex flex-col items-center">
+                <div className="space-y-2">
                   <div className="space-y-1">
                     <h3 className="text-2xl font-serif text-foreground italic">{member.name}</h3>
                     <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">{member.role}</p>

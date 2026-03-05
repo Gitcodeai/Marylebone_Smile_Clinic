@@ -73,7 +73,7 @@ export default function BeforeAfterGallery() {
   const activeCase = filteredCases[selectedIndex] || filteredCases[0];
 
   return (
-    <section id="before-after" className="bg-secondary/20 min-h-screen flex flex-col justify-center pt-24 pb-[15px] md:py-24">
+    <section id="before-after" className="bg-background min-h-screen flex flex-col pt-32 pb-24 lg:pt-40 lg:pb-32 selection:bg-accent/30">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">

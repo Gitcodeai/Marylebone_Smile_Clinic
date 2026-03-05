@@ -80,7 +80,7 @@ export default function PatientJourney() {
     });
 
     return (
-        <section id="journey" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 tracking-tight overflow-hidden">
+        <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-24 border-t border-border/40 relative">
             <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 lg:mb-24">

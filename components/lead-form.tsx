@@ -62,7 +62,7 @@ export default function LeadForm() {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <section id="contact" className="bg-background min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+    <section id="contact" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
       <div className="max-w-[1240px] px-6 lg:px-12 mx-auto">
         <motion.div
