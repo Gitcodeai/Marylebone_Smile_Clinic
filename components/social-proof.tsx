@@ -132,16 +132,15 @@ export default function SocialProof() {
                 </div>
 
                 {/* Testimonial Carousel — 1 card xs, 2 sm, 3 md, 4 lg/xl */}
-                {/* On xs: use simple px wrapper to avoid overflow clipping */}
                 <div className="embla overflow-hidden" ref={emblaRef}>
-                    <div className="embla__container flex pl-0 -ml-0 sm:-ml-5">
+                    <div className="embla__container flex -ml-4 sm:-ml-5">
                         {testimonials.map((t) => (
                             <div
                                 key={t.id}
-                                className="embla__slide min-w-0 pr-4 sm:pr-0 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
+                                className="embla__slide min-w-0 pl-4 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
                             >
-                                <div className="bg-secondary/20 border border-border/60 p-6 sm:p-8 lg:p-10 relative group h-full">
-                                    <Quote className="absolute top-6 right-6 w-8 h-8 sm:top-8 sm:right-8 sm:w-12 sm:h-12 text-accent/8 -z-0" />
+                                <div className="bg-secondary/20 border border-border/60 p-5 sm:p-8 lg:p-10 relative group h-full">
+                                    <Quote className="absolute top-4 right-4 w-6 h-6 sm:top-8 sm:right-8 sm:w-12 sm:h-12 text-accent/8 -z-0" />
 
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-1 mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-700 max-[575px]:justify-center">
