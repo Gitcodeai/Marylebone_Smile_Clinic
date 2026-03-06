@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import { createPageMetadata } from './metadata.config';
 import Header from '@/components/header';
 import Hero from '@/components/hero';
 import PatientJourney from '@/components/patient-journey';
@@ -8,6 +10,10 @@ import SocialProof from '@/components/social-proof';
 import LeadForm from '@/components/lead-form';
 import FloatingCTA from '@/components/floating-cta';
 import Footer from '@/components/footer';
+
+export const generateMetadata = (): Metadata => {
+  return createPageMetadata();
+};
 
 export default function Home() {
   return (
@@ -27,3 +33,4 @@ export default function Home() {
     </main>
   );
 }
+
