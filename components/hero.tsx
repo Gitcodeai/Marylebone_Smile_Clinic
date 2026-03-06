@@ -23,7 +23,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 py-20 lg:py-32 flex items-center">
+      <div className="relative z-20 w-full max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20 py-20 lg:py-32 flex items-center">
         <motion.div
           variants={staggerContainer}
           initial="hidden"

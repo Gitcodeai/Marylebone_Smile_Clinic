@@ -62,7 +62,8 @@ export default function Header() {
       variants={fadeIn}
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
     >
-      <nav className="w-full px-6 lg:pl-[150px] lg:pr-12 h-20 flex items-center justify-between">
+      <nav className="w-full h-20 flex items-center">
+        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
         {/* Logo - Far Left */}
         <Link href="/" className="flex items-center gap-5 group transition-opacity hover:opacity-90">
           <div className="w-16 h-8 relative flex items-center">
@@ -134,6 +135,7 @@ export default function Header() {
               </SheetContent>
             </Sheet>
           </div>
+        </div>
         </div>
       </nav>
     </motion.header>

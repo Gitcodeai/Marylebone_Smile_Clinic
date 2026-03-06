@@ -72,6 +72,12 @@ export default function BeforeAfterGallery() {
   // Adjust selected index if filtering changes the list
   const activeCase = filteredCases[selectedIndex] || filteredCases[0];
 
+  // Use stable IDs (not filtered indices) so labels remain correct when filtering.
+  const caseLabelsById: Record<number, string> = {
+    1: 'Full mouth makeover',
+    2: 'Case 2',
+  };
+
   return (
     <section id="before-after" className="bg-background min-h-screen flex flex-col pt-32 pb-24 lg:pt-40 lg:pb-32 selection:bg-accent/30">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
@@ -172,36 +178,32 @@ export default function BeforeAfterGallery() {
 
         {/* Main interactive area */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          {/* Left: Thumbnail Grid */}
+          {/* Left: Case selection - vertical stack of rectangles */}
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
             key={filter} // Re-animate on filter change
-            className="lg:col-span-3 order-3 lg:order-1 flex max-[575px]:flex-wrap max-[575px]:justify-center sm:grid sm:grid-cols-5 lg:grid-cols-2 gap-4 h-fit"
+            className="lg:col-span-3 order-1 lg:order-1 flex flex-col gap-3 w-full"
           >
             {filteredCases.map((caseStudy, idx) => (
               <motion.button
                 key={caseStudy.id}
                 variants={fadeInUp}
                 onClick={() => setSelectedIndex(idx)}
-                className={`relative aspect-square overflow-hidden group transition-all duration-700 max-[575px]:w-16 max-[575px]:flex-shrink-0 ${selectedIndex === idx
-                  ? 'ring-1 ring-accent/60 ring-offset-4'
-                  : 'grayscale opacity-40 hover:grayscale-0 hover:opacity-100'
-                  }`}
+                className={`w-full min-h-[56px] px-6 py-4 text-left text-xs uppercase tracking-widest font-bold border transition-all duration-500 rounded-none flex items-center justify-start ${
+                  selectedIndex === idx
+                    ? 'border-accent/60 bg-accent/5 text-foreground'
+                    : 'border-border/40 bg-secondary/10 text-muted-foreground hover:border-accent/30 hover:bg-secondary/20 hover:text-foreground'
+                }`}
               >
-                <div className="absolute inset-0 bg-accent/5 z-0" />
-                <div className="absolute inset-0 flex items-center justify-center border border-border/40 text-[9px] uppercase tracking-widest font-bold z-10 transition-colors group-hover:text-accent">
-                  Case {idx + 1}
-                </div>
-                {/* Image Placeholder Reveal */}
-                <div className="absolute inset-0 bg-secondary/20 z-0 transition-transform duration-500 group-hover:scale-110" />
+                {caseLabelsById[caseStudy.id] ?? `Case ${caseStudy.id}`}
               </motion.button>
             ))}
           </motion.div>
 
           {/* Center/Right: The Main Stage (Portrait + Vertical Slider) + Case Details inline below */}
-          <div className="lg:col-span-9 order-1 lg:order-2 flex flex-col">
+          <div className="lg:col-span-9 order-2 lg:order-2 flex flex-col">
             {/* Images row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
               {/* Patient Portrait */}
