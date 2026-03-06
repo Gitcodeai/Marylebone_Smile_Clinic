@@ -51,6 +51,7 @@ export default function SocialProof() {
 
     const [selectedIndex, setSelectedIndex] = useState(0);
     const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const AUTOPLAY_DELAY_MS = 4000;
 
     const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
     const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -60,27 +61,74 @@ export default function SocialProof() {
         setSelectedIndex(emblaApi.selectedScrollSnap());
     }, [emblaApi]);
 
-    // Auto-scroll every 4 seconds
+    const stopAutoplay = useCallback(() => {
+        if (autoplayRef.current) {
+            clearInterval(autoplayRef.current);
+            autoplayRef.current = null;
+        }
+    }, []);
+
+    const startAutoplay = useCallback(() => {
+        if (!emblaApi) return;
+        if (autoplayRef.current) return;
+        autoplayRef.current = setInterval(() => {
+            emblaApi.scrollNext();
+        }, AUTOPLAY_DELAY_MS);
+    }, [emblaApi]);
+
+    const onCardPointerEnter = useCallback(
+        (e: React.PointerEvent) => {
+            if (e.pointerType === 'mouse') stopAutoplay();
+        },
+        [stopAutoplay]
+    );
+
+    const onCardPointerLeave = useCallback(
+        (e: React.PointerEvent) => {
+            if (e.pointerType === 'mouse') startAutoplay();
+        },
+        [startAutoplay]
+    );
+
+    const onCardPointerDown = useCallback(
+        (e: React.PointerEvent) => {
+            if (e.pointerType !== 'mouse') stopAutoplay();
+        },
+        [stopAutoplay]
+    );
+
+    const onCardPointerUp = useCallback(() => {
+        startAutoplay();
+    }, [startAutoplay]);
+
+    const onCardPointerCancel = useCallback(() => {
+        startAutoplay();
+    }, [startAutoplay]);
+
+    // Auto-scroll
     useEffect(() => {
         if (!emblaApi) return;
         onSelect();
         emblaApi.on('select', onSelect);
 
-        autoplayRef.current = setInterval(() => {
-            emblaApi.scrollNext();
-        }, 4000);
+        startAutoplay();
+        emblaApi.on('pointerDown', stopAutoplay);
+        emblaApi.on('pointerUp', startAutoplay);
 
         return () => {
-            if (autoplayRef.current) clearInterval(autoplayRef.current);
+            stopAutoplay();
         };
-    }, [emblaApi, onSelect]);
+    }, [emblaApi, onSelect, startAutoplay, stopAutoplay]);
 
     return (
-        <section id="testimonials" className="bg-background min-h-screen flex flex-col justify-center py-24 overflow-hidden relative selection:bg-accent/30">
+        <section
+            id="testimonials"
+            className="bg-background min-h-[100dvh] flex flex-col justify-start lg:justify-center py-12 md:py-24 overflow-x-hidden relative selection:bg-accent/30"
+        >
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
-            <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
+            <div className="max-w-[1600px] px-4 sm:px-6 lg:px-12 xl:px-16 mx-auto w-full">
                 {/* Section Header */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-24 items-end">
                     <motion.div
@@ -97,7 +145,7 @@ export default function SocialProof() {
                         <motion.h2
                             variants={fadeInUp}
                             className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
-                            style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+                            style={{ fontSize: 'clamp(22px, 6vw, 64px)' }}
                         >
                             Testimony of <br /><span className="italic text-accent/80">Refined Confidence.</span>
                         </motion.h2>
@@ -139,7 +187,14 @@ export default function SocialProof() {
                                 key={t.id}
                                 className="embla__slide min-w-0 pr-4 sm:pr-0 sm:pl-5 flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_25%]"
                             >
-                                <div className="bg-secondary/20 border border-border/60 p-5 sm:p-8 lg:p-10 relative group h-full">
+                                <div
+                                    className="bg-secondary/20 border border-border/60 p-5 sm:p-8 lg:p-10 relative group h-full"
+                                    onPointerEnter={onCardPointerEnter}
+                                    onPointerLeave={onCardPointerLeave}
+                                    onPointerDown={onCardPointerDown}
+                                    onPointerUp={onCardPointerUp}
+                                    onPointerCancel={onCardPointerCancel}
+                                >
                                     <Quote className="absolute top-4 right-4 w-6 h-6 sm:top-8 sm:right-8 sm:w-12 sm:h-12 text-accent/8 -z-0" />
 
                                     <div className="relative z-10">

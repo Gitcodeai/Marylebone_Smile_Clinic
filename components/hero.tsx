@@ -104,7 +104,7 @@ export default function Hero() {
           {/* CTA Group */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col sm:flex-row items-center gap-8 sm:gap-14 mt-12 sm:mt-16"
+            className="flex flex-col items-center md:flex-row md:items-center md:justify-start gap-6 md:gap-12 mt-12 sm:mt-16"
           >
             <Button
               size="lg"
@@ -115,34 +115,29 @@ export default function Hero() {
               <ArrowRight className="ml-3 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
 
+            <div className="w-full md:w-auto flex flex-col items-center md:items-start">
+              <button
+                onClick={() => document.getElementById('before-after')?.scrollIntoView({ behavior: 'smooth' })}
+                className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold text-foreground/60 hover:text-accent transition-all relative group py-2 text-center md:text-left"
+              >
+                Explore Transformations
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-[1.5px] bg-accent transition-all duration-500 group-hover:w-full" />
+              </button>
+
+              <motion.div
+                aria-hidden="true"
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                className="text-accent/60 md:hidden mt-1"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M7 13l5 5 5-5" />
+                </svg>
+              </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Explore Transformations / Scroll Indicator */}
-      <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2"
-      >
-        <button
-          onClick={() => document.getElementById('before-after')?.scrollIntoView({ behavior: 'smooth' })}
-          className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold text-foreground/60 hover:text-accent transition-all relative group py-2"
-        >
-          Explore Transformations
-          <span className="absolute bottom-0 left-0 w-8 h-[1.5px] bg-accent transition-all duration-500 group-hover:w-full" />
-        </button>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-          className="text-accent/60"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M7 13l5 5 5-5" />
-          </svg>
-        </motion.div>
-      </motion.div>
 
       {/* Decorative Orbs */}
       <div className="absolute -right-1/4 top-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
