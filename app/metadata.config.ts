@@ -5,7 +5,7 @@ export const siteConfig = {
   defaultTitle: 'Marylebone Smile Clinic | Cosmetic & Family Dentistry London',
   description:
     'Premium cosmetic dentistry in Marylebone. Discreet, expert smile transformations. Book your consultation today.',
-  url: 'https://marylebone-smile.com',
+  url: 'https://marylebone-smile-clinic-cpml.vercel.app',
   locale: 'en-GB',
   ogLocale: 'en_GB',
   defaultOgImage: '/og-home.jpg',
