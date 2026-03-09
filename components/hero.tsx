@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-[100vw] h-[100vh] flex items-center bg-background overflow-hidden pt-12 md:pt-16">
+    <section id="hero" className="relative w-[100vw] h-[100vh] flex items-center bg-background overflow-hidden pt-0 md:pt-4">
       {/* Background Cinematic Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
@@ -23,7 +23,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-12 lg:py-20">
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-4 lg:py-8">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -31,12 +31,7 @@ export default function Hero() {
           className="w-full lg:max-w-4xl"
         >
           {/* Top Label */}
-          <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
-            <span className="h-[1px] w-12 bg-accent/60" />
-            <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-semibold text-accent antialiased">
-              London's Premier Cosmetic Dental Studio
-            </span>
-          </motion.div>
+
 
           {/* Main Headline */}
           <motion.h1
@@ -57,7 +52,7 @@ export default function Hero() {
             variants={fadeInUp}
             className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl font-sans font-light tracking-wide"
           >
-            Experience world-class dental care with stunning, natural-looking results, nestled in the heart of London.
+            Discreet, expert-led transformations in the heart of Marylebone. Experience a new standard of dental care where clinical excellence meets quiet luxury.
           </motion.p>
 
           {/* Key Features/Social Proof */}
@@ -106,7 +101,7 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="w-full sm:w-auto sm:min-w-[280px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-8 py-5 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
+              className="w-full sm:w-auto sm:min-w-[340px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Start a Free E-Consultation
