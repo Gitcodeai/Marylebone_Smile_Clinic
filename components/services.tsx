@@ -84,7 +84,7 @@ export default function Services() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 overflow-hidden">
+    <section id="services" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
@@ -105,7 +105,7 @@ export default function Services() {
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
               style={{
-                fontSize: 'clamp(26px, 6vw, 64px)',
+                fontSize: 'clamp(26px, 6vw, 60px)',
               }}
             >
               Bespoke Solutions <br /><span className="italic text-accent/80">Tailored to You.</span>

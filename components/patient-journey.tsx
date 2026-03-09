@@ -80,7 +80,7 @@ export default function PatientJourney() {
     });
 
     return (
-        <section id="journey" className="bg-background min-h-screen flex flex-col justify-center py-24 border-t border-border/40 relative">
+        <section id="journey" className="bg-background min-h-screen w-[100vw] flex flex-col justify-center py-24 border-t border-border/40 relative overflow-x-hidden">
             <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 lg:mb-24">
@@ -98,7 +98,7 @@ export default function PatientJourney() {
                         <motion.h2
                             variants={fadeInUp}
                             className="font-serif text-foreground tracking-tight leading-[1.1]"
-                            style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+                            style={{ fontSize: 'clamp(26px, 6vw, 60px)' }}
                         >
                             An Architectural <br /><span className="italic text-accent/80">Journey to Perfection.</span>
                         </motion.h2>

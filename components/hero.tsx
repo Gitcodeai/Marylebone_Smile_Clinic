@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen lg:max-h-[950px] xl:max-h-[1000px] flex items-center bg-background overflow-hidden pt-20">
+    <section id="hero" className="relative w-[100vw] h-[100vh] flex items-center bg-background overflow-hidden pt-12 md:pt-16">
       {/* Background Cinematic Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
@@ -23,7 +23,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20 py-20 lg:py-32 flex items-center">
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-12 lg:py-20">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -43,7 +43,7 @@ export default function Hero() {
             variants={fadeInUp}
             className="font-serif text-foreground tracking-tight mb-8 sm:mb-10"
             style={{
-              fontSize: 'clamp(36px, 7.5vw, 84px)',
+              fontSize: 'clamp(36px, 7.5vw, 78px)',
               lineHeight: '1.05',
               letterSpacing: '-0.02em'
             }}
@@ -55,11 +55,9 @@ export default function Hero() {
           {/* Subheadline */}
           <motion.p
             variants={fadeInUp}
-            className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl font-sans font-light tracking-wide"
+            className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl font-sans font-light tracking-wide"
           >
-            Discreet, expert-led transformations in the heart of Marylebone.
-            Experience a new standard of dental care where clinical excellence
-            meets quiet luxury.
+            Experience world-class dental care with stunning, natural-looking results, nestled in the heart of London.
           </motion.p>
 
           {/* Key Features/Social Proof */}
@@ -108,7 +106,7 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="w-full sm:w-auto sm:min-w-[340px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-2xl px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
+              className="w-full sm:w-auto sm:min-w-[280px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-8 py-5 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Start a Free E-Consultation

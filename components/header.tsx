@@ -63,7 +63,7 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40"
     >
       <nav className="w-full h-20 flex items-center">
-        <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20 flex items-center justify-between">
+        <div className="w-full max-w-screen-2xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Logo - Far Left */}
         <Link href="/" className="flex items-center gap-5 group transition-opacity hover:opacity-90">
           <div className="w-16 h-8 relative flex items-center">
@@ -87,7 +87,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <motion.div
             variants={staggerContainer}
-            className="hidden md:flex items-center gap-8 lg:gap-10"
+            className="hidden lg:flex items-center gap-8 lg:gap-10"
           >
             {navLinks.map((link) => (
               <motion.div key={link.href} variants={fadeIn}>
@@ -107,7 +107,7 @@ export default function Header() {
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild className="md:hidden">
+              <SheetTrigger asChild className="lg:hidden">
                 <Button variant="ghost" size="icon" className="hover:bg-accent/5 -mr-2">
                   <Menu className="h-7 w-7 stroke-[1.5] text-foreground" />
                 </Button>

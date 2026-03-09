@@ -123,7 +123,7 @@ export default function SocialProof() {
     return (
         <section
             id="testimonials"
-            className="bg-background min-h-[100dvh] flex flex-col justify-start lg:justify-center py-12 md:py-24 overflow-x-hidden relative selection:bg-accent/30"
+            className="bg-background min-h-[100dvh] w-[100vw] flex flex-col justify-start lg:justify-center py-12 md:py-24 overflow-x-hidden relative selection:bg-accent/30"
         >
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
@@ -145,7 +145,7 @@ export default function SocialProof() {
                         <motion.h2
                             variants={fadeInUp}
                             className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
-                            style={{ fontSize: 'clamp(22px, 6vw, 64px)' }}
+                            style={{ fontSize: 'clamp(22px, 6vw, 60px)' }}
                         >
                             Testimony of <br /><span className="italic text-accent/80">Refined Confidence.</span>
                         </motion.h2>

@@ -79,7 +79,7 @@ export default function BeforeAfterGallery() {
   };
 
   return (
-    <section id="before-after" className="bg-background min-h-screen flex flex-col pt-32 pb-24 lg:pt-40 lg:pb-32 selection:bg-accent/30">
+    <section id="before-after" className="bg-background min-h-screen w-[100vw] flex flex-col pt-32 pb-24 lg:pt-40 lg:pb-32 selection:bg-accent/30 overflow-x-hidden">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">
@@ -97,7 +97,7 @@ export default function BeforeAfterGallery() {
             <motion.h2
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
-              style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+              style={{ fontSize: 'clamp(26px, 6vw, 60px)' }}
             >
               Evidence of <br /><span className="italic text-accent/80">Silent Perfection.</span>
             </motion.h2>
@@ -191,11 +191,10 @@ export default function BeforeAfterGallery() {
                 key={caseStudy.id}
                 variants={fadeInUp}
                 onClick={() => setSelectedIndex(idx)}
-                className={`w-full min-h-[56px] px-6 py-4 text-left text-xs uppercase tracking-widest font-bold border transition-all duration-500 rounded-none flex items-center justify-start ${
-                  selectedIndex === idx
+                className={`w-full min-h-[56px] px-6 py-4 text-left text-xs uppercase tracking-widest font-bold border transition-all duration-500 rounded-none flex items-center justify-start ${selectedIndex === idx
                     ? 'border-accent/60 bg-accent/5 text-foreground'
                     : 'border-border/40 bg-secondary/10 text-muted-foreground hover:border-accent/30 hover:bg-secondary/20 hover:text-foreground'
-                }`}
+                  }`}
               >
                 {caseLabelsById[caseStudy.id] ?? `Case ${caseStudy.id}`}
               </motion.button>

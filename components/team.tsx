@@ -34,7 +34,7 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 selection:bg-accent/30">
+    <section id="team" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-24 selection:bg-accent/30 overflow-x-hidden">
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
@@ -52,7 +52,7 @@ export default function Team() {
             <motion.h2
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
-              style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
+              style={{ fontSize: 'clamp(26px, 6vw, 60px)' }}
             >
               Crafted by <br /><span className="italic text-accent/80">Masters of the Smile.</span>
             </motion.h2>
