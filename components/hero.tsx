@@ -8,7 +8,7 @@ import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-[100vw] h-[100vh] flex items-center bg-background overflow-hidden pt-0 md:pt-4">
+    <section id="hero" className="relative w-[100vw] min-h-[100vh] h-auto lg:h-[100vh] flex items-center bg-background overflow-hidden pt-20">
       {/* Background Cinematic Image */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
@@ -23,7 +23,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-4 lg:py-8">
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-20 lg:py-32">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -97,7 +97,7 @@ export default function Hero() {
           {/* CTA Group */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col items-center md:flex-row md:items-center md:justify-start gap-6 md:gap-12 mt-12 sm:mt-16"
+            className="flex flex-col items-center md:flex-row md:items-center md:justify-start gap-6 md:gap-12 mt-10 sm:mt-16"
           >
             <Button
               size="lg"
