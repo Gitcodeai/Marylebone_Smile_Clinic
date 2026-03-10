@@ -39,6 +39,38 @@ const testimonials = [
         location: 'Chelsea, London',
         rating: 5,
     },
+    {
+        id: 5,
+        name: 'Sarah Jenkins',
+        role: 'Gallery Director',
+        content: "The 3D preview changed everything for me. Seeing the proposed 'after' before a single tooth was touched gave me total confidence in the process.",
+        location: 'Richmond, London',
+        rating: 5,
+    },
+    {
+        id: 6,
+        name: 'David Montgomery',
+        role: 'Executive Producer',
+        content: "Hardly feels like a clinic. The environment is serene, and the team operates with a level of precision you won't find anywhere else in London.",
+        location: 'Belgravia, London',
+        rating: 5,
+    },
+    {
+        id: 7,
+        name: 'Emma Richardson',
+        role: 'Senior Designer',
+        content: "A life-changing investment. I finally have the 'signature smile' I’ve wanted for years, delivered with absolute clinical excellence.",
+        location: 'Notting Hill, London',
+        rating: 5,
+    },
+    {
+        id: 8,
+        name: 'Robert Chen',
+        role: 'Venture Partner',
+        content: "Everything is tailored. They didn't just give me generic white teeth; they designed a smile that actually fits my face and personality perfectly",
+        location: "St. John's Wood, London",
+        rating: 5,
+    },
 ];
 
 export default function SocialProof() {
