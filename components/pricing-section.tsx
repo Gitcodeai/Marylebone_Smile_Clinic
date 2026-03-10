@@ -42,11 +42,11 @@ const plans = [
 
 export default function PricingSection() {
     return (
-        <section id="pricing" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+        <section id="pricing" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
 
             <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-12 lg:mb-16">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
@@ -54,10 +54,7 @@ export default function PricingSection() {
                         viewport={{ once: true }}
                         className="max-w-2xl"
                     >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
-                            <span className="h-[1px] w-12 bg-accent/60" />
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Transparent Pricing</span>
-                        </motion.div>
+
                         <motion.h2 variants={fadeInUp} className="text-4xl sm:text-6xl font-serif text-foreground tracking-tight leading-tight">
                             An Investment in <br /><span className="italic text-accent/80">Lasting Radiance.</span>
                         </motion.h2>

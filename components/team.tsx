@@ -34,10 +34,10 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-24 selection:bg-accent/30 overflow-x-hidden">
+    <section id="team" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-16 selection:bg-accent/30 overflow-x-hidden">
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-24 lg:mb-32">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-12 lg:mb-16">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -45,10 +45,7 @@ export default function Team() {
             viewport={{ once: true }}
             className="max-w-2xl max-[575px]:flex max-[575px]:flex-col max-[575px]:items-center max-[575px]:text-center"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8 max-[575px]:justify-center">
-              <span className="h-[1px] w-12 bg-accent/60" />
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Our Experts</span>
-            </motion.div>
+
             <motion.h2
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"

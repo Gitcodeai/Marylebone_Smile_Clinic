@@ -62,7 +62,7 @@ export default function LeadForm() {
   const prevStep = () => setStep(step - 1);
 
   return (
-    <section id="contact" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
+    <section id="contact" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10" />
       <div className="max-w-[1240px] px-6 lg:px-12 mx-auto">
         <motion.div
@@ -70,10 +70,10 @@ export default function LeadForm() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
           <motion.div variants={fadeInUp} className="flex flex-col items-center gap-6">
-            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-accent">Virtual Concierge</span>
+
             <h2
               className="font-serif text-foreground tracking-tight leading-[1.1]"
               style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}

@@ -123,14 +123,14 @@ export default function SocialProof() {
     return (
         <section
             id="testimonials"
-            className="bg-background min-h-[100dvh] w-[100vw] flex flex-col justify-start lg:justify-center py-12 md:py-24 overflow-x-hidden relative selection:bg-accent/30"
+            className="bg-background min-h-[100dvh] w-[100vw] flex flex-col justify-start lg:justify-center py-10 md:py-16 overflow-x-hidden relative selection:bg-accent/30"
         >
             {/* Background radial accent */}
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
             <div className="max-w-[1600px] px-4 sm:px-6 lg:px-12 xl:px-16 mx-auto w-full">
                 {/* Section Header */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-24 items-end">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-12 items-end">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
@@ -138,10 +138,7 @@ export default function SocialProof() {
                         viewport={{ once: true }}
                         className="lg:col-span-8"
                     >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8 max-[575px]:justify-center">
-                            <span className="h-[1px] w-12 bg-accent/60" />
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Patient Voice</span>
-                        </motion.div>
+
                         <motion.h2
                             variants={fadeInUp}
                             className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"

@@ -79,10 +79,10 @@ export default function BeforeAfterGallery() {
   };
 
   return (
-    <section id="before-after" className="bg-background min-h-screen w-[100vw] flex flex-col pt-32 pb-24 lg:pt-40 lg:pb-32 selection:bg-accent/30 overflow-x-hidden">
+    <section id="before-after" className="bg-background min-h-screen w-[100vw] flex flex-col pt-16 pb-20 lg:pt-20 lg:pb-32 selection:bg-accent/30 overflow-x-hidden">
       <div className="max-w-[1600px] px-6 lg:px-12 w-full mx-auto">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 lg:mb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10 lg:mb-12">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -90,10 +90,7 @@ export default function BeforeAfterGallery() {
             viewport={{ once: true }}
             className="max-w-2xl max-[575px]:w-full"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8 max-[575px]:justify-center">
-              <span className="h-[1px] w-12 bg-accent/60" />
-              <span className="text-xs uppercase tracking-[0.4em] font-bold text-accent antialiased">Transformation Showcase</span>
-            </motion.div>
+
             <motion.h2
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"
@@ -192,8 +189,8 @@ export default function BeforeAfterGallery() {
                 variants={fadeInUp}
                 onClick={() => setSelectedIndex(idx)}
                 className={`w-full min-h-[56px] px-6 py-4 text-left text-xs uppercase tracking-widest font-bold border transition-all duration-500 rounded-none flex items-center justify-start ${selectedIndex === idx
-                    ? 'border-accent/60 bg-accent/5 text-foreground'
-                    : 'border-border/40 bg-secondary/10 text-muted-foreground hover:border-accent/30 hover:bg-secondary/20 hover:text-foreground'
+                  ? 'border-accent/60 bg-accent/5 text-foreground'
+                  : 'border-border/40 bg-secondary/10 text-muted-foreground hover:border-accent/30 hover:bg-secondary/20 hover:text-foreground'
                   }`}
               >
                 {caseLabelsById[caseStudy.id] ?? `Case ${caseStudy.id}`}
@@ -238,17 +235,12 @@ export default function BeforeAfterGallery() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               key={activeCase?.id}
-              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-8 border-t border-border/40 mt-[7px] md:mt-[10px]"
+              className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pt-5 border-t border-border/40 mt-3 md:mt-4"
             >
               <div className="space-y-4 max-[575px]:text-center">
-                <div className="flex items-center gap-3 max-[575px]:justify-center">
-                  <span className="text-[10px] uppercase tracking-widest text-accent font-bold px-3 py-1 border border-accent/20">{activeCase?.category}</span>
-                  <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">Patient Study #{activeCase?.id}</span>
-                </div>
                 <h3 className="text-3xl font-serif text-foreground italic">{activeCase?.title}</h3>
                 <p className="text-sm text-muted-foreground font-light max-w-lg leading-relaxed">{activeCase?.description}</p>
               </div>
-
               <div className="flex flex-col items-start lg:items-end border-l lg:border-l-0 lg:border-r border-accent/20 pl-6 lg:pl-0 lg:pr-6 whitespace-nowrap max-[575px]:border-l-0 max-[575px]:pl-0 max-[575px]:items-center">
                 <p className="text-[10px] uppercase tracking-widest text-foreground font-bold mb-2">Duration</p>
                 <p className="text-sm font-serif italic text-muted-foreground">Approx. 4-6 Weeks</p>

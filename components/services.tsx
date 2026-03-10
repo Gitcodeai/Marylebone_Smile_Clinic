@@ -84,12 +84,12 @@ export default function Services() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="services" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-20 lg:py-32 selection:bg-accent/30 overflow-hidden">
+    <section id="services" className="bg-secondary/20 min-h-screen w-[100vw] flex flex-col justify-center py-16 lg:py-24 selection:bg-accent/30 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
 
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-[43px] sm:mb-20 lg:mb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 sm:gap-10 mb-10 sm:mb-12 lg:mb-16">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -97,10 +97,7 @@ export default function Services() {
             viewport={{ once: true }}
             className="max-w-2xl max-[575px]:flex max-[575px]:flex-col max-[575px]:items-center max-[575px]:w-full"
           >
-            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8 max-[575px]:justify-center">
-              <span className="h-[1px] w-12 bg-accent/60" />
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">Clinical Excellence</span>
-            </motion.div>
+
             <motion.h2
               variants={fadeInUp}
               className="font-serif text-foreground tracking-tight leading-[1.1] max-[575px]:text-center"

@@ -80,10 +80,10 @@ export default function PatientJourney() {
     });
 
     return (
-        <section id="journey" className="bg-background min-h-screen w-[100vw] flex flex-col justify-center py-24 border-t border-border/40 relative overflow-x-hidden">
+        <section id="journey" className="bg-background min-h-screen w-[100vw] flex flex-col justify-center py-16 border-t border-border/40 relative overflow-x-hidden">
             <div className="max-w-[1600px] px-6 lg:px-12 mx-auto w-full">
                 {/* Section Header */}
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 lg:mb-24">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-10 lg:mb-12">
                     <motion.div
                         variants={staggerContainer}
                         initial="hidden"
@@ -91,10 +91,7 @@ export default function PatientJourney() {
                         viewport={{ once: true }}
                         className="max-w-2xl"
                     >
-                        <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-6 sm:mb-8">
-                            <span className="h-[1px] w-12 bg-accent/60" />
-                            <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent">The Marylebone Standard</span>
-                        </motion.div>
+
                         <motion.h2
                             variants={fadeInUp}
                             className="font-serif text-foreground tracking-tight leading-[1.1]"
