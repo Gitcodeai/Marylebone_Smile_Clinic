@@ -5,21 +5,37 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import BeforeAfterSlider from '@/components/before-after-slider';
 import { staggerContainer, fadeInUp, fadeIn } from '@/lib/animations';
-
 import { ChevronDown } from 'lucide-react';
 
 const categories = ['Veneers', 'Invisalign', 'Whitening', 'Bridges'];
 
-const caseStudies = [
-  {
-    id: 1,
+type CaseStudy = {
+  id: number;
+  category: string;
+  title: string;
+  description: string;
+  before: string;
+  after: string;
+  portrait: string;
+  label?: string;
+};
+
+const caseStudies: CaseStudy[] = [
+  ...[
+    "Veneers London", "Clip in Veneers", "Full Mouth Makeover", "Single Tooth Veneer Cost",
+    "Replacement Veneers", "Non-Invasive Veneers", "Bottom Teeth Veneers", "Veneers for Narrow Smiles",
+    "Veneers for Worn Teeth", "Veneers for Chipped Teeth", "Veneers for Underbites", "Veneers for Overbites",
+    "Veneers for Peg Laterals", "Veneers for Crooked Teeth", "Veneers for Missing Teeth", "Veneers for Gaps in Teeth"
+  ].map((label, index) => ({
+    id: 10 + index,
     category: 'Veneers',
-    title: 'Precision Porcelain Veneers',
-    description: '10 Hand-crafted porcelain veneers for a natural, effortless aesthetic.',
+    title: label,
+    description: `Discover how our bespoke ${label.toLowerCase()} approach can completely transform your smile with precision and elegance.`,
     before: '/images/before.png',
     after: '/images/after.png',
     portrait: '/images/case 1.png',
-  },
+    label: label,
+  })),
   {
     id: 2,
     category: 'Invisalign',
@@ -46,15 +62,6 @@ const caseStudies = [
     before: '/images/before.png',
     after: '/images/after.png',
     portrait: '/images/case 1.png',
-  },
-  {
-    id: 5,
-    category: 'Veneers',
-    title: 'The Signature Smile Makeover',
-    description: 'Complete smile reconstruction focusing on facial symmetry.',
-    before: '/images/before.png',
-    after: '/images/after.png',
-    portrait: '/images/case 1.png',
   }
 ];
 
@@ -74,8 +81,9 @@ export default function BeforeAfterGallery() {
 
   // Use stable IDs (not filtered indices) so labels remain correct when filtering.
   const caseLabelsById: Record<number, string> = {
-    1: 'Full mouth makeover',
     2: 'Case 2',
+    3: 'Case 3',
+    4: 'Case 4',
   };
 
   return (
@@ -193,7 +201,7 @@ export default function BeforeAfterGallery() {
                   : 'border-border/40 bg-secondary/10 text-muted-foreground hover:border-accent/30 hover:bg-secondary/20 hover:text-foreground'
                   }`}
               >
-                {caseLabelsById[caseStudy.id] ?? `Case ${caseStudy.id}`}
+                {caseStudy.label ?? caseLabelsById[caseStudy.id] ?? `Case ${caseStudy.id}`}
               </motion.button>
             ))}
           </motion.div>
