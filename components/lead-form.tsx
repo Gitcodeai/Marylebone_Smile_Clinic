@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { fadeIn, fadeInUp, staggerContainer } from '@/lib/animations';
-import { Check, ArrowRight, ArrowLeft, Sparkles, ShieldCheck, Zap } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Sparkles, ShieldCheck, Zap, X } from 'lucide-react';
 
 const treatments = [
   'Signature Veneers',
@@ -244,10 +244,23 @@ export default function LeadForm() {
                                             alt="Smile Preview"
                                             className="w-full h-full object-cover"
                                           />
-                                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
-                                          </div>
+                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2 items-center justify-center">
+                                          <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
                                         </div>
+                                        <button
+                                          type="button"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            field.onChange(null);
+                                            const input = document.getElementById('smile-upload') as HTMLInputElement;
+                                            if (input) input.value = '';
+                                          }}
+                                          className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+                                          title="Remove Photo"
+                                        >
+                                          <X className="w-3.5 h-3.5" />
+                                        </button>
+                                      </div>
                                       ) : (
                                         <>
                                           <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
