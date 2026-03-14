@@ -41,6 +41,7 @@ export default function LeadForm() {
       phone: '',
       interest: '',
       message: '',
+      image: null,
     },
   });
 
@@ -162,73 +163,125 @@ export default function LeadForm() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        className="space-y-10"
+                        className="space-y-12"
                       >
                         <div className="space-y-4 max-[575px]:text-center">
                           <h3 className="text-2xl font-serif italic text-foreground">A few final details</h3>
                           <p className="text-xs text-muted-foreground uppercase tracking-widest">To provide the most personalized experience.</p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="flex flex-col gap-10">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <FormField
+                              control={form.control}
+                              name="name"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Full Name</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                            <FormField
+                              control={form.control}
+                              name="email"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Priority Email</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+
                           <FormField
                             control={form.control}
-                            name="name"
+                            name="phone"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Full Name</FormLabel>
+                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Preferred Contact Number</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
+                                  <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
+
+                          {/* Smile Upload Section */}
                           <FormField
                             control={form.control}
-                            name="email"
+                            name="image"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Priority Email</FormLabel>
+                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">PREVIEW YOUR POTENTIAL</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
+                                  <div
+                                    className="relative group cursor-pointer"
+                                    onClick={() => document.getElementById('smile-upload')?.click()}
+                                  >
+                                    <input
+                                      id="smile-upload"
+                                      type="file"
+                                      className="hidden"
+                                      accept="image/*"
+                                      onChange={(e) => {
+                                        const file = e.target.files?.[0];
+                                        if (file) field.onChange(file);
+                                      }}
+                                    />
+                                    <div className="border-2 border-dashed border-border/60 aspect-square w-full max-w-[240px] mx-auto md:mx-0 flex flex-col items-center justify-center gap-4 transition-all duration-500 group-hover:border-accent/40 group-hover:bg-accent/5">
+                                      {field.value ? (
+                                        <div className="relative w-full h-full p-2">
+                                          <img
+                                            src={URL.createObjectURL(field.value)}
+                                            alt="Smile Preview"
+                                            className="w-full h-full object-cover"
+                                          />
+                                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <>
+                                          <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                            <Sparkles className="w-5 h-5 text-accent/60" />
+                                          </div>
+                                          <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-medium">Upload your smile photo</p>
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name="message"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Your Vision (Optional)</FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    placeholder="Describe the smile you've always imagined..."
+                                    className="bg-transparent border border-border/60 rounded-none focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm max-[575px]:text-center"
+                                    {...field}
+                                  />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
                             )}
                           />
                         </div>
-
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Preferred Contact Number</FormLabel>
-                              <FormControl>
-                                <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="message"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Your Vision (Optional)</FormLabel>
-                              <FormControl>
-                                <Textarea
-                                  placeholder="Describe the smile you've always imagined..."
-                                  className="bg-transparent border border-border/60 rounded-none focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm max-[575px]:text-center"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
 
                         <div className="flex items-center justify-between pt-10 border-t border-border/40 max-[575px]:flex-col max-[575px]:gap-6">
                           <button
