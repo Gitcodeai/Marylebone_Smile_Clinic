@@ -10,48 +10,192 @@ import { fadeIn, fadeInUp, staggerContainer } from '@/lib/animations';
 const services = [
   {
     id: 1,
-    title: 'Signature Veneers',
-    tagline: 'The Ultimate Smile Expression',
-    description: 'Hand-crafted porcelain veneers designed to harmonize with your facial features and skin tone for a natural, radiant look.',
-    icon: Sparkles,
-    price: 'From £850 per tooth',
-    features: ['Hand-layered ceramic', '0.3mm minimal prep', '10-Year Guarantee']
+    title: 'Cosmetic Consultation(s)',
+    tagline: 'Expert Assessment',
+    description: 'A comprehensive evaluation of your smile and aspirations to outline a bespoke treatment journey tailored to you.',
+    icon: Heart,
+    price: '£150',
+    features: ['Finance is available', 'Personalized care', 'Expert clinicians']
   },
   {
     id: 2,
-    title: 'Invisalign® Elite',
-    tagline: 'Discreet Orthodontic Mastery',
-    description: 'Virtually invisible aligners custom-modeled to refine your occlusion and smile line without the compromise of traditional braces.',
-    icon: Layout,
-    price: 'Packages from £3,200',
-    features: ['iTero 5D scanning', 'Weekly refinements', 'Free whitening included']
+    title: 'Ceramics',
+    tagline: 'Feather-Edge, Contact-Lens, Ultra-Thin',
+    description: 'Elite ceramic restorations crafted to flawlessly mimic the translucency and strength of natural enamel.',
+    icon: Star,
+    price: 'From £995 per tooth',
+    features: ['Finance is available', 'Ultra-thin profile', 'Natural aesthetics']
   },
   {
     id: 3,
-    title: 'Laser Whitening',
-    tagline: 'Instant Luminosity',
-    description: 'Advanced laser technology combined with professional-grade gels to lift deep stains in a single, comfortable 90-minute session.',
-    icon: Zap,
-    price: 'Express from £495',
-    features: ['Zero sensitivity tech', 'Immediate results', 'At-home maintenance kit']
+    title: 'Porcelain/Ceramic Veneers',
+    tagline: 'Signature Enhancements',
+    description: 'Hand-crafted veneers designed to harmonize with your facial features and skin tone for a radiant look.',
+    icon: Sparkles,
+    price: 'From £995 per tooth',
+    features: ['Finance is available', 'Hand-layered ceramic', 'Minimal prep']
   },
   {
     id: 4,
-    title: 'Bespoke Implants',
-    tagline: 'Foundation of Confidence',
-    description: 'Leading-edge titanium and zirconia implants that feel, look, and function exactly like your natural teeth.',
+    title: 'Porcelain/Ceramic Crowns',
+    tagline: 'Structural Integrity',
+    description: 'Durable, highly aesthetic crowns that restore the natural form, function, and appearance of damaged teeth.',
     icon: ShieldCheck,
-    price: 'Consultation required',
-    features: ['3D CBCT planning', 'Swiss-made hardware', 'Lifetime structural warranty']
+    price: 'From £995 per tooth',
+    features: ['Finance is available', 'Optimal strength', 'Flawless integration']
   },
   {
     id: 5,
-    title: 'Facial Aesthetics',
-    tagline: 'Choreographed Harmony',
-    description: 'Subtle, clinical enhancements to complement your dental transformation and frame your new smile perfectly.',
+    title: 'Composite Bonding',
+    tagline: 'Artistic Contouring',
+    description: 'A minimally invasive procedure using premium composite resin to sculpt and perfect your natural smile.',
+    icon: Layout,
+    price: 'From £495 per tooth',
+    features: ['Finance is available', 'Same-day results', 'No-drill technique']
+  },
+  {
+    id: 6,
+    title: 'Teeth Straightening – Invisalign',
+    tagline: 'Discreet Correction',
+    description: 'Virtually invisible aligners custom-modeled to refine your occlusion without the compromise of traditional braces.',
+    icon: Heart,
+    price: 'From £3995',
+    features: ['Finance is available', 'iTero 3D scanning', 'Removable convenience']
+  },
+  {
+    id: 7,
+    title: 'Tooth Replacement – Dental Implants',
+    tagline: 'Foundation of Confidence',
+    description: 'Leading-edge titanium implants that feel, look, and function exactly like your natural teeth.',
+    icon: ShieldCheck,
+    price: 'From £3495 per tooth',
+    features: ['Finance is available', 'Lifetime structural warranty', 'CBCT planning']
+  },
+  {
+    id: 8,
+    title: 'Bone Grafting',
+    tagline: 'Structural Regeneration',
+    description: 'Advanced grafting procedures designed to restore missing bone structure and prepare for successful implant placement.',
+    icon: Star,
+    price: 'From £995',
+    features: ['Finance is available', 'Advanced biomaterials', 'Expert surgical care']
+  },
+  {
+    id: 9,
+    title: 'Gum Grafting',
+    tagline: 'Soft Tissue Optimization',
+    description: 'Specialized techniques to rebuild gum lines, enhancing both oral aesthetics and functional health.',
+    icon: Heart,
+    price: 'From £995',
+    features: ['Finance is available', 'Minimally invasive', 'Predictable healing']
+  },
+  {
+    id: 10,
+    title: 'Gum Recession Graft',
+    tagline: 'Protective Coverage',
+    description: 'Targeted root coverage treatments designed to protect against sensitivity while restoring a balanced smile line.',
+    icon: ShieldCheck,
+    price: 'From £2495',
+    features: ['Finance is available', 'Reduced sensitivity', 'Improved aesthetics']
+  },
+  {
+    id: 11,
+    title: 'Mini Smile Makeover',
+    tagline: 'Refined Enhancements',
+    description: 'A swift, targeted combination of cosmetic procedures focusing on the most immediately visible aspects of your smile.',
+    icon: Sparkles,
+    price: '£795',
+    features: ['Finance is available', 'Quick transformation', 'Cost-effective']
+  },
+  {
+    id: 12,
+    title: 'Gummy Smile Makeover',
+    tagline: 'Proportional Balance',
+    description: 'Delicate reshaping of the gingival architecture to expose more tooth structure and create visual harmony.',
+    icon: Layout,
+    price: 'From £995',
+    features: ['Finance is available', 'Laser precision', 'Symmetrical results']
+  },
+  {
+    id: 13,
+    title: 'White Spot Smile Makeover',
+    tagline: 'Flawless Complexion',
+    description: 'Innovative resin infiltration therapy to permanently erase white spots and unify your tooth coloration.',
+    icon: Zap,
+    price: '£795',
+    features: ['Finance is available', 'Non-invasive', 'Immediate clarity']
+  },
+  {
+    id: 14,
+    title: 'Dental Health Check',
+    tagline: 'Preventative Excellence',
+    description: 'An exhaustive analysis of your oral health, ensuring a strong and perfectly maintained foundation over time.',
     icon: Heart,
     price: 'From £250',
-    features: ['Expert clinicians', 'Subtle results', 'Medical-grade protocol']
+    features: ['Finance is available', 'Comprehensive screening', 'Tailored advice']
+  },
+  {
+    id: 15,
+    title: 'Composite Bonding Maintenance',
+    tagline: 'Enduring Brilliance',
+    description: 'Professional repolishing and aesthetic fine-tuning to keep your composite bonding looking pristine.',
+    icon: Sparkles,
+    price: '£395',
+    features: ['Finance is available', 'Restored luster', 'Extended longevity']
+  },
+  {
+    id: 16,
+    title: 'Home Whitening',
+    tagline: 'Gradual Luminosity',
+    description: 'Custom-fitted trays combined with professional-grade gels for safe, predictable lightening at your convenience.',
+    icon: Zap,
+    price: '£495',
+    features: ['Finance is available', 'Custom-fit trays', 'Lasting brightness']
+  },
+  {
+    id: 17,
+    title: 'Gum Contouring',
+    tagline: 'Architectural Framing',
+    description: 'Gentle recontouring of irregular gum tissues to frame your teeth evenly and beautifully.',
+    icon: Layout,
+    price: '£695',
+    features: ['Finance is available', 'Laser technology', 'Rapid recovery']
+  },
+  {
+    id: 18,
+    title: 'Tooth Contouring',
+    tagline: 'Subtle Perfection',
+    description: 'Minute adjustments to the enamel surface to smooth uneven edges and perfect the overall silhouette of your smile.',
+    icon: Star,
+    price: '£395',
+    features: ['Finance is available', 'Painless procedure', 'Instant refinement']
+  },
+  {
+    id: 19,
+    title: 'Fixed Wire Retainers',
+    tagline: 'Permanent Alignment',
+    description: 'A discreet, permanent wire bonded to the inner arch to ensure your teeth remain in their perfect, aligned positions.',
+    icon: ShieldCheck,
+    price: '£495',
+    features: ['Finance is available', 'Invisible support', 'Zero maintenance']
+  },
+  {
+    id: 20,
+    title: 'Removable Retainers',
+    tagline: 'Flexible Protection',
+    description: 'Custom-crafted clear aligners designed to be worn nightly, safeguarding your orthodontic investment.',
+    icon: Layout,
+    price: '£495',
+    features: ['Finance is available', 'Durable material', 'Comfortable fit']
+  },
+  {
+    id: 21,
+    title: 'Night Guard',
+    tagline: 'Vital Defense',
+    description: 'A bespoke appliance to meticulously absorb grinding forces, protecting your restorations and natural teeth while you sleep.',
+    icon: ShieldCheck,
+    price: '£495',
+    features: ['Finance is available', 'Protect investments', 'Alleviate tension']
   }
 ];
 

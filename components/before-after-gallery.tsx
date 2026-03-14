@@ -7,7 +7,7 @@ import BeforeAfterSlider from '@/components/before-after-slider';
 import { staggerContainer, fadeInUp, fadeIn } from '@/lib/animations';
 import { ChevronDown } from 'lucide-react';
 
-const categories = ['Veneers', 'Invisalign', 'Whitening', 'Bridges'];
+const categories = ['Veneers', 'Cosmetic Dentistry', 'Bridges'];
 
 type CaseStudy = {
   id: number;
@@ -36,29 +36,24 @@ const caseStudies: CaseStudy[] = [
     portrait: '/images/case 1.png',
     label: label,
   })),
-  {
-    id: 2,
-    category: 'Invisalign',
-    title: 'Discreet Alignment Correction',
-    description: 'Clear aligner therapy to correct crowding and refine the smile line.',
+  ...[
+    "Dental Implants", "Composite Bonding", "Mini Smile Makeover", "Gummy Smile Makeover",
+    "Invisalign", "Teeth Contouring", "Gum Loss Treatment", "Fluorosis and White Spot Smile Makeover", "Teeth Whitening"
+  ].map((label, index) => ({
+    id: 30 + index,
+    category: 'Cosmetic Dentistry',
+    title: label,
+    description: `Discover how our bespoke ${label.toLowerCase()} approach can completely transform your smile with precision and elegance.`,
     before: '/images/before.png',
     after: '/images/after.png',
     portrait: '/images/case 1.png',
-  },
+    label: label,
+  })),
   {
     id: 3,
     category: 'Bridges',
     title: 'Fixed Aesthetic Bridge',
     description: 'Graceful restoration of dental function and visual harmony.',
-    before: '/images/before.png',
-    after: '/images/after.png',
-    portrait: '/images/case 1.png',
-  },
-  {
-    id: 4,
-    category: 'Whitening',
-    title: 'Hydrated Laser Whitening',
-    description: 'Pain-free, high-intensity whitening for a brilliant, clean finish.',
     before: '/images/before.png',
     after: '/images/after.png',
     portrait: '/images/case 1.png',
@@ -83,7 +78,6 @@ export default function BeforeAfterGallery() {
   const caseLabelsById: Record<number, string> = {
     2: 'Case 2',
     3: 'Case 3',
-    4: 'Case 4',
   };
 
   return (
