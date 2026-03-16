@@ -104,7 +104,7 @@ export default function Hero() {
               className="w-full sm:w-auto sm:min-w-[340px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Start a Free E-Consultation
+              Book a Free E-Consultation
               <ArrowRight className="ml-3 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
 

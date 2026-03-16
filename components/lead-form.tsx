@@ -25,7 +25,18 @@ export default function LeadForm() {
   const [isScanning, setIsScanning] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [analysisProgress, setAnalysisProgress] = useState(0);
   const [isSuccess, setIsSuccess] = useState(false);
+  const analysisIntervalRef = useRef<any>(null);
+
+  const resetImage = () => {
+    if (analysisIntervalRef.current) clearInterval(analysisIntervalRef.current);
+    setPreviewImage(null);
+    setShowResult(false);
+    setIsScanning(false);
+    setAnalysisProgress(0);
+    form.setValue('image', null);
+  };
 
   const form = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema),
@@ -49,17 +60,23 @@ export default function LeadForm() {
 
   const handleImageUpload = (file: File | null) => {
     if (file) {
+      if (analysisIntervalRef.current) clearInterval(analysisIntervalRef.current);
       setIsScanning(true);
-      setPreviewImage(URL.createObjectURL(file));
-      // Simulate AI processing delay
-      setTimeout(() => {
-        setIsScanning(false);
-        setShowResult(true);
-      }, 3000);
-    } else {
-      setPreviewImage(null);
       setShowResult(false);
-      setIsScanning(false);
+      setPreviewImage(URL.createObjectURL(file));
+      setAnalysisProgress(0);
+
+      analysisIntervalRef.current = setInterval(() => {
+        setAnalysisProgress((prev) => {
+          if (prev >= 98) {
+            if (analysisIntervalRef.current) clearInterval(analysisIntervalRef.current);
+            return 98;
+          }
+          return prev + Math.floor(Math.random() * 8) + 1;
+        });
+      }, 600);
+    } else {
+      resetImage();
     }
   };
 
@@ -185,6 +202,19 @@ export default function LeadForm() {
                                               className="absolute left-0 w-full h-[2px] bg-accent shadow-[0_0_15px_rgba(var(--accent-rgb),0.8)] z-10"
                                             />
                                           )}
+                                          {previewImage && (
+                                            <button
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                resetImage();
+                                              }}
+                                              className="absolute top-3 right-3 z-30 p-2 bg-black/40 hover:bg-black/60 text-white rounded-full transition-all duration-300 backdrop-blur-sm group/reset"
+                                              title="Remove Image"
+                                            >
+                                              <X className="w-3.5 h-3.5 transition-transform group-hover/reset:rotate-90" />
+                                            </button>
+                                          )}
                                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2 items-center justify-center">
                                             <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
                                           </div>
@@ -214,9 +244,23 @@ export default function LeadForm() {
                                           />
                                         </div>
                                       ) : isScanning ? (
-                                        <div className="flex flex-col items-center gap-4">
-                                          <Loader2 className="w-6 h-6 text-accent animate-spin" />
-                                          <p className="text-[10px] uppercase tracking-widest font-bold text-accent animate-pulse">Analysing facial symmetry...</p>
+                                        <div className="flex flex-col items-center gap-6 w-full px-12">
+                                          <div className="w-full h-[2px] bg-accent/10 overflow-hidden relative">
+                                            <motion.div
+                                              initial={{ width: 0 }}
+                                              animate={{ width: `${analysisProgress}%` }}
+                                              className="absolute left-0 top-0 h-full bg-accent shadow-[0_0_10px_rgba(var(--accent-rgb),0.5)]"
+                                            />
+                                          </div>
+                                          <div className="flex flex-col items-center gap-2 text-center">
+                                            <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-accent animate-pulse">
+                                              {analysisProgress < 98 ? `AI Diagnostic in Progress... ${analysisProgress}%` : 'Analysis Complete. Awaiting Review.'}
+                                            </p>
+                                            <p className="text-[9px] text-muted-foreground uppercase tracking-widest leading-relaxed">
+                                              Analyzing dental proportions & facial harmony
+                                            </p>
+                                          </div>
+                                          <Loader2 className="w-4 h-4 text-accent/40 animate-spin" />
                                         </div>
                                       ) : (
                                         <div className="text-center p-8">
@@ -255,12 +299,12 @@ export default function LeadForm() {
                       />
                     </div>
 
-                    <div className="flex items-center justify-end pt-10 border-t border-border/40">
+                    <div className="flex items-center justify-end pt-6 border-t border-border/40">
                       <Button
                         disabled={isSubmitting}
                         className="bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-8 text-[10px] uppercase tracking-[0.2em] font-bold"
                       >
-                        {isSubmitting ? 'Encrypting & Sending...' : 'BOOK A CONSULTATION'}
+                        {isSubmitting ? 'Encrypting & Sending...' : 'BOOK A FREE E-CONSULTATION'}
                       </Button>
                     </div>
                   </form>
