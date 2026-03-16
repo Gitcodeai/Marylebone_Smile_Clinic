@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,20 +17,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { fadeIn, fadeInUp, staggerContainer } from '@/lib/animations';
-import { Check, ArrowRight, ArrowLeft, Sparkles, ShieldCheck, Zap, X } from 'lucide-react';
-
-const treatments = [
-  'Signature Veneers',
-  'Invisalign® Alignment',
-  'Laser Teeth Whitening',
-  'Bespoke Bridges',
-  'Dental Implants',
-  'General Consultation',
-];
+import { Check, ArrowRight, ArrowLeft, Sparkles, ShieldCheck, Zap, X, Loader2 } from 'lucide-react';
+import BeforeAfterSlider from '@/components/before-after-slider';
 
 export default function LeadForm() {
-  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const form = useForm<LeadFormValues>({
@@ -39,7 +33,6 @@ export default function LeadForm() {
       name: '',
       email: '',
       phone: '',
-      interest: '',
       message: '',
       image: null,
     },
@@ -54,13 +47,21 @@ export default function LeadForm() {
     setIsSubmitting(false);
   }
 
-  const nextStep = async () => {
-    const fields = step === 1 ? ['interest'] : ['name', 'email', 'phone'];
-    const isValid = await form.trigger(fields as any);
-    if (isValid) setStep(step + 1);
+  const handleImageUpload = (file: File | null) => {
+    if (file) {
+      setIsScanning(true);
+      setPreviewImage(URL.createObjectURL(file));
+      // Simulate AI processing delay
+      setTimeout(() => {
+        setIsScanning(false);
+        setShowResult(true);
+      }, 3000);
+    } else {
+      setPreviewImage(null);
+      setShowResult(false);
+      setIsScanning(false);
+    }
   };
-
-  const prevStep = () => setStep(step - 1);
 
   return (
     <section id="contact" className="bg-secondary/20 min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
@@ -79,9 +80,9 @@ export default function LeadForm() {
               className="font-serif text-foreground tracking-tight leading-[1.1]"
               style={{ fontSize: 'clamp(26px, 6vw, 64px)' }}
             >
-              Begin Your <br /><span className="italic text-accent/80">Transformation.</span>
+              Your Signature <br /><span className="italic text-accent/80">Smile Preview</span>
             </h2>
-            <p className="text-muted-foreground text-sm uppercase tracking-widest font-light max-w-xl">Our concierge team will guide you through a personalized assessment of your smile goals.</p>
+            <p className="text-muted-foreground text-sm uppercase tracking-widest font-light max-w-xl">Experience a real-time AI assessment of your dental possibilities.</p>
           </motion.div>
         </motion.div>
 
@@ -95,224 +96,173 @@ export default function LeadForm() {
                 exit={{ opacity: 0 }}
                 className="p-8 lg:p-16"
               >
-                {/* Progress Bar */}
-                <div className="w-full h-[2px] bg-secondary/20 mb-16 relative">
-                  <motion.div
-                    className="absolute top-0 left-0 h-full bg-accent"
-                    initial={{ width: '33.33%' }}
-                    animate={{ width: step === 1 ? '33.33%' : '66.66%' }}
-                  />
-                </div>
-
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
-                    {step === 1 && (
-                      <motion.div
-                        key="step-1"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-10"
-                      >
-                        <div className="space-y-4 max-[575px]:text-center">
-                          <h3 className="text-2xl font-serif italic text-foreground">Select your primary interest</h3>
-                          <p className="text-xs text-muted-foreground uppercase tracking-widest">Which transformation fits your vision?</p>
-                        </div>
-
+                    <div className="space-y-12">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <FormField
                           control={form.control}
-                          name="interest"
+                          name="name"
                           render={({ field }) => (
                             <FormItem>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                {treatments.map((t) => (
-                                  <div
-                                    key={t}
-                                    onClick={() => field.onChange(t)}
-                                    className={`cursor-pointer px-6 py-5 border transition-all duration-500 flex items-center justify-between group ${field.value === t
-                                      ? 'bg-primary text-primary-foreground border-primary'
-                                      : 'bg-transparent border-border/60 hover:border-accent/40'
-                                      }`}
-                                  >
-                                    <span className="text-[10px] uppercase tracking-widest font-bold">{t}</span>
-                                    {field.value === t && <Check className="w-4 h-4" />}
-                                    {field.value !== t && <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />}
-                                  </div>
-                                ))}
-                              </div>
+                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Full Name</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-md focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                              </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Priority Email</FormLabel>
+                              <FormControl>
+                                <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-md focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                        <div className="flex justify-end pt-8 max-[575px]:justify-center">
-                          <Button
-                            type="button"
-                            onClick={nextStep}
-                            className="bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-8 text-[10px] uppercase tracking-[0.2em] font-bold"
-                          >
-                            Next Step
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
+                      <FormField
+                        control={form.control}
+                        name="phone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Preferred Contact Number</FormLabel>
+                            <FormControl>
+                              <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-md focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                    {step === 2 && (
-                      <motion.div
-                        key="step-2"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="space-y-12"
-                      >
-                        <div className="space-y-4 max-[575px]:text-center">
-                          <h3 className="text-2xl font-serif italic text-foreground">A few final details</h3>
-                          <p className="text-xs text-muted-foreground uppercase tracking-widest">To provide the most personalized experience.</p>
-                        </div>
-
-                        <div className="flex flex-col gap-10">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <FormField
-                              control={form.control}
-                              name="name"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Full Name</FormLabel>
-                                  <FormControl>
-                                    <Input placeholder="Enter your name" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                            <FormField
-                              control={form.control}
-                              name="email"
-                              render={({ field }) => (
-                                <FormItem>
-                                  <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Priority Email</FormLabel>
-                                  <FormControl>
-                                    <Input placeholder="name@example.com" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
-                                  </FormControl>
-                                  <FormMessage />
-                                </FormItem>
-                              )}
-                            />
-                          </div>
-
-                          <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Preferred Contact Number</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border rounded-none focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm max-[575px]:text-center" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          {/* Smile Upload Section */}
-                          <FormField
-                            control={form.control}
-                            name="image"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">PREVIEW YOUR POTENTIAL</FormLabel>
-                                <FormControl>
-                                  <div
-                                    className="relative group cursor-pointer"
-                                    onClick={() => document.getElementById('smile-upload')?.click()}
-                                  >
-                                    <input
-                                      id="smile-upload"
-                                      type="file"
-                                      className="hidden"
-                                      accept="image/*"
-                                      onChange={(e) => {
-                                        const file = e.target.files?.[0];
-                                        if (file) field.onChange(file);
-                                      }}
-                                    />
-                                    <div className="border-2 border-dashed border-border/60 aspect-square w-full max-w-[240px] mx-auto md:mx-0 flex flex-col items-center justify-center gap-4 transition-all duration-500 group-hover:border-accent/40 group-hover:bg-accent/5">
-                                      {field.value ? (
-                                        <div className="relative w-full h-full p-2">
+                      {/* AI Transformation Dual-Panel */}
+                      <FormField
+                        control={form.control}
+                        name="image"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold text-center block mb-8">AI Smile Analysis</FormLabel>
+                            <FormControl>
+                              <div className="space-y-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                                  {/* Left Panel: Original */}
+                                  <div className="flex flex-col gap-3">
+                                    <span className="text-[9px] uppercase tracking-widest font-bold text-accent/60">Original</span>
+                                    <div
+                                      className="relative group cursor-pointer aspect-[4/3] border border-border/60 bg-secondary/5 flex items-center justify-center overflow-hidden"
+                                      onClick={() => document.getElementById('smile-upload')?.click()}
+                                    >
+                                      <input
+                                        id="smile-upload"
+                                        type="file"
+                                        className="hidden"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                          const file = e.target.files?.[0] || null;
+                                          field.onChange(file);
+                                          handleImageUpload(file);
+                                        }}
+                                      />
+                                      {previewImage ? (
+                                        <div className="relative w-full h-full">
                                           <img
-                                            src={URL.createObjectURL(field.value)}
-                                            alt="Smile Preview"
+                                            src={previewImage}
+                                            alt="Original Smile"
                                             className="w-full h-full object-cover"
                                           />
-                                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2 items-center justify-center">
-                                          <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
+                                          {isScanning && (
+                                            <motion.div
+                                              initial={{ top: '-10%' }}
+                                              animate={{ top: '110%' }}
+                                              transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                                              className="absolute left-0 w-full h-[2px] bg-accent shadow-[0_0_15px_rgba(var(--accent-rgb),0.8)] z-10"
+                                            />
+                                          )}
+                                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-2 items-center justify-center">
+                                            <p className="text-[10px] text-white uppercase tracking-widest font-bold">Change Photo</p>
+                                          </div>
                                         </div>
-                                        <button
-                                          type="button"
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            field.onChange(null);
-                                            const input = document.getElementById('smile-upload') as HTMLInputElement;
-                                            if (input) input.value = '';
-                                          }}
-                                          className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 text-white rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
-                                          title="Remove Photo"
-                                        >
-                                          <X className="w-3.5 h-3.5" />
-                                        </button>
-                                      </div>
                                       ) : (
-                                        <>
+                                        <div className="flex flex-col items-center gap-4 transition-all duration-500 group-hover:bg-accent/5 w-full h-full justify-center">
                                           <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
                                             <Sparkles className="w-5 h-5 text-accent/60" />
                                           </div>
-                                          <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-medium">Upload your smile photo</p>
-                                        </>
+                                          <p className="text-[11px] text-muted-foreground uppercase tracking-widest font-medium">Upload Your Smile Photo</p>
+                                        </div>
                                       )}
                                     </div>
                                   </div>
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
 
-                          <FormField
-                            control={form.control}
-                            name="message"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold max-[575px]:block max-[575px]:text-center">Your Vision (Optional)</FormLabel>
-                                <FormControl>
-                                  <Textarea
-                                    placeholder="Describe the smile you've always imagined..."
-                                    className="bg-transparent border border-border/60 rounded-none focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm max-[575px]:text-center"
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
+                                  {/* Right Panel: AI Simulation */}
+                                  <div className="flex flex-col gap-3">
+                                    <span className="text-[9px] uppercase tracking-widest font-bold text-accent/60">AI Simulation</span>
+                                    <div className="relative aspect-[4/3] border border-border/40 bg-secondary/5 flex items-center justify-center overflow-hidden">
+                                      {showResult ? (
+                                        <div className="absolute inset-0">
+                                          <BeforeAfterSlider
+                                            caseIndex={999}
+                                            beforeImage={previewImage || ''}
+                                            afterImage="/images/after.png"
+                                            orientation="vertical"
+                                          />
+                                        </div>
+                                      ) : isScanning ? (
+                                        <div className="flex flex-col items-center gap-4">
+                                          <Loader2 className="w-6 h-6 text-accent animate-spin" />
+                                          <p className="text-[10px] uppercase tracking-widest font-bold text-accent animate-pulse">Analysing facial symmetry...</p>
+                                        </div>
+                                      ) : (
+                                        <div className="text-center p-8">
+                                          <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground/40 animate-pulse-slow">Awaiting Image</p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                                <p className="text-[9px] italic text-muted-foreground/60 text-center">
+                                  *This is an AI-generated simulation of your dental possibilities; it does not constitute a clinical diagnosis.
+                                </p>
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                        <div className="flex items-center justify-between pt-10 border-t border-border/40 max-[575px]:flex-col max-[575px]:gap-6">
-                          <button
-                            type="button"
-                            onClick={prevStep}
-                            className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold text-muted-foreground hover:text-foreground transition-colors max-[575px]:justify-center max-[575px]:w-full"
-                          >
-                            <ArrowLeft className="w-3 h-3" /> Back
-                          </button>
-                          <Button
-                            disabled={isSubmitting}
-                            className="bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-8 text-[10px] uppercase tracking-[0.2em] font-bold"
-                          >
-                            {isSubmitting ? 'Encrypting & Sending...' : 'Request Consultation'}
-                          </Button>
-                        </div>
-                      </motion.div>
-                    )}
+                      <FormField
+                        control={form.control}
+                        name="message"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Your Vision (Optional)</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Describe the smile you've always imagined..."
+                                className="bg-transparent border border-border/60 rounded-md focus-visible:ring-0 focus-visible:border-accent min-h-[120px] p-4 text-sm"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end pt-10 border-t border-border/40">
+                      <Button
+                        disabled={isSubmitting}
+                        className="bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-8 text-[10px] uppercase tracking-[0.2em] font-bold"
+                      >
+                        {isSubmitting ? 'Encrypting & Sending...' : 'BOOK A CONSULTATION'}
+                      </Button>
+                    </div>
                   </form>
                 </Form>
               </motion.div>
