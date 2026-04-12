@@ -48,21 +48,21 @@ const StepItem = ({ step }: { step: Step }) => {
 const steps = [
     {
         id: '01',
-        title: 'Consultation & 3D Preview',
-        description: 'A bespoke discussion with your artist-clinician. We use digital scanning to show you a simulated "after" before we touch a single tooth.',
-        icon: Camera
+        title: 'Direct Healing',
+        description: 'Direct healing centers on the concept of Qi, the vital life force that flows through unseen pathways known as meridians. By focusing on the balance of Yin and Yang, this practice aims to clear blockages and restore the natural harmony between the body and the spirit.',
+        icon: Heart
     },
     {
         id: '02',
-        title: 'Precision Artistry',
-        description: 'Using the finest hand-layered porcelain or clear aligner technology, we craft your restoration to exact facial specifications.',
+        title: 'Distance Healing',
+        description: 'Distance healing leverages the same concept of Qi from afar. By focusing on the balance of Yin and Yang, this remote practice aims to clear blockages and restore the natural harmony between the body and the spirit.',
         icon: Sparkles
     },
     {
         id: '03',
-        title: 'The Final Reveal',
-        description: 'Transformative fitting in our private Marylebone suite. Experience the immediate confidence boost of a truly perfected smile.',
-        icon: Heart
+        title: 'Needling',
+        description: 'We use acupuncture needles made of stainless steel which are .16mm thin, which is about the thickness of a human hair.',
+        icon: Sparkles
     }
 ];
 
@@ -97,7 +97,7 @@ export default function PatientJourney() {
                             className="font-serif text-foreground tracking-tight leading-[1.1]"
                             style={{ fontSize: 'clamp(26px, 6vw, 60px)' }}
                         >
-                            An Architectural <br /><span className="italic text-accent/80">Journey to Perfection.</span>
+                            Our Treatment <br /><span className="italic text-accent/80">Methods</span>
                         </motion.h2>
                     </motion.div>
 
@@ -107,7 +107,7 @@ export default function PatientJourney() {
                         whileInView="visible"
                         className="text-xs sm:text-sm text-muted-foreground uppercase tracking-widest font-light lg:max-w-xs lg:text-right leading-relaxed"
                     >
-                        Three steps from anticipation to enduring clinical excellence.
+                        Holistic approaches to restoring natural harmony.
                     </motion.p>
                 </div>
 
@@ -153,8 +153,8 @@ export default function PatientJourney() {
                     >
                         <div className="group relative aspect-[3/4] overflow-hidden translate-y-12">
                             <Image
-                                src="/images/clinic-1.png"
-                                alt="Marylebone Clinic Suite"
+                                src="/images/1.png"
+                                alt="Direct Healing Treatment"
                                 fill
                                 className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                             />
@@ -162,8 +162,8 @@ export default function PatientJourney() {
                         <div className="space-y-4 sm:space-y-8">
                             <div className="group relative aspect-square overflow-hidden bg-accent/10">
                                 <Image
-                                    src="/images/clinic-2.png"
-                                    alt="Restorative Detail"
+                                    src="/images/2.jpg"
+                                    alt="Healing Preparation"
                                     fill
                                     className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />

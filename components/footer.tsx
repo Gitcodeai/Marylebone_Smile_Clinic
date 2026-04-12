@@ -22,9 +22,9 @@ export default function Footer() {
           <motion.div variants={fadeInUp} className="md:col-span-5 flex flex-col items-start gap-8 max-[575px]:items-center">
             <Link href="/" className="flex items-center group transition-opacity hover:opacity-90 max-[575px]:justify-center">
               <div className="h-16 w-auto sm:h-20 sm:w-auto relative flex items-center justify-center">
-                <img 
-                  src="/images/logo.png" 
-                  alt="NYL Healing Logo" 
+                <img
+                  src="/images/logo.png"
+                  alt="NYL Healing Logo"
                   className="h-full w-auto object-contain mix-blend-multiply dark:mix-blend-normal"
                 />
               </div>
@@ -43,10 +43,8 @@ export default function Footer() {
             <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground mb-8">Navigation</h3>
             <ul className="space-y-4">
               {[
-                { label: 'Services', href: '#services' },
-                { label: 'Transformations', href: '#before-after' },
                 { label: 'The Experience', href: '#journey' },
-                { label: 'Experts', href: '#team' },
+                { label: 'Experts', href: '/about-us' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
