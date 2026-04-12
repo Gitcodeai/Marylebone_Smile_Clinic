@@ -20,20 +20,13 @@ export default function Footer() {
         >
           {/* Brand Column */}
           <motion.div variants={fadeInUp} className="md:col-span-5 flex flex-col items-start gap-8 max-[575px]:items-center">
-            <Link href="/" className="flex items-center gap-5 group transition-opacity hover:opacity-90 max-[575px]:justify-center">
-              <div className="w-16 h-8 relative flex items-center">
-                <svg viewBox="0 0 100 40" className="w-full h-full text-foreground fill-current drop-shadow-sm">
-                  <path d="M0 20 C20 10, 40 30, 60 20 C80 10, 100 30, 100 20 L100 25 C80 35, 60 15, 40 25 C20 35, 0 15, 0 25 Z" className="opacity-90" />
-                  <path d="M5 15 C25 5, 45 25, 65 15 C85 5, 105 25, 105 15 L105 18 C85 28, 65 8, 45 18 C25 28, 5 8, 5 18 Z" className="opacity-50" />
-                </svg>
-              </div>
-              <div className="flex flex-col max-[575px]:text-center text-left">
-                <span className="font-sans text-[20px] sm:text-[22px] tracking-[0.28em] text-foreground font-light leading-none uppercase antialiased">
-                  Marylebone
-                </span>
-                <span className="text-[11px] sm:text-[12px] uppercase tracking-[0.45em] text-foreground/80 mt-2 font-semibold">
-                  Smile Clinic
-                </span>
+            <Link href="/" className="flex items-center group transition-opacity hover:opacity-90 max-[575px]:justify-center">
+              <div className="h-16 w-auto sm:h-20 sm:w-auto relative flex items-center justify-center">
+                <img 
+                  src="/images/logo.png" 
+                  alt="NYL Healing Logo" 
+                  className="h-full w-auto object-contain mix-blend-multiply dark:mix-blend-normal"
+                />
               </div>
             </Link>
             <p className="text-muted-foreground text-sm uppercase tracking-[0.1em] font-light max-w-sm border-l border-accent/30 pl-6 lg:pl-8 italic max-[575px]:text-center max-[575px]:border-l-0 max-[575px]:pl-0">

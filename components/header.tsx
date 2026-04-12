@@ -65,20 +65,13 @@ export default function Header() {
       <nav className="w-full h-20 flex items-center">
         <div className="w-full max-w-screen-2xl mx-auto px-6 lg:px-12 flex items-center justify-between">
         {/* Logo - Far Left */}
-        <Link href="/" className="flex items-center gap-5 group transition-opacity hover:opacity-90">
-          <div className="w-16 h-8 relative flex items-center">
-            <svg viewBox="0 0 100 40" className="w-full h-full text-foreground fill-current drop-shadow-sm">
-              <path d="M0 20 C20 10, 40 30, 60 20 C80 10, 100 30, 100 20 L100 25 C80 35, 60 15, 40 25 C20 35, 0 15, 0 25 Z" className="opacity-90" />
-              <path d="M5 15 C25 5, 45 25, 65 15 C85 5, 105 25, 105 15 L105 18 C85 28, 65 8, 45 18 C25 28, 5 8, 5 18 Z" className="opacity-50" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="font-sans text-[20px] sm:text-[22px] tracking-[0.28em] text-foreground font-light leading-none uppercase antialiased">
-              Marylebone
-            </span>
-            <span className="text-[11px] sm:text-[12px] uppercase tracking-[0.45em] text-foreground/80 mt-2 font-semibold">
-              Smile Clinic
-            </span>
+        <Link href="/" className="flex items-center group transition-opacity hover:opacity-90">
+          <div className="h-14 sm:h-16 w-auto relative flex items-center justify-center">
+            <img 
+              src="/images/logo.png" 
+              alt="NYL Healing Logo" 
+              className="h-full w-auto object-contain mix-blend-multiply dark:mix-blend-normal"
+            />
           </div>
         </Link>
 

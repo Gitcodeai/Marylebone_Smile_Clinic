@@ -1,23 +1,22 @@
 import type { Metadata } from 'next'
 
 export const siteConfig = {
-  name: 'Marylebone Smile Clinic',
-  defaultTitle: 'Marylebone Smile Clinic | Cosmetic & Family Dentistry London',
+  name: 'NYL Healing',
+  defaultTitle: 'NYL Healing | Acupuncture & Wellness Clinic',
   description:
-    'Premium cosmetic dentistry in Marylebone. Discreet, expert smile transformations. Book your consultation today.',
-  url: 'https://marylebone-smile-clinic-cpml.vercel.app',
-  locale: 'en-GB',
-  ogLocale: 'en_GB',
+    'Premium acupuncture and holistic wellness clinic. Experience restorative healing and transformative care. Book your consultation today.',
+  url: 'https://nyl-healing.vercel.app',
+  locale: 'en-US',
+  ogLocale: 'en_US',
   defaultOgImage: '/og-home.jpg',
   keywords: [
-    'cosmetic dentistry',
-    'smile makeover',
-    'Marylebone',
-    'London',
-    'veneers',
-    'Invisalign',
-    'teeth whitening',
-    'dental implants',
+    'acupuncture',
+    'holistic wellness',
+    'healing',
+    'traditional chinese medicine',
+    'cupping',
+    'wellness clinic',
+    'natural healing',
   ],
   social: {
     // TODO: Replace placeholders with real profile URLs / handles
@@ -77,7 +76,7 @@ export function createPageMetadata(options: PageMetaOptions = {}): Metadata {
           url: imageUrl.toString(),
           width: 1200,
           height: 630,
-          alt: 'Marylebone Smile Clinic - Premium cosmetic dentistry in the heart of London',
+          alt: 'NYL Healing - Premium acupuncture and wellness clinic',
         },
       ],
     },
