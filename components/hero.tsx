@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Star, ArrowRight } from 'lucide-react';
-import { fadeInUp, staggerContainer, fadeIn } from '@/lib/animations';
+import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 export default function Hero() {
   return (
@@ -15,7 +15,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_var(--background)_100%)] z-10" />
         <Image
           src="/images/hero-banner.png"
-          alt="Marylebone Smile Clinic Interior"
+          alt="NYL Healing Sanctuary"
           fill
           className="object-cover opacity-55 scale-105 transition-all duration-700"
           style={{ objectPosition: 'clamp(50%, 70%, 80%) center' }}
@@ -30,9 +30,6 @@ export default function Hero() {
           animate="visible"
           className="w-full lg:max-w-4xl"
         >
-          {/* Top Label */}
-
-
           {/* Main Headline */}
           <motion.h1
             variants={fadeInUp}
@@ -43,8 +40,8 @@ export default function Hero() {
               letterSpacing: '-0.02em'
             }}
           >
-            The Craft of <br />
-            <span className="italic text-accent/90 pr-2">Signature</span> Smiles.
+            Ancient Wisdom, <br />
+            <span className="italic text-accent/90 pr-2">Modern</span> Restoration.
           </motion.h1>
 
           {/* Subheadline */}
@@ -52,7 +49,7 @@ export default function Hero() {
             variants={fadeInUp}
             className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl font-sans font-light tracking-wide"
           >
-            Discreet, expert-led transformations in the heart of Marylebone. Experience a new standard of dental care where clinical excellence meets quiet luxury.
+            Experience a new standard of acupuncture and holistic healing where traditional expertise meets quiet luxury. Restore your body's natural harmony in a sanctuary of precision and peace.
           </motion.p>
 
           {/* Key Features/Social Proof */}
@@ -80,7 +77,7 @@ export default function Hero() {
                   <Star className="w-3 h-3 fill-accent text-accent" />
                   <span className="text-xs font-bold text-foreground">5.0</span>
                 </div>
-                <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Google Reviews</span>
+                <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Client Reviews</span>
               </div>
             </div>
 
@@ -88,8 +85,8 @@ export default function Hero() {
 
             <div className="flex items-center gap-3">
               <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-bold text-foreground tracking-wider italic font-serif">Harley St. Trained</span>
-                <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Expert Clinicians</span>
+                <span className="text-xs sm:text-sm font-bold text-foreground tracking-wider italic font-serif">Harley St. Background</span>
+                <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Holistic Experts</span>
               </div>
             </div>
           </motion.div>
@@ -104,7 +101,7 @@ export default function Hero() {
               className="w-full sm:w-auto sm:min-w-[340px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Book a Free E-Consultation
+              Book a Consultation
               <ArrowRight className="ml-3 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
 
@@ -113,7 +110,7 @@ export default function Hero() {
                 onClick={() => document.getElementById('before-after')?.scrollIntoView({ behavior: 'smooth' })}
                 className="text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold text-foreground/60 hover:text-accent transition-all relative group py-2 text-center md:text-left"
               >
-                Explore Transformations
+                Our Concept
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 w-8 h-[1.5px] bg-accent transition-all duration-500 group-hover:w-full" />
               </button>
 
@@ -135,8 +132,6 @@ export default function Hero() {
       {/* Decorative Orbs */}
       <div className="absolute -right-1/4 top-1/4 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute -left-1/4 bottom-1/4 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-
-
     </section>
   );
 }

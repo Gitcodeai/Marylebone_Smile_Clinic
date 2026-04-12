@@ -10,11 +10,13 @@ export const leadFormSchema = z.object({
     phone: z.string().min(10, {
         message: "Please enter a valid phone number.",
     }),
-    interest: z.string().min(1, {
-        message: "Please select a treatment interest.",
+    reason: z.string().min(10, {
+        message: "Please provide a reason for treatment (min 10 characters).",
     }),
+    healingType: z.enum(['direct', 'distance']),
+    country: z.string().optional(),
     image: z.any().optional(),
-    message: z.string().optional(),
+    slot: z.string().optional(),
 });
 
 export type LeadFormValues = z.infer<typeof leadFormSchema>;

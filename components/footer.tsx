@@ -77,7 +77,7 @@ export default function Footer() {
                   <p className="text-[10px] uppercase tracking-widest text-accent font-bold">Contact</p>
                   <div className="flex flex-col gap-2 text-sm text-muted-foreground font-light max-[575px]:items-center">
                     <a href="tel:+442012345678" className="hover:text-accent transition-colors">+44 (0)20 7946 0123</a>
-                    <a href="mailto:hello@marylebonesmile.com" className="hover:text-accent transition-colors">concierge@marylebonesmile.com</a>
+                    <a href="mailto:hello@nylhealing.com" className="hover:text-accent transition-colors">concierge@nylhealing.com</a>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function Footer() {
           className="border-t border-border/40 py-10 flex flex-col lg:flex-row justify-between items-center gap-8 text-center"
         >
           <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-medium">
-            © {currentYear} Marylebone Smile Clinic. Crafting perfection.
+            © {currentYear} NYL Healing. Ancient wisdom, modern restoration.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
