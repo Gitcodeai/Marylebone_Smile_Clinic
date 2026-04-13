@@ -16,7 +16,7 @@ export default function Footer() {
     <footer id="footer" className="bg-background border-t border-border/40 selection:bg-accent/30 tracking-tight relative overflow-hidden">
       {/* Decorative Background Element */}
       <div className="absolute bottom-0 left-0 w-full h-1/2 bg-[radial-gradient(circle_at_bottom_left,_var(--accent)_0%,_transparent_50%)] opacity-[0.02] pointer-events-none" />
-      
+
       <div className="max-w-[1600px] px-6 lg:px-12 mx-auto pt-24 pb-12">
         {/* Main Footer Content */}
         <motion.div
@@ -24,48 +24,46 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-24 mb-24"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-24"
         >
           {/* Brand & Slogan Column */}
-          <motion.div variants={fadeInUp} className="md:col-span-1 lg:col-span-4 flex flex-col items-center text-center lg:items-start lg:text-left space-y-10">
+          <motion.div variants={fadeInUp} className="md:col-span-1 lg:col-span-4 flex flex-col items-center text-center lg:items-start lg:text-left space-y-8">
             <Link href="/" className="inline-block group transition-opacity hover:opacity-90">
               <img
                 src="/images/logo.png"
                 alt="NYL Healing Logo"
-                className="h-16 sm:h-20 w-auto object-contain mix-blend-multiply dark:mix-blend-normal"
+                className="h-16 lg:h-20 w-auto object-contain mix-blend-multiply dark:mix-blend-normal"
               />
             </Link>
             <div className="space-y-6">
-              <p className="text-muted-foreground text-sm lg:text-base leading-relaxed font-light italic border-l-2 lg:border-l-2 border-accent/20 pl-6 lg:pl-6 max-w-sm mx-auto lg:mx-0">
-                "Experience the mastery of Qi and meridional alignment, where ancient healing traditions meet modern clinical restoration."
+              <p className="text-muted-foreground text-xs lg:text-sm leading-relaxed font-light italic border-l-2 border-accent/20 pl-6 max-w-sm mx-auto lg:mx-0">
+                "Ancient healing traditions meeting modern clinical restoration."
               </p>
-              <div className="flex flex-col gap-1 items-center lg:items-start">
-                <p className="text-[10px] uppercase tracking-[0.4em] text-accent font-bold">The NYL Sanctuary</p>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-widest italic opacity-60">A dedicated space for deep restorative recovery.</p>
+              <div className="flex flex-col gap-1 items-center lg:items-start text-[9px] uppercase tracking-[0.3em] font-medium">
+                <p className="text-accent underline decoration-accent/20 underline-offset-4 font-bold">The NYL Sanctuary</p>
+                <p className="text-muted-foreground/60 italic">Master-led restorative recovery.</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Navigation Columns Wrapper */}
-          <div className="md:col-span-1 lg:col-span-4 grid grid-cols-2 gap-12 text-center lg:text-left">
+          {/* Navigation & Follow Columns */}
+          <div className="md:col-span-1 lg:col-span-4 grid grid-cols-2 gap-8 text-center lg:text-left">
             {/* Quick Links */}
-            <motion.div variants={fadeInUp} className="space-y-8 flex flex-col items-center lg:items-start">
-              <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-foreground opacity-90">Navigation</h3>
-              <ul className="space-y-5 flex flex-col items-center lg:items-start">
+            <motion.div variants={fadeInUp} className="space-y-6 flex flex-col items-center lg:items-start">
+              <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground">Navigation</h3>
+              <ul className="space-y-4">
                 {[
                   { label: 'Home', href: '/#hero' },
                   { label: 'Healers', href: '/our-healers' },
                   { label: 'Testimonials', href: '/testimonials' },
-                  { label: 'Contact', href: '/contact' },
                   { label: 'Courses', href: '/courses' },
                 ].map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-[11px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-all duration-300 flex items-center group"
+                      className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-all duration-300"
                     >
                       {link.label}
-                      <ArrowUpRight className="w-3 h-3 ml-2 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
                     </Link>
                   </li>
                 ))}
@@ -73,77 +71,72 @@ export default function Footer() {
             </motion.div>
 
             {/* Social Links */}
-            <motion.div variants={fadeInUp} className="space-y-8 flex flex-col items-center lg:items-start">
-              <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-foreground opacity-90">Follow</h3>
-              <div className="flex flex-col gap-6 items-center lg:items-start">
+            <motion.div variants={fadeInUp} className="space-y-6 flex flex-col items-center lg:items-start">
+              <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground">Follow</h3>
+              <ul className="space-y-4">
                 {[
-                  { label: 'Instagram', href: 'https://instagram.com/nylhealing', icon: Instagram },
-                  { label: 'Facebook', href: 'https://facebook.com/nylhealing', icon: Facebook },
-                  { label: 'YouTube', href: 'https://youtube.com/@nylhealing', icon: Youtube },
+                  { label: 'Instagram', href: 'https://instagram.com/nylhealing' },
+                  { label: 'Facebook', href: 'https://facebook.com/nylhealing' },
+                  { label: 'YouTube', href: 'https://youtube.com/@nylhealing' },
                 ].map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-all duration-300 group"
-                  >
-                    <div className="p-2 border border-border/40 group-hover:border-accent/40 rounded-full transition-colors">
-                      <social.icon className="w-3.5 h-3.5" />
-                    </div>
-                    <span>{social.label}</span>
-                  </a>
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-all duration-300"
+                    >
+                      {social.label}
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           </div>
 
           {/* Contact Details Column */}
-          <motion.div variants={fadeInUp} className="md:col-span-2 lg:col-span-4 flex flex-col items-center lg:items-start space-y-10 text-center lg:text-left">
-            <h3 className="text-[11px] uppercase tracking-[0.3em] font-bold text-foreground opacity-90">Get In Touch</h3>
+          <motion.div variants={fadeInUp} className="md:col-span-2 lg:col-span-4 flex flex-col items-center lg:items-start space-y-8 text-center lg:text-left">
+            <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-foreground">Get In Touch</h3>
             
-            <div className="w-full space-y-10">
-              {/* Centres and Concierge Side by Side on Mobile */}
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-10 w-full">
-                <div className="space-y-6">
-                  <p className="text-[10px] uppercase tracking-widest text-accent font-bold">Centres</p>
-                  <div className="space-y-6 flex flex-col items-center lg:items-start">
-                    <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 text-center lg:text-left">
-                      <MapPin className="w-4 h-4 text-accent/60 shrink-0" />
-                      <div>
-                        <p className="text-[10px] uppercase tracking-[0.15em] font-bold text-foreground">Kochi</p>
-                        <p className="text-[10px] text-muted-foreground font-light leading-relaxed mt-1">Muppathadam Rd</p>
-                      </div>
-                    </div>
-                    <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 text-center lg:text-left">
-                      <MapPin className="w-4 h-4 text-accent/60 shrink-0" />
-                      <div>
-                        <p className="text-[10px] uppercase tracking-[0.15em] font-bold text-foreground">Ponjassery</p>
-                        <p className="text-[10px] text-muted-foreground font-light leading-relaxed mt-1">Perumbavoor</p>
-                      </div>
+            <div className="w-full grid grid-cols-2 lg:grid-cols-1 gap-10">
+              {/* Centres Block */}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3">
+                    <MapPin className="w-3.5 h-3.5 text-accent/60" />
+                    <div>
+                      <p className="text-[9px] uppercase tracking-widest font-bold text-foreground">Kochi Centre</p>
+                      <p className="text-[9px] text-muted-foreground font-light mt-0.5">Muppathadam Rd, Panchayat Jn</p>
                     </div>
                   </div>
-                </div>
-
-                <div className="space-y-6">
-                  <p className="text-[10px] uppercase tracking-widest text-accent font-bold">Concierge</p>
-                  <div className="space-y-8 flex flex-col items-center lg:items-start">
-                    <a href="mailto:concierge@nylhealing.com" className="flex flex-col items-center lg:items-start gap-3 text-[10px] text-muted-foreground hover:text-accent transition-colors">
-                      <Mail className="w-4 h-4 text-accent/60" />
-                      <span className="break-all">Email us</span>
-                    </a>
-                    <div className="space-y-3 flex flex-col items-center lg:items-start">
-                      <p className="text-[10px] uppercase tracking-widest text-accent font-bold">Support</p>
-                      <a href="tel:+917306627729" className="flex flex-col items-center lg:items-start gap-3 text-[10px] text-muted-foreground hover:text-accent transition-colors">
-                        <Phone className="w-4 h-4 text-accent/60" />
-                        +91 73066 27729
-                      </a>
+                  <div className="flex flex-col lg:flex-row items-center lg:items-start gap-3">
+                    <MapPin className="w-3.5 h-3.5 text-accent/60" />
+                    <div>
+                      <p className="text-[9px] uppercase tracking-widest font-bold text-foreground">Ponjassery Centre</p>
+                      <p className="text-[9px] text-muted-foreground font-light mt-0.5">Thandekkad, Perumbavoor</p>
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Concierge & Support Block */}
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+                <div className="space-y-2">
+                  <p className="text-[9px] uppercase tracking-widest text-accent font-bold">Concierge</p>
+                  <a href="mailto:concierge@nylhealing.com" className="text-[9px] text-muted-foreground hover:text-accent transition-colors tracking-wider">
+                    concierge@nylhealing.com
+                  </a>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-[9px] uppercase tracking-widest text-accent font-bold">WhatsApp Support</p>
+                  <a href="tel:+917306627729" className="text-[9px] text-muted-foreground hover:text-accent transition-colors tracking-widest">
+                    +91 73066 27729
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
+        </motion.div>
         </motion.div>
 
         {/* Bottom Bar */}
@@ -171,7 +164,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <button 
+          <button
             onClick={scrollToTop}
             className="group flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] font-bold text-accent/80 hover:text-accent transition-all"
           >
