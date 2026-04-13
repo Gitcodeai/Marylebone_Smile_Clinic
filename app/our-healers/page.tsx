@@ -6,7 +6,7 @@ import Footer from '@/components/footer';
 
 export const generateMetadata = (): Metadata => {
   return createPageMetadata({
-    title: 'Our Healers | NYL Healing',
+    title: 'Our Master Practitioners',
     description: 'Meet the master practitioners at NYL Sanctuary. Discover the experts behind our Sujok Acupuncture and precise meridional alignment.',
   });
 };

@@ -7,7 +7,7 @@ import { BookOpen, Award, GraduationCap } from 'lucide-react';
 
 export const generateMetadata = (): Metadata => {
   return createPageMetadata({
-    title: 'Our Courses | NYL Healing',
+    title: 'Learn the Mastery of Healing',
     description: 'Learn the ancient arts of Sujok and energy alignment. Join our masterclasses and gain professional certification in meridional therapy.',
   });
 };

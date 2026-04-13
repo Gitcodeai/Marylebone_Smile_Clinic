@@ -2,28 +2,30 @@ import type { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'NYL Healing',
-  defaultTitle: 'NYL Healing | Acupuncture & Wellness Clinic',
+  defaultTitle: 'NYL Healing | Ancient Wisdom, Modern Restoration',
   description:
-    'Premium acupuncture and holistic wellness clinic. Experience restorative healing and transformative care. Book your consultation today.',
-  url: 'https://nyl-healing.vercel.app',
-  locale: 'en-US',
-  ogLocale: 'en_US',
-  defaultOgImage: '/og-home.jpg',
+    'Experience the mastery of Qi and meridional alignment at NYL Healing. Premium acupuncture, Sujok, and restorative clinical healing in Kochi and Perumbavoor. Begin your journey to health today.',
+  url: 'https://nylhealing.com', // Placeholder URL
+  locale: 'en-IN',
+  ogLocale: 'en_IN',
+  defaultOgImage: '/images/og-primary.jpg',
   keywords: [
-    'acupuncture',
-    'holistic wellness',
-    'healing',
-    'traditional chinese medicine',
-    'cupping',
-    'wellness clinic',
-    'natural healing',
+    'NYL Healing',
+    'Acupuncture Kochi',
+    'Sujok Treatment Kerala',
+    'Distance Healing',
+    'Meridional Alignment',
+    'Qi Restoration',
+    'Natural Healing Kochi',
+    'Clinical Wellness Kerala',
+    'Premium Acupuncture',
+    'Energy Medicine Kerala'
   ],
   social: {
-    // TODO: Replace placeholders with real profile URLs / handles
-    twitter: '@clinic_twitter_handle',
-    facebook: '',
-    instagram: '',
-    linkedin: '',
+    twitter: '@nylhealing',
+    facebook: 'nylhealing',
+    instagram: 'nylhealing',
+    linkedin: 'nylhealing',
   },
 }
 
