@@ -4,7 +4,15 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useSpring, useInView } from 'framer-motion';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 import Image from 'next/image';
-import { MapPin, Calendar, Camera, Heart, Sparkles, LucideIcon } from 'lucide-react';
+import { MapPin, Calendar, Camera, Heart, Sparkles, LucideIcon, IndianRupee, Info } from 'lucide-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface Step {
     id: string;
@@ -60,7 +68,7 @@ const steps = [
     },
     {
         id: '03',
-        title: 'Needling',
+        title: 'Needling (optional)',
         description: 'We use acupuncture needles made of stainless steel which are .16mm thin, which is about the thickness of a human hair.',
         icon: Sparkles
     }
@@ -127,20 +135,76 @@ export default function PatientJourney() {
                         ))}
 
                         <div className="pt-8 lg:pt-12 pl-4 sm:pl-0">
-                            <motion.div
-                                initial={{ scale: 0.98, opacity: 0 }}
-                                whileInView={{ scale: 1, opacity: 1 }}
-                                className="p-6 sm:p-10 border border-accent/20 bg-secondary/5 flex items-center justify-between group cursor-pointer hover:bg-secondary/10 transition-all duration-500"
-                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                            >
-                                <div className="space-y-2">
-                                    <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">Priority Status</p>
-                                    <p className="text-sm sm:text-base font-serif italic text-foreground leading-none">Check Next Available Slot</p>
-                                </div>
-                                <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                                    <Calendar className="w-5 h-5" />
-                                </div>
-                            </motion.div>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <motion.div
+                                        initial={{ scale: 0.98, opacity: 0 }}
+                                        whileInView={{ scale: 1, opacity: 1 }}
+                                        className="p-6 sm:p-10 border border-accent/20 bg-secondary/5 flex items-center justify-between group cursor-pointer hover:bg-secondary/10 transition-all duration-500"
+                                    >
+                                        <div className="space-y-2">
+                                            <p className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold">Investment in Wellness</p>
+                                            <p className="text-sm sm:text-base font-serif italic text-foreground leading-none">Treatment Fee Structure</p>
+                                        </div>
+                                        <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center group-hover:scale-110 group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                                            <IndianRupee className="w-5 h-5" />
+                                        </div>
+                                    </motion.div>
+                                </DialogTrigger>
+                                <DialogContent className="max-w-md bg-background border-border/40 selection:bg-accent/30">
+                                    <DialogHeader>
+                                        <DialogTitle className="font-serif text-3xl italic mb-2">Fee Structure</DialogTitle>
+                                        <DialogDescription className="text-xs uppercase tracking-widest text-muted-foreground font-medium">
+                                            Transparent pricing for your healing journey
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="mt-6 space-y-6">
+                                        <div className="p-6 border border-accent/20 bg-secondary/5 space-y-4">
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-sm font-medium">Single Sitting</span>
+                                                <span className="font-serif text-lg text-accent italic">₹500</span>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <div className="flex flex-col">
+                                                    <span className="text-sm font-medium">Full Course (11 Sittings)</span>
+                                                    <span className="text-[10px] text-accent uppercase tracking-widest font-bold">Most Effective</span>
+                                                </div>
+                                                <span className="font-serif text-lg text-accent italic">₹5,500</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="space-y-3">
+                                            <div className="flex items-start gap-3">
+                                                <Info className="w-4 h-4 text-accent/60 mt-0.5" />
+                                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                                    Initial consultation & assessment: <span className="text-foreground font-medium">₹1,000</span>.
+                                                </p>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <Info className="w-4 h-4 text-accent/60 mt-0.5" />
+                                                <p className="text-xs text-muted-foreground leading-relaxed">
+                                                    Prices are inclusive of all clinical materials and expert precision.
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-4">
+                                            <button 
+                                                onClick={() => {
+                                                    const contact = document.getElementById('contact');
+                                                    if (contact) {
+                                                        contact.scrollIntoView({ behavior: 'smooth' });
+                                                        // Close dialog (handled by radix automatically if we use a form button but for manual scroll we might need state if we want to be clean, but usually trigger asChild handles it)
+                                                    }
+                                                }}
+                                                className="w-full bg-accent text-white py-4 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-accent/90 transition-colors"
+                                            >
+                                                Book Consultation
+                                            </button>
+                                        </div>
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                         </div>
                     </div>
 
@@ -171,15 +235,12 @@ export default function PatientJourney() {
                             </div>
                             <div className="group relative aspect-[3/4] overflow-hidden">
                                 <Image
-                                    src="/images/hero-banner.png"
-                                    alt="Clinic Interior"
+                                    src="/images/3.jpg"
+                                    alt="NYL Healing Environment"
                                     fill
                                     className="object-cover scale-100 group-hover:scale-110 transition-transform duration-[2s]"
                                 />
-                                <div className="absolute top-4 sm:top-8 right-4 sm:right-8 flex items-center gap-3 px-4 py-2 bg-background/60 backdrop-blur-md">
-                                    <MapPin className="w-4 h-4 text-accent" />
-                                    <span className="text-[10px] uppercase tracking-widest font-bold">W1, Marylebone</span>
-                                </div>
+
                             </div>
                         </div>
                     </motion.div>

@@ -23,37 +23,44 @@ export default function Hero() {
         />
       </div>
 
-      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-20 lg:py-32">
+      <div className="relative z-20 w-full max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center py-16 lg:py-24">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
           className="w-full lg:max-w-4xl"
         >
+          {/* Tagline */}
+          <motion.p
+            variants={fadeInUp}
+            className="text-xs sm:text-sm text-accent uppercase tracking-[0.4em] font-bold mb-4"
+          >
+            Ancient Wisdom, <span className="italic">Modern Restoration.</span>
+          </motion.p>
+
           {/* Main Headline */}
           <motion.h1
             variants={fadeInUp}
-            className="font-serif text-foreground tracking-tight mb-8 sm:mb-10"
+            className="font-serif text-foreground tracking-tight mb-6 sm:mb-8"
             style={{
-              fontSize: 'clamp(36px, 7.5vw, 78px)',
-              lineHeight: '1.05',
-              letterSpacing: '-0.02em'
+              fontSize: 'clamp(48px, 10vw, 120px)',
+              lineHeight: '1',
+              letterSpacing: '-0.03em'
             }}
           >
-            Ancient Wisdom, <br />
-            <span className="italic text-accent/90 pr-2">Modern</span> Restoration.
+            NYL <span className="italic text-accent/90">Healing.</span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
             variants={fadeInUp}
-            className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl font-sans font-light tracking-wide"
+            className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed mb-6 max-w-2xl font-sans font-light tracking-wide"
           >
             Experience a new standard of acupuncture and holistic healing where traditional expertise meets quiet luxury. Restore your body's natural harmony in a sanctuary of precision and peace.
           </motion.p>
 
           {/* Key Features/Social Proof */}
-          <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-6 sm:gap-10 mb-12 sm:mb-16">
+          <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-6 sm:gap-10 mb-10 sm:mb-12">
             <div className="flex items-center gap-4">
               <div className="flex -space-x-3">
                 {[
@@ -85,7 +92,7 @@ export default function Hero() {
 
             <div className="flex items-center gap-3">
               <div className="flex flex-col">
-                <span className="text-xs sm:text-sm font-bold text-foreground tracking-wider italic font-serif">Harley St. Background</span>
+                <span className="text-xs sm:text-sm font-bold text-foreground tracking-wider italic font-serif">Ernakulam background</span>
                 <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">Holistic Experts</span>
               </div>
             </div>
@@ -98,7 +105,7 @@ export default function Hero() {
           >
             <Button
               size="lg"
-              className="w-full sm:w-auto sm:min-w-[340px] bg-primary hover:bg-primary/95 text-primary-foreground rounded-none px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-primary transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-primary/10"
+              className="w-full sm:w-auto sm:min-w-[340px] bg-accent hover:bg-accent/95 text-white rounded-none px-12 py-9 text-[11px] uppercase tracking-[0.25em] font-bold group border border-accent transition-all duration-500 hover:scale-[1.02] shadow-lg shadow-accent/10"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Book a Consultation

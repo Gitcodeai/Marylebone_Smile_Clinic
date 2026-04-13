@@ -3,6 +3,7 @@ import { Playfair_Display, Outfit } from 'next/font/google'
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { createPageMetadata, siteConfig } from './metadata.config'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -37,6 +38,7 @@ export default function RootLayout({
     <html lang="en" className={`${playfair.variable} ${outfit.variable}`}>
       <body className="font-sans antialiased selection:bg-accent/30">
         {children}
+        <Toaster position="top-center" expand={true} richColors />
         <Analytics />
         <SpeedInsights />
       </body>

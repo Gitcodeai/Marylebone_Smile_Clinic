@@ -3,11 +3,8 @@ import { createPageMetadata } from './metadata.config';
 import Header from '@/components/header';
 import Hero from '@/components/hero';
 import PatientJourney from '@/components/patient-journey';
-
 import BeforeAfterGallery from '@/components/before-after-gallery';
-
 import LeadForm from '@/components/lead-form';
-import FloatingCTA from '@/components/floating-cta';
 import Footer from '@/components/footer';
 
 export const generateMetadata = (): Metadata => {
@@ -21,10 +18,8 @@ export default function Home() {
       <Hero />
       <PatientJourney />
       <BeforeAfterGallery />
-
       <LeadForm />
       <Footer />
     </main>
   );
 }
-

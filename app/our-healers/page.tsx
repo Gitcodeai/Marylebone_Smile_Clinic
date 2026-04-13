@@ -6,12 +6,12 @@ import Footer from '@/components/footer';
 
 export const generateMetadata = (): Metadata => {
   return createPageMetadata({
-    title: 'About Us | NYL Healing',
-    description: 'Meet the healers behind NYL Sanctuary. Learn about our traditional expertise and holistic philosophy.',
+    title: 'Our Healers | NYL Healing',
+    description: 'Meet the master practitioners at NYL Sanctuary. Discover the experts behind our Sujok Acupuncture and precise meridional alignment.',
   });
 };
 
-export default function AboutUsPage() {
+export default function HealersPage() {
   return (
     <main className="min-h-screen bg-background selection:bg-accent/30 selection:text-white pt-[112px]">
       <Header />
@@ -35,7 +35,7 @@ export default function AboutUsPage() {
                   <div className="h-[1px] w-12 bg-accent" />
                 </div>
                 <p className="text-muted-foreground font-light leading-relaxed text-sm lg:text-base">
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                  Expert in Sujok Acupuncture and meridional restoration. With years of clinical practice, Nisar has pioneered techniques in energy alignment and physical restoration, helping thousands find relief and balance.
                 </p>
               </div>
 
@@ -45,7 +45,7 @@ export default function AboutUsPage() {
                   <div className="h-[1px] w-12 bg-accent" />
                 </div>
                 <p className="text-muted-foreground font-light leading-relaxed text-sm lg:text-base">
-                  Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.
+                  Master of holistic recovery and patient-centered healing. Junaina specializes in bespoke therapy plans that integrate traditional wisdom with modern wellness standards, ensuring a complete healing journey.
                 </p>
               </div>
             </div>

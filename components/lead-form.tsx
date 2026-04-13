@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { leadFormSchema, LeadFormValues } from '@/lib/form-schema';
 import { Button } from '@/components/ui/button';
@@ -25,13 +26,14 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { fadeIn, fadeInUp, staggerContainer } from '@/lib/animations';
-import { Check, ArrowRight, ArrowLeft, Sparkles, Calendar as CalendarIcon, Upload, CreditCard, Clock, Globe } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft, Sparkles, Calendar as CalendarIcon, Upload, CreditCard, Clock, Globe, Loader2 } from 'lucide-react';
 import { format } from "date-fns";
 
 const steps = [
   { id: 'type', label: 'Consultation Type' },
   { id: 'details', label: 'Information' },
   { id: 'availability', label: 'Schedule' },
+  { id: 'status', label: 'Registration' },
   { id: 'payment', label: 'Finalize' },
 ];
 
@@ -58,6 +60,8 @@ export default function LeadForm() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [uploadedPhotoName, setUploadedPhotoName] = useState<string | null>(null);
+  const [showPaymentAlert, setShowPaymentAlert] = useState(false);
+  const [isInitialConsultation, setIsInitialConsultation] = useState<boolean | null>(null);
 
   const form = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema),
@@ -80,6 +84,11 @@ export default function LeadForm() {
       }
       const isValid = await form.trigger(fieldsToValidate);
       if (!isValid) return;
+
+      if (healingType === 'distance' && !uploadedPhotoName) {
+        toast.error("Please upload a photo of the focus area to continue.");
+        return;
+      }
     }
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
   };
@@ -87,16 +96,8 @@ export default function LeadForm() {
   const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
   async function onSubmit(values: LeadFormValues) {
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log('Booking Request Received:', { 
-      ...values, 
-      healingType, 
-      date: selectedDate ? format(selectedDate, 'PPP') : null, 
-      slot: selectedSlot 
-    });
-    setIsSuccess(true);
-    setIsSubmitting(false);
+    setShowPaymentAlert(true);
+    // Form submission logic is paused while payment gateway is being finalized
   }
 
   const handleTypeSelection = (type: 'direct' | 'distance') => {
@@ -235,7 +236,7 @@ export default function LeadForm() {
                               <FormItem>
                                 <FormLabel className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Contact Number</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="+44 (0) 000 000 000" className="bg-transparent border-0 border-b border-border focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm rounded-none" {...field} />
+                                  <Input placeholder="+91 00000 00000" className="bg-transparent border-0 border-b border-border focus-visible:ring-0 focus-visible:border-accent px-0 pb-4 text-sm rounded-none" {...field} />
                                 </FormControl>
                                 <FormMessage />
                               </FormItem>
@@ -287,7 +288,7 @@ export default function LeadForm() {
 
                         {healingType === 'distance' && (
                           <div className="space-y-4">
-                            <label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold block">Upload Photo (Optional)</label>
+                            <label className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold block">Upload Photo (Required)</label>
                             <div 
                               className="border-2 border-dashed border-border/40 p-8 text-center cursor-pointer hover:bg-secondary/5 transition-all group"
                               onClick={() => document.getElementById('photo-upload')?.click()}
@@ -296,7 +297,13 @@ export default function LeadForm() {
                                 id="photo-upload" 
                                 type="file" 
                                 className="hidden" 
-                                onChange={(e) => setUploadedPhotoName(e.target.files?.[0]?.name || null)}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    setUploadedPhotoName(file.name);
+                                    form.setValue('image', file);
+                                  }
+                                }}
                               />
                               {uploadedPhotoName ? (
                                 <div className="flex items-center justify-center gap-2">
@@ -306,7 +313,7 @@ export default function LeadForm() {
                               ) : (
                                 <div className="space-y-2">
                                   <Upload className="w-6 h-6 text-muted-foreground mx-auto group-hover:text-accent transition-colors" />
-                                  <p className="text-xs text-muted-foreground">Select a portrait or focus area photo</p>
+                                  <p className="text-xs text-muted-foreground">Select a focus area photo. <br /><span className="text-accent italic font-medium">See the guide to know how you should take the photo.</span></p>
                                 </div>
                               )}
                             </div>
@@ -373,6 +380,44 @@ export default function LeadForm() {
                 )}
 
                 {currentStep === 3 && (
+                  <div className="flex-1 flex flex-col justify-center items-center gap-12">
+                    <div className="text-center space-y-4">
+                      <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <CalendarIcon className="w-8 h-8 text-accent" />
+                      </div>
+                      <h3 className="text-2xl font-serif italic">Is this your initial consultation?</h3>
+                      <p className="text-sm text-muted-foreground uppercase tracking-widest max-w-sm mx-auto">Help us prepare for your session</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-md">
+                      <button 
+                        onClick={() => {
+                          setIsInitialConsultation(true);
+                          nextStep();
+                        }}
+                        className={`p-8 border transition-all text-center space-y-2 ${
+                          isInitialConsultation === true ? 'border-accent bg-accent/5' : 'border-border/60 hover:border-accent/40'
+                        }`}
+                      >
+                        <span className="text-xl font-serif italic block">Yes</span>
+                        <span className="text-[9px] text-muted-foreground uppercase tracking-widest">First time at NYL</span>
+                      </button>
+                      <button 
+                        onClick={() => {
+                          setIsInitialConsultation(false);
+                          nextStep();
+                        }}
+                        className={`p-8 border transition-all text-center space-y-2 ${
+                          isInitialConsultation === false ? 'border-accent bg-accent/5' : 'border-border/60 hover:border-accent/40'
+                        }`}
+                      >
+                        <span className="text-xl font-serif italic block">No</span>
+                        <span className="text-[9px] text-muted-foreground uppercase tracking-widest">Returning patient</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 4 && (
                   <div className="flex-1 flex flex-col justify-center items-center gap-12 text-center">
                     <div className="space-y-4">
                       <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto">
@@ -386,8 +431,12 @@ export default function LeadForm() {
 
                     <div className="w-full max-w-md p-8 border border-accent/20 bg-secondary/5 space-y-8">
                       <div className="flex justify-between items-center text-sm border-b border-border/40 pb-4">
-                        <span className="text-muted-foreground uppercase tracking-widest">Initial Consultation</span>
-                        <span className="font-serif italic text-lg text-foreground">£120.00</span>
+                        <span className="text-muted-foreground uppercase tracking-widest">
+                          {isInitialConsultation ? 'Initial Consultation' : 'Follow-up Session'}
+                        </span>
+                        <span className="font-serif italic text-lg text-foreground">
+                          {isInitialConsultation ? '₹1000.00' : '₹300.00'}
+                        </span>
                       </div>
                       <div className="space-y-4">
                         <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest italic leading-relaxed">
@@ -422,10 +471,10 @@ export default function LeadForm() {
                     >
                       <ArrowLeft className="w-3 h-3" /> Back
                     </Button>
-                    {currentStep < 3 && (
+                    {currentStep < 4 && (
                       <Button
                         onClick={nextStep}
-                        disabled={(currentStep === 2 && !selectedSlot)}
+                        disabled={(currentStep === 2 && !selectedSlot) || (currentStep === 3 && isInitialConsultation === null)}
                         className="bg-foreground text-background hover:bg-foreground/90 rounded-none px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold h-auto flex items-center gap-2"
                       >
                         Continue <ArrowRight className="w-3 h-3" />
@@ -470,6 +519,44 @@ export default function LeadForm() {
           </AnimatePresence>
         </div>
       </div>
+
+      {/* Stylized Centered Alert */}
+      <AnimatePresence>
+        {showPaymentAlert && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-background/60 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="max-w-md w-full bg-background border border-accent/30 p-10 text-center space-y-8 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] relative overflow-hidden"
+            >
+              {/* Gold Accent Corner */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 blur-3xl -z-10" />
+              
+              <div className="flex justify-center">
+                <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
+                  <Clock className="w-8 h-8 text-accent" />
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-3xl font-serif italic text-foreground tracking-tight">Step in Progress</h3>
+                <div className="h-[1px] w-12 bg-accent mx-auto" />
+                <p className="text-sm text-muted-foreground leading-relaxed uppercase tracking-[0.15em] font-light">
+                  Our payment gateway is being finalized to ensure total security. Once complete, you will receive a unique <span className="text-foreground font-bold italic">Healing Token</span> upon booking.
+                </p>
+              </div>
+
+              <Button
+                onClick={() => setShowPaymentAlert(false)}
+                className="w-full bg-accent hover:bg-accent/90 text-white rounded-none py-7 text-[10px] uppercase tracking-[0.3em] font-bold transition-all shadow-xl shadow-accent/10"
+              >
+                Return to Clinic
+              </Button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
